@@ -1,5 +1,10 @@
 package board;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout.ParallelGroup;
@@ -9,22 +14,27 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Main {
+public class MainMenu {
 
-	public static void main(String[] args){
+	private final String[] playerOptions = new String[]{ "Human", "Computer", "None" };
+	private final String[] characterOptions = new String[]{ "Miss Scarlett", "Colonel Mustard", "Mrs. White", "Reverend Green", "Mrs. Peacock", "Professor Plum" };
+	private final int NUM_PLAYERS = 6;
+
+	JComboBox[] players = new JComboBox[NUM_PLAYERS];
+	JComboBox[] characters = new JComboBox[NUM_PLAYERS];
+
+	private MainMenu(){
 
 		JFrame frame = new JFrame("Cluedo");
 		frame.setSize(500,400);
 
 		JButton gameStarter = new JButton("Start Game");
-		JComboBox<String>[] players = new JComboBox[6];
-		JComboBox<String>[] characters = new JComboBox[6];
+		gameStarter.addActionListener(new StartButtonListener());
 
-		String[] playerOptions = new String[]{ "Player", "Computer", "None" };
-		String[] characterOptions = new String[]{ "Miss Scarlett", "Colonel Mustard", "Mrs. White", "Reverend Green", "Mrs. Peacock", "Professor Plum" };
-
-		for (int i = 0; i < 6; i++){
+		for (int i = 0; i < NUM_PLAYERS; i++){
 			players[i] = new JComboBox<>(playerOptions);
+		}
+		for (int i = 0; i < NUM_PLAYERS; i++){
 			characters[i] = new JComboBox<>(characterOptions);
 		}
 
@@ -50,9 +60,8 @@ public class Main {
 			.addComponent(labelCharacters)
 		);
 
-
 		// add each row
-		for (int i = 0; i < players.length; i++){
+		for (int i = 0; i < 6; i++){
 
 			vertical.addGroup(layout.createParallelGroup()
 				.addComponent(players[i])
@@ -74,6 +83,7 @@ public class Main {
 		horizontal.addGroup(col2);
 
 
+
 		// add each player combobox to col1
 		for (int i = 0; i < players.length; i++){
 			col1.addComponent(players[i]);
@@ -84,6 +94,7 @@ public class Main {
 			col2.addComponent(characters[i]);
 		}
 
+
 		col1.addComponent(gameStarter);
 
 		frame.add(panel);
@@ -92,5 +103,68 @@ public class Main {
 		frame.setVisible(true);
 
 	}
+
+	private class StartButtonListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			startGame();
+		}
+
+		private void startGame(){
+
+
+			// check at least three player dropdowns are not None
+			int count = 0;
+
+			boolean atLeastOneHuman = false;
+			for (int i = 0; i < players.length; i++){
+				String choice = (String)(players[i].getSelectedItem());
+				if (choice.equals("Human")) atLeastOneHuman = true;
+				if (!choice.equals("None")){
+					count++;
+				}
+			}
+			if (!atLeastOneHuman){
+				System.out.println("Must have at least one human player!");
+				return;
+			}
+			if (count < 3){
+				System.out.println("Too few players! Must have at least 3.");
+				return;
+			}
+
+			// check no two character choices are the same
+			List<String> charChoices = new ArrayList<>();
+			for (int i = 0; i < characters.length; i++){
+				String player = (String)(players[i].getSelectedItem());
+				if (player.equals("None")) continue;
+				String choice = (String)(characters[i].getSelectedItem());
+				if (charChoices.contains(choice)){
+					System.out.printf("More than one player is %s! Everyone must be a unique character.\n", choice);
+					return;
+				}
+				charChoices.add(choice);
+			}
+
+
+
+			System.out.println("Game is setup okay :-)");
+			/**
+			 * SET UP A NEW BOARD
+			 */
+
+		}
+
+
+	}
+
+
+	public static void main(String[] args){
+
+		new MainMenu();
+
+	}
+
 
 }
