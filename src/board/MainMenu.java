@@ -28,21 +28,26 @@ public class MainMenu {
 		JFrame frame = new JFrame("Cluedo");
 		frame.setSize(500,400);
 
+		/* button for starting the game */
 		JButton gameStarter = new JButton("Start Game");
 		gameStarter.addActionListener(new StartButtonListener());
 
+		/* combo boxes for setting options */
 		for (int i = 0; i < NUM_PLAYERS; i++){
 			players[i] = new JComboBox<>(playerOptions);
+			if (i > 2) players[i].setSelectedIndex(2);
 		}
 		for (int i = 0; i < NUM_PLAYERS; i++){
 			characters[i] = new JComboBox<>(characterOptions);
+			characters[i].setSelectedIndex(i);
 		}
 
+		/* labels */
 		JLabel labelTitle = new JLabel("Welcome! Please set up a new game: ");
 		JLabel labelPlayers = new JLabel("Players");
 		JLabel labelCharacters = new JLabel("Characters");
 
-
+		/** Layout **/
 		JPanel panel = new JPanel();
 		GroupLayout layout = new GroupLayout(panel);
 		panel.setLayout(layout);
@@ -50,8 +55,10 @@ public class MainMenu {
 		GroupLayout.SequentialGroup vertical = layout.createSequentialGroup();
 		layout.setHorizontalGroup(horizontal);
 		layout.setVerticalGroup(vertical);
+		layout.setAutoCreateContainerGaps(true);
+		layout.setAutoCreateGaps(true);
 
-		// first two rows
+		/* First two rows */
 		vertical.addGroup(layout.createParallelGroup(Alignment.CENTER)
 			.addComponent(labelTitle)
 		);
@@ -60,7 +67,7 @@ public class MainMenu {
 			.addComponent(labelCharacters)
 		);
 
-		// add each row
+		/* Remaining rows */
 		for (int i = 0; i < 6; i++){
 
 			vertical.addGroup(layout.createParallelGroup()
@@ -70,35 +77,39 @@ public class MainMenu {
 
 		}
 
-		// last row is a button for starting the game
-		vertical.addComponent(gameStarter);
-
-		ParallelGroup col1 = layout.createParallelGroup();
-		col1.addComponent(labelTitle);
-		col1.addComponent(labelPlayers);
+		/* Last row is a button */
+		vertical.addGroup(layout.createParallelGroup(Alignment.CENTER)
+			.addComponent(gameStarter)
+		);
+	
+		
+		/* Create first column */
+		ParallelGroup col1 = layout.createParallelGroup()
+			.addComponent(labelTitle)
+			.addComponent(labelPlayers);
 		horizontal.addGroup(col1);
 
+		/* Create second column */
 		ParallelGroup col2 = layout.createParallelGroup();
 		col2.addComponent(labelCharacters);
 		horizontal.addGroup(col2);
 
-
-
-		// add each player combobox to col1
+		/* Add all player combo boxes to first column */
 		for (int i = 0; i < players.length; i++){
 			col1.addComponent(players[i]);
 		}
 
-		// add each character combobox to col2
+		/* Add all character combo boxes to second column */
 		for (int i = 0; i < characters.length; i++){
 			col2.addComponent(characters[i]);
 		}
-
-
+		
+		/* Add button at end */
 		col1.addComponent(gameStarter);
 
 		frame.add(panel);
-
+		
+		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 
