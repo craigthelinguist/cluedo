@@ -1,4 +1,4 @@
-package board;
+package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -107,14 +107,19 @@ public class MainMenu {
 		/* Add button at end */
 		col1.addComponent(gameStarter);
 
+		/* Frame setup */
 		frame.add(panel);
-		
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 
 	}
 
+	/**
+	 * The player clicks the start button in order to create a new instance of a cluedo
+	 * game. This listener captures that behaviour.
+	 * @author craigthelinguist
+	 */
 	private class StartButtonListener implements ActionListener{
 
 		@Override
@@ -125,9 +130,9 @@ public class MainMenu {
 		private void startGame(){
 
 
-			// check at least three player dropdowns are not None
+			// check at least three player dropdowns are not "None"
+			// check at least one human is playing
 			int count = 0;
-
 			boolean atLeastOneHuman = false;
 			for (int i = 0; i < players.length; i++){
 				String choice = (String)(players[i].getSelectedItem());
@@ -158,8 +163,7 @@ public class MainMenu {
 				charChoices.add(choice);
 			}
 
-
-
+			// TODO: create new board
 			System.out.println("Game is setup okay :-)");
 			/**
 			 * SET UP A NEW BOARD

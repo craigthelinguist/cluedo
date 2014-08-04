@@ -1,4 +1,4 @@
-package board;
+package gui;
 
 /**
  * The Listener class sends mouse and key events to Board.

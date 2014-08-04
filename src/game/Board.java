@@ -1,6 +1,5 @@
-package board;
+package game;
 
-import game.Tile;
 
 public class Board {
 

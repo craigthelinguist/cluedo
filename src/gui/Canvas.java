@@ -1,4 +1,4 @@
-package board;
+package gui;
 
 public class Canvas {
 
