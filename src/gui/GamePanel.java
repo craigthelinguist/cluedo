@@ -1,7 +1,15 @@
 package gui;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.SwingUtilities;
@@ -15,17 +23,29 @@ public class GamePanel extends JPanel {
 
 	public GamePanel() {
 		
-		/* Create dice image icon */
-        ImageIcon diceImage = createImageIcon("../images/Untitled.png", "dice"); 
-        /*create 3 card image icons */
-        ImageIcon cardImage = createImageIcon("../images/testImage.png", "card 1"); 
-        ImageIcon cardImage2 = createImageIcon("../images/testImage2.png", "card2"); 
-        ImageIcon cardImage3 = createImageIcon("../images/testImage2.png", "card3"); 
-        ImageIcon currentPlayerImage = createImageIcon("../images/Miss Scarlett.png", "playerImage");
-        
-        /* Create the labels */
+		// Load images and create icons //
+		final char SEPARATOR = File.separatorChar;
+		final String filepath = "assets"+SEPARATOR;
+		ImageIcon diceImage = null;
+		ImageIcon cardImage = null;
+		ImageIcon cardImage2 = null;
+		ImageIcon cardImage3 = null;
+		ImageIcon playerImage = null;
+		try{
+			diceImage = new ImageIcon(ImageIO.read(new FileInputStream(filepath+"dice.png")));
+			cardImage = new ImageIcon(ImageIO.read(new FileInputStream(filepath+"card1.png")));
+			cardImage2 = new ImageIcon(ImageIO.read(new FileInputStream(filepath+"card2.png")));
+			cardImage3 = new ImageIcon(ImageIO.read(new FileInputStream(filepath+"card2.png")));
+			playerImage = new ImageIcon(ImageIO.read(new FileInputStream(filepath+"scarlett.png")));
+		}
+		catch(Exception e){
+			JOptionPane.showMessageDialog(this, "Error loading image: " + e.getMessage());
+			System.exit(1);
+		}
+			
+		// Create labels //
 		JLabel currentPlayerLabel = new JLabel("Current Player Turn:");
-		JLabel imageOfCurrentPlayerTurn = new JLabel(currentPlayerImage);
+		JLabel imageOfCurrentPlayerTurn = new JLabel(playerImage);
 		JLabel diceLabel = new JLabel(diceImage); //place icon inside label
 		JButton rollDiceButton = new JButton("Roll Dice");
 		JLabel playersCardLabel = new JLabel("Player's Cards:");
@@ -84,7 +104,7 @@ public class GamePanel extends JPanel {
 					.addGap(24))
 		);
 		setLayout(groupLayout);
-
+		
 	}
 	
 	/** This method reads images from the file path and returns an ImageIcon 
