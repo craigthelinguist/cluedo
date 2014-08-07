@@ -21,13 +21,22 @@ import javax.swing.event.MenuListener;
 
 public class MenuBar extends JMenuBar implements MenuListener, ActionListener {
 
-	JMenu file, help;
-	JMenuItem newGame, exit, instructions;
+	// constants
+	private final int MENU_HT = 20;
+	private final int MENU_WD = GameFrame.TILES_ACROSS*GameFrame.TILE_WIDTH;
+
+	// fields
+	private JMenu file, help;
+	private JMenuItem newGame, exit, instructions;
+	private GameFrame controller;
 	
-	
-	public MenuBar () {
+	public MenuBar(GameFrame frame) {
 		
-		/*Set up the File menu */
+		// set size and field
+        this.setPreferredSize(new Dimension(MENU_WD,MENU_HT));
+        controller = frame;
+        
+		// set up file menu
         file = new JMenu("File");
         add(file);
         newGame = new JMenuItem("New Game"); 
@@ -36,12 +45,13 @@ public class MenuBar extends JMenuBar implements MenuListener, ActionListener {
         file.add(exit);
         exit.addActionListener(this);
         
-        /*Set up the Help menu */
+        // set up help menu
         help = new JMenu("Help");
         add(help);
         instructions = new JMenuItem("Instructions");
         help.add(instructions);
         instructions.addActionListener(this);
+        
 	}
 
 	@Override
@@ -110,7 +120,7 @@ public class MenuBar extends JMenuBar implements MenuListener, ActionListener {
         frame.setSize(400,400);
         frame.setVisible(true);
         
-        frame.setJMenuBar(new MenuBar());
+        frame.setJMenuBar(new MenuBar(null));
     }
 
 }
