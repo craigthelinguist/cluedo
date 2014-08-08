@@ -18,12 +18,16 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+
+import main.Constants;
+import main.Main;
 
 public class GamePanel extends JPanel {
 
@@ -34,7 +38,6 @@ public class GamePanel extends JPanel {
 	private final int CARD_WIDTH = 60;
 	private final int CARD_HEIGHT = 100;
 	private final char SEPARATOR = File.separatorChar;
-	private final String FILEPATH = "assets" + SEPARATOR;
 	
 	// controller
 	private GameFrame controller;
@@ -102,8 +105,8 @@ public class GamePanel extends JPanel {
 		buttonEndTurn = new JButton("End Turn");
 		buttonRollDice = new JButton("Roll Dice");
 		try{
-			dice1 = new ImageIcon(ImageIO.read(new FileInputStream(FILEPATH+"shitdice1.png")));
-			dice2 = new ImageIcon(ImageIO.read(new FileInputStream(FILEPATH+"shitdice1.png")));
+			dice1 = new ImageIcon(ImageIO.read(new FileInputStream(Constants.ASSETS+"shitdice1.png")));
+			dice2 = new ImageIcon(ImageIO.read(new FileInputStream(Constants.ASSETS+"shitdice1.png")));
 		}
 		catch(Exception e){
 			JOptionPane.showMessageDialog(this, "Error loading dice: " + e.getMessage());
@@ -180,11 +183,14 @@ public class GamePanel extends JPanel {
 		// create components
 		this.portrait = new JPanel();
 		portrait.setPreferredSize(new Dimension(100,PANEL_HEIGHT));
-		portrait.setMaximumSize(new Dimension(100,PANEL_HEIGHT));
-		currentPlayer = new JLabel("Player Name" );
-		currentPlayer.setMaximumSize(new Dimension(100, 20)); //stop panel resizing too wide
+		portrait.setMinimumSize(portrait.getPreferredSize());
+		portrait.setMaximumSize(portrait.getPreferredSize());
+		currentPlayer = new JLabel("Miss Scarlett", SwingConstants.CENTER);
+		currentPlayer.setPreferredSize(new Dimension(100,20)); //stop label from resizing
+		currentPlayer.setMinimumSize(currentPlayer.getPreferredSize());
+		currentPlayer.setMaximumSize(currentPlayer.getPreferredSize());
 		try{
-			playerImage = new ImageIcon(ImageIO.read(new FileInputStream(FILEPATH+"scarlett.png")));
+			playerImage = new ImageIcon(ImageIO.read(new FileInputStream(Constants.ASSETS+"scarlett.png")));
 		}
 		catch(Exception e){
 			JOptionPane.showMessageDialog(this, "Error loading portrait: " + e.getMessage());
@@ -199,13 +205,13 @@ public class GamePanel extends JPanel {
 		GroupLayout.SequentialGroup vertical = layout.createSequentialGroup();
 		layout.setHorizontalGroup(horizontal);
 		layout.setVerticalGroup(vertical);
-		layout.setAutoCreateContainerGaps(true);
+		//layout.setAutoCreateContainerGaps(true);
 		layout.setAutoCreateGaps(true);
 		
-		vertical.addGroup(layout.createParallelGroup().addComponent(currentPlayer));
+		vertical.addGroup(layout.createParallelGroup(Alignment.CENTER).addComponent(currentPlayer));
 		vertical.addGroup(layout.createParallelGroup(Alignment.CENTER).addComponent(portraitBox));
 		
-		horizontal.addGroup(layout.createParallelGroup()
+		horizontal.addGroup(layout.createParallelGroup(Alignment.CENTER)
 			.addComponent(currentPlayer)
 			.addComponent(portraitBox)
 		);
@@ -218,7 +224,7 @@ public class GamePanel extends JPanel {
 	 */
 	public void setPortrait(String filename){
 		try{
-			portraitBox.setIcon(new ImageIcon(ImageIO.read(new FileInputStream(FILEPATH+filename))));
+			portraitBox.setIcon(new ImageIcon(ImageIO.read(new FileInputStream(Constants.ASSETS+filename))));
 		}
 		catch(Exception e){
 			JOptionPane.showMessageDialog(this, "Error loading portrait: " + e.getMessage());
