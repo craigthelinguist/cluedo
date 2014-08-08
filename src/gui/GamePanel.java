@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -210,20 +212,31 @@ public class GamePanel extends JPanel {
 		
 	}
 	
+	/**
+	 * Set the currently displayed portrait.
+	 * @param filename: name of the image that the portrait should display.
+	 */
+	public void setPortrait(String filename){
+		try{
+			portraitBox.setIcon(new ImageIcon(ImageIO.read(new FileInputStream(FILEPATH+filename))));
+		}
+		catch(Exception e){
+			JOptionPane.showMessageDialog(this, "Error loading portrait: " + e.getMessage());
+			return;
+		}
+	}
 	
     
     /* testing the panel*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-            UIManager.put("swing.boldMetal", Boolean.FALSE);
-                 
-            JFrame frame = new JFrame("GamePanel");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.getContentPane().add(new GamePanel(null));
-            frame.pack();
-            frame.setVisible(true);
-     
+            	UIManager.put("swing.boldMetal", Boolean.FALSE);
+            	JFrame frame = new JFrame("GamePanel");
+            	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            	frame.getContentPane().add(new GamePanel(null));
+            	frame.pack();
+            	frame.setVisible(true);
             }
         });
     }
