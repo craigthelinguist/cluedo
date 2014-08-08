@@ -11,6 +11,7 @@ import main.Constants;
 public class Room extends Card{
 	
 	private enum Type{ Kitchen, Ballroom, Conservatory, Dining, Lounge, Hall, Library, Study, Billiard }
+	private final String FILEPATH = Constants.ASSETS;
 	private final Type type;
 	private final Image imageCard;
 	
@@ -18,31 +19,31 @@ public class Room extends Card{
 		type = Type.valueOf(name);
 		switch (name){
 		case "Kitchen":
-			imageCard = ImageIO.read(new FileInputStream(Constants.ASSETS+"card_kitchen.png"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_kitchen.png"));
 			break;
 		case "Ballroom":
-			imageCard = ImageIO.read(new FileInputStream(Constants.ASSETS+"card_ballroom.png"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_ballroom.png"));
 			break;
 		case "Conservatory":
-			imageCard = ImageIO.read(new FileInputStream(Constants.ASSETS+"card_conservatory.png"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_conservatory.png"));
 			break;
 		case "Dining":
-			imageCard = ImageIO.read(new FileInputStream(Constants.ASSETS+"card_dining.png"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_dining.png"));
 			break;
 		case "Lounge":
-			imageCard = ImageIO.read(new FileInputStream(Constants.ASSETS+"card_lounge.png"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_lounge.png"));
 			break;
 		case "Hall":
-			imageCard = ImageIO.read(new FileInputStream(Constants.ASSETS+"card_hall.png"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_hall.png"));
 			break;
 		case "Library":
-			imageCard = ImageIO.read(new FileInputStream(Constants.ASSETS+"card_library.png"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_library.png"));
 			break;
 		case "Study":
-			imageCard = ImageIO.read(new FileInputStream(Constants.ASSETS+"card_study.png"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_study.png"));
 			break;
 		case "Billiard":
-			imageCard = ImageIO.read(new FileInputStream(Constants.ASSETS+"card_billiard.png"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_billiard.png"));
 			break;
 		default:
 				throw new IOException();

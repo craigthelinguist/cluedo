@@ -38,6 +38,7 @@ public class GamePanel extends JPanel {
 	private final int CARD_WIDTH = 60;
 	private final int CARD_HEIGHT = 100;
 	private final char SEPARATOR = File.separatorChar;
+	private final String FILEPATH = Constants.ASSETS;
 	
 	// controller
 	private GameFrame controller;
@@ -105,8 +106,8 @@ public class GamePanel extends JPanel {
 		buttonEndTurn = new JButton("End Turn");
 		buttonRollDice = new JButton("Roll Dice");
 		try{
-			dice1 = new ImageIcon(ImageIO.read(new FileInputStream(Constants.ASSETS+"shitdice1.png")));
-			dice2 = new ImageIcon(ImageIO.read(new FileInputStream(Constants.ASSETS+"shitdice1.png")));
+			dice1 = new ImageIcon(ImageIO.read(new FileInputStream(FILEPATH+"shitdice1.png")));
+			dice2 = new ImageIcon(ImageIO.read(new FileInputStream(FILEPATH+"shitdice1.png")));
 		}
 		catch(Exception e){
 			JOptionPane.showMessageDialog(this, "Error loading dice: " + e.getMessage());
@@ -190,7 +191,7 @@ public class GamePanel extends JPanel {
 		currentPlayer.setMinimumSize(currentPlayer.getPreferredSize());
 		currentPlayer.setMaximumSize(currentPlayer.getPreferredSize());
 		try{
-			playerImage = new ImageIcon(ImageIO.read(new FileInputStream(Constants.ASSETS+"scarlett.png")));
+			playerImage = new ImageIcon(ImageIO.read(new FileInputStream(FILEPATH+"scarlett.png")));
 		}
 		catch(Exception e){
 			JOptionPane.showMessageDialog(this, "Error loading portrait: " + e.getMessage());
@@ -224,7 +225,7 @@ public class GamePanel extends JPanel {
 	 */
 	public void setPortrait(String filename){
 		try{
-			portraitBox.setIcon(new ImageIcon(ImageIO.read(new FileInputStream(Constants.ASSETS+filename))));
+			portraitBox.setIcon(new ImageIcon(ImageIO.read(new FileInputStream(FILEPATH+filename))));
 		}
 		catch(Exception e){
 			JOptionPane.showMessageDialog(this, "Error loading portrait: " + e.getMessage());

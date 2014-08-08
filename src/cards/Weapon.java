@@ -12,6 +12,7 @@ import main.Constants;
 public class Weapon extends Token{
 
 	private enum Type{ Candlestick, Dagger, Pipe, Revolver, Rope, Spanner }
+	private final String FILEPATH = Constants.ASSETS;
 	private final Type type;
 	private final Image imageCard;
 	private final Image imageToken;
@@ -20,28 +21,28 @@ public class Weapon extends Token{
 		type = Type.valueOf(name);
 		switch (name){
 		case "Candlestick":
-			imageCard = ImageIO.read(new FileInputStream(Constants.ASSETS+"card_candlestick"));
-			imageToken = ImageIO.read(new FileInputStream(Constants.ASSETS+"token_candlestick"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_candlestick"));
+			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"token_candlestick"));
 			break;
 		case "Dagger":
-			imageCard = ImageIO.read(new FileInputStream(Constants.ASSETS+"card_dagger"));
-			imageToken = ImageIO.read(new FileInputStream(Constants.ASSETS+"token_dagger"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_dagger"));
+			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"token_dagger"));
 			break;
 		case "Pipe":
-			imageCard = ImageIO.read(new FileInputStream(Constants.ASSETS+"card_pipe"));
-			imageToken = ImageIO.read(new FileInputStream(Constants.ASSETS+"token_pipe"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_pipe"));
+			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"token_pipe"));
 			break;
 		case "Revolver":
-			imageCard = ImageIO.read(new FileInputStream(Constants.ASSETS+"card_revolver"));
-			imageToken = ImageIO.read(new FileInputStream(Constants.ASSETS+"token_revolver"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_revolver"));
+			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"token_revolver"));
 			break;
 		case "Rope":
-			imageCard = ImageIO.read(new FileInputStream(Constants.ASSETS+"card_rope"));
-			imageToken = ImageIO.read(new FileInputStream(Constants.ASSETS+"token_rope"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_rope"));
+			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"token_rope"));
 			break;
 		case "Spanner":
-			imageCard = ImageIO.read(new FileInputStream(Constants.ASSETS+"card_spanner"));
-			imageToken = ImageIO.read(new FileInputStream(Constants.ASSETS+"token_spanner"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_spanner"));
+			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"token_spanner"));
 			break;
 		default:
 			throw new IOException();
