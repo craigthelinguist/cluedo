@@ -24,8 +24,9 @@ public class Board {
 	/**
 	 * End the current player's turn. Update the currentPlayer.
 	 */
-	private void endTurn(){
+	public void endTurn(){
 		currentPlayer = currentPlayer+1 % players.length;
+		moves = 0;
 	}
 	
 	/**
@@ -33,7 +34,7 @@ public class Board {
 	 * @return: a pair of ints in an array, which represent the values rolled
 	 * with each dice.
 	 */
-	private int[] rollDice(){
+	public int[] rollDice(){
 		int dice1 = (int)(Math.random()*5+1);
 		int dice2 = (int)(Math.random()*5+1);
 		moves = dice1+dice2;
