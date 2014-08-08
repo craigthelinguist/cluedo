@@ -16,11 +16,29 @@ public class Board {
 	private Player[] players;
 	
 	// mutable fields
-	private Player currentPlayer; //whose turn is it?
+	private int currentPlayer; //whose turn is it?
 	private int moves; //how far they can move
 	private List<Tile> validMoves; //where the player is allowed to move to
 	
 	
+	/**
+	 * End the current player's turn. Update the currentPlayer.
+	 */
+	private void endTurn(){
+		currentPlayer = currentPlayer+1 % players.length;
+	}
+	
+	/**
+	 * Roll dice and update the number of moves the player can make.
+	 * @return: a pair of ints in an array, which represent the values rolled
+	 * with each dice.
+	 */
+	private int[] rollDice(){
+		int dice1 = (int)(Math.random()*5+1);
+		int dice2 = (int)(Math.random()*5+1);
+		moves = dice1+dice2;
+		return new int[]{ dice1, dice2 };
+	}
 	
 	/**
 	 * Compute the list of tiles that the current player is allowed to move to,
@@ -30,7 +48,7 @@ public class Board {
 	 */
 	private List<Tile> getValidMoves(){
 		List<Tile> validTiles = new ArrayList<>();
-		Tile start = currentPlayer.getLocation();
+		Tile start = players[currentPlayer].getLocation();
 		
 		// node that remembers each tile and its depth
 		class Node{
@@ -42,6 +60,7 @@ public class Board {
 			}
 		};
 
+		// use queue to keep track of nodes for BFS
 		Queue<Node> queue = new ArrayDeque<>();
 		queue.offer(new Node(start,0));
 		while (!queue.isEmpty()){
@@ -77,12 +96,6 @@ public class Board {
 		}
 		
 		return validTiles;
-	}
-	
-	private void recurse(Tile tile, int depth){
-		
-		
-		
 	}
 	
 }
