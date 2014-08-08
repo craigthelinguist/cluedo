@@ -5,11 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
+import main.Constants;
+
 import gui.GameFrame;
 
 
 public class Board {
 
+	// constants
+	private final int TILES_ACROSS = Constants.TILES_ACROSS;
+	private final int TILES_DOWN = Constants.TILES_DOWN;
+	private final int TILE_WIDTH = Constants.TILE_WIDTH;
+	
 	// immutable fields
 	private GameFrame frame;
 	private Tile[][] tiles;
@@ -39,6 +46,22 @@ public class Board {
 		int dice2 = (int)(Math.random()*5+1);
 		moves = dice1+dice2;
 		return new int[]{ dice1, dice2 };
+	}
+	
+	/**
+	 * From the given point (x,y) returns the appropriate Tile on this board.
+	 * @param x: x part of a point on the board.
+	 * @param y: y part of a point on the board.
+	 * @return: the Tile containing point (x,y)
+	 */
+	public Tile tileFromCoordinates(int x, int y){
+		int boardWidth = TILES_ACROSS * TILE_WIDTH;
+		int boardHeight = TILES_DOWN * TILE_WIDTH;
+		if (x < 0 || y < 0 || x > boardWidth || x > boardHeight)
+			throw new IllegalArgumentException("Point is not on the board");
+		int cellX = x % TILE_WIDTH;
+		int cellY = y % TILE_WIDTH;
+		return tiles[cellX][cellY];
 	}
 	
 	/**

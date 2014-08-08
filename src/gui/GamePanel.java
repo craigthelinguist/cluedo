@@ -123,7 +123,6 @@ public class GamePanel extends JPanel {
 		GroupLayout.SequentialGroup diceVertical = diceLayout.createSequentialGroup();
 		diceLayout.setHorizontalGroup(diceHorizontal);
 		diceLayout.setVerticalGroup(diceVertical);
-		//diceLayout.setAutoCreateGaps(true);
 		
 		diceHorizontal.addComponent(dice1Label);
 		diceHorizontal.addComponent(dice2Label);
@@ -191,7 +190,7 @@ public class GamePanel extends JPanel {
 		currentPlayer.setMinimumSize(currentPlayer.getPreferredSize());
 		currentPlayer.setMaximumSize(currentPlayer.getPreferredSize());
 		try{
-			playerImage = new ImageIcon(ImageIO.read(new FileInputStream(FILEPATH+"scarlett.png")));
+			playerImage = new ImageIcon(ImageIO.read(new FileInputStream(FILEPATH+"portrait_scarlett.png")));
 		}
 		catch(Exception e){
 			JOptionPane.showMessageDialog(this, "Error loading portrait: " + e.getMessage());
