@@ -5,10 +5,16 @@ import cards.Weapon;
 
 public class Suggestion {
 
-	private Room room;
-	private Character character;
-	private Weapon weapon;
+	public final Room room;
+	public final Character character;
+	public final Weapon weapon;
 
+	public Suggestion(Room r, Character c, Weapon w){
+		room = r;
+		character = c;
+		weapon = w;
+	}
+	
 	/**
 	 * An Suggestion equals another if the cards comprising them are the same.
 	 * @return: whether two Suggestions are the same.

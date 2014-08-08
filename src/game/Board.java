@@ -1,9 +1,14 @@
 package game;
 
+import java.awt.Image;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
+
+import javax.imageio.ImageIO;
 
 import main.Constants;
 
@@ -16,11 +21,12 @@ public class Board {
 	private final int TILES_ACROSS = Constants.TILES_ACROSS;
 	private final int TILES_DOWN = Constants.TILES_DOWN;
 	private final int TILE_WIDTH = Constants.TILE_WIDTH;
+	private final String FILEPATH = Constants.ASSETS;
 	
 	// immutable fields associated with this instance of a game
-	private GameFrame frame;
-	private Tile[][] tiles;
-	private Player[] players;
+	private final Tile[][] tiles;
+	private final Player[] players;
+	private final Image imageBoard;
 	
 	// mutable fields associated with game state
 	private int currentPlayer;
@@ -29,14 +35,25 @@ public class Board {
 	private State state;
 	
 	/**
-	 * This enum keeps track of which part of the player's turn is happening.
+	 * State keeps track of which part of the player's turn is happening.
 	 *  - ROLLING: the player may roll dice or end turn.
 	 *  - MOVING: the player may move, suggest, accuse, or end turn.
 	 *  - SUGGESTING: the player may suggest, accuse, or end turn.
 	 *  - DONE: the player can only end turn.
 	 * @author craigthelinguist
 	 */
-	private enum State{ ROLLING, MOVING, SUGGESTING, DONE };
+	private enum State{
+		ROLLING, MOVING, SUGGESTING, DONE
+	};
+	
+	public Board(Player[] players) throws IOException{
+		this.players = players;
+		tiles = new Tile[TILES_ACROSS][TILES_DOWN];
+		imageBoard = ImageIO.read(new FileInputStream(FILEPATH + "board.png"));
+		state = State.ROLLING;
+		currentPlayer = 0;
+		validMoves = new ArrayList<>();
+	}
 	
 	/**
 	 * End the current player's turn. update the currentPlayer and the game state.
@@ -66,7 +83,8 @@ public class Board {
 	}
 	
 	/**
-	 * Roll dice and update the number of moves the player can make.
+	 * Roll dice and update the number of moves the player can make, and update the
+	 * game state.
 	 * @return: a pair of ints in an array, which represent the values rolled
 	 * with each dice.
 	 */
@@ -75,6 +93,7 @@ public class Board {
 		int dice1 = (int)(Math.random()*5+1);
 		int dice2 = (int)(Math.random()*5+1);
 		moves = dice1+dice2;
+		state = State.MOVING;
 		return new int[]{ dice1, dice2 };
 	}
 	
@@ -151,6 +170,14 @@ public class Board {
 		}
 		
 		return validTiles;
+	}
+	
+	/**
+	 * Return the image representing this board.
+	 * @return: a BufferedImage;
+	 */
+	public Image getImage(){
+		return imageBoard;
 	}
 	
 }

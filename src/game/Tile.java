@@ -13,8 +13,7 @@ public class Tile {
 	private enum Terrain{
 		PASSABLE,
 		IMPASSABLE,
-		SPAWN,
-		PASSAGE; // secret passage in corner rooms
+		SPAWN;
 	}
 
 	// fields
@@ -25,9 +24,22 @@ public class Tile {
 	public final int x;
 	public final int y;
 
-	public Tile(int x_, int y_){
-		x=x_;
-		y=y_;
+	private Tile(int x, int y, Terrain t){
+		this.x = x;
+		this.y = y;
+		terrain = t;
+	}
+	
+	public static Tile makePassableTile(int x, int y){
+		return new Tile(x,y,Terrain.PASSABLE);
+	}
+	
+	public static Tile makeImpassableTile(int x, int y){
+		return new Tile(x,y,Terrain.IMPASSABLE);
+	}
+	
+	public static Tile makeSpawnTile(int x, int y){
+		return new Tile(x,y,Terrain.SPAWN);
 	}
 	
 	/**

@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Image;
+import java.io.IOException;
 
 import game.Board;
 
@@ -19,7 +21,14 @@ public class GameFrame extends JFrame {
 	private GamePanel gamePanel;
 	private Canvas canvas;
 	
-	public GameFrame(Board board){
+	public GameFrame(){
+		
+		try{
+			this.board = new Board(null);
+		}
+		catch(IOException e){
+			
+		}
 		
 		menu = new MenuBar(this);
 		gamePanel = new GamePanel(this);
@@ -37,8 +46,12 @@ public class GameFrame extends JFrame {
 		
 	}
 	
+	public Board getBoard(){
+		return board;
+	}
+	
 	public static void main(String[] args){
-		new GameFrame(null);
+		new GameFrame();
 	}
 	
 }

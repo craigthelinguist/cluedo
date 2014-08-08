@@ -3,6 +3,7 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.JPanel;
 
@@ -26,14 +27,16 @@ public class Canvas extends JPanel {
 	
 	@Override
 	protected void paintComponent(Graphics g){
-		g.setColor(Color.RED);
-		g.fillRect(0, 0, this.getSize().width, this.getSize().height);
-
+		
+		Image board = controller.getBoard().getImage();
+		g.drawImage(board,0,0,null);
+		
+		
 		int numTilesAcross = Constants.TILES_ACROSS;
 		int numTilesDown = Constants.TILES_DOWN;
 		int tileWd = Constants.TILE_WIDTH;
 		
-		g.setColor(Color.BLACK);
+		g.setColor(Color.RED);
 		
 		for (int i = 0; i < numTilesAcross; i++){
 			for (int j = 0; j < numTilesDown; j++){
