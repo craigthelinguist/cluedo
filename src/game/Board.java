@@ -17,23 +17,50 @@ public class Board {
 	private final int TILES_DOWN = Constants.TILES_DOWN;
 	private final int TILE_WIDTH = Constants.TILE_WIDTH;
 	
-	// immutable fields
+	// immutable fields associated with this instance of a game
 	private GameFrame frame;
 	private Tile[][] tiles;
 	private Player[] players;
 	
-	// mutable fields
-	private int currentPlayer; //whose turn is it?
-	private int moves; //how far they can move
-	private List<Tile> validMoves; //where the player is allowed to move to
-	
+	// mutable fields associated with game state
+	private int currentPlayer;
+	private int moves; //how many squares they can move
+	private List<Tile> validMoves; //list of squares the player may move to
+	private State state;
 	
 	/**
-	 * End the current player's turn. Update the currentPlayer.
+	 * This enum keeps track of which part of the player's turn is happening.
+	 *  - ROLLING: the player may roll dice or end turn.
+	 *  - MOVING: the player may move, suggest, accuse, or end turn.
+	 *  - SUGGESTING: the player may suggest, accuse, or end turn.
+	 *  - DONE: the player can only end turn.
+	 * @author craigthelinguist
+	 */
+	private enum State{ ROLLING, MOVING, SUGGESTING, DONE };
+	
+	/**
+	 * End the current player's turn. update the currentPlayer and the game state.
 	 */
 	public void endTurn(){
 		currentPlayer = currentPlayer+1 % players.length;
 		moves = 0;
+	}
+	
+	/**
+	 * Attempt to move the current player to the given Tile. If this move is
+	 * invalid, nothing will happen. Otherwise the player will be moved to
+	 * that tile and the game state will be updated.
+	 * @param goal: the tile the player is trying to move to.
+	 */
+	public void movePlayer(Tile goal){
+		if (state == State.ROLLING || moves == 0) return;
+		if (!validMoves.contains(goal)) return; // invalid move
+		Tile oldPosition = players[currentPlayer].getLocation();
+		players[currentPlayer].setLocation(goal);
+		int distMoved = Math.abs((oldPosition.x + oldPosition.y) - (goal.x + goal.y));
+		moves -= distMoved;
+		validMoves = computeValidMoves();
+		if (moves == 0) state = State.SUGGESTING;
 	}
 	
 	/**
@@ -70,7 +97,8 @@ public class Board {
 	 * breadth-first search.
 	 * @return: a list of tiles that the currentPlayer can move to.
 	 */
-	private List<Tile> getValidMoves(){
+	private List<Tile> computeValidMoves(){
+		if (moves == 0) return new ArrayList<>();
 		List<Tile> validTiles = new ArrayList<>();
 		Tile start = players[currentPlayer].getLocation();
 		
@@ -104,16 +132,16 @@ public class Board {
 			if (tile.y < tiles.length-1) right = tiles[tile.x][tile.y+1];
 			
 			// add adjacent tiles to queue
-			if (above != null && !validTiles.contains(above) && !queue.contains(above)){
+			if (above != null && !validTiles.contains(above) && !queue.contains(above) && above.passable()){
 				queue.add(new Node(above,depth+1));
 			}
-			if (left != null && !validTiles.contains(left) && !queue.contains(left)){
+			if (left != null && !validTiles.contains(left) && !queue.contains(left) && left.passable()){
 				queue.add(new Node(left,depth+1));
 			}
-			if (below != null && !validTiles.contains(below) && !queue.contains(below)){
+			if (below != null && !validTiles.contains(below) && !queue.contains(below) && below.passable()){
 				queue.add(new Node(below,depth+1));
 			}
-			if (right != null && !validTiles.contains(right) && !queue.contains(right)){
+			if (right != null && !validTiles.contains(right) && !queue.contains(right) && right.passable()){
 				queue.add(new Node(right,depth+1));
 			}
 			
