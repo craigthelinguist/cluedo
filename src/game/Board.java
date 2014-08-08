@@ -44,6 +44,8 @@ public class Board {
 	public void endTurn(){
 		currentPlayer = currentPlayer+1 % players.length;
 		moves = 0;
+		validMoves = new ArrayList<>();
+		state = State.ROLLING;
 	}
 	
 	/**
@@ -69,6 +71,7 @@ public class Board {
 	 * with each dice.
 	 */
 	public int[] rollDice(){
+		if (state != State.ROLLING) return null;
 		int dice1 = (int)(Math.random()*5+1);
 		int dice2 = (int)(Math.random()*5+1);
 		moves = dice1+dice2;
