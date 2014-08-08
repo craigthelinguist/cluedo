@@ -19,11 +19,13 @@ import javax.swing.UIManager;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import main.Constants;
+
 public class MenuBar extends JMenuBar implements MenuListener, ActionListener {
 
 	// constants
 	private final int MENU_HT = 20;
-	private final int MENU_WD = GameFrame.TILES_ACROSS*GameFrame.TILE_WIDTH;
+	private final int MENU_WD = Constants.TILES_ACROSS*Constants.TILE_WIDTH;
 
 	// fields
 	private JMenu file, help;

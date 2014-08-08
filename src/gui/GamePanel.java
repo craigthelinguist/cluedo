@@ -32,7 +32,7 @@ import main.Main;
 public class GamePanel extends JPanel {
 
 	// constants
-	private final int PANEL_WIDTH = GameFrame.TILES_ACROSS*GameFrame.TILE_WIDTH;
+	private final int PANEL_WIDTH = Constants.TILES_ACROSS*Constants.TILE_WIDTH;
 	private final int PANEL_HEIGHT = 150;
 	private final int CARD_SEP = 5;
 	private final int CARD_WIDTH = 60;

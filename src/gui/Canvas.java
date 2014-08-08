@@ -6,11 +6,13 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import main.Constants;
+
 public class Canvas extends JPanel {
 
 	// constants
-	private final int CANVAS_WD = GameFrame.TILES_ACROSS * GameFrame.TILE_WIDTH;
-	private final int CANVAS_HT = GameFrame.TILES_DOWN * GameFrame.TILE_WIDTH;
+	private final int CANVAS_WD = Constants.TILES_ACROSS * Constants.TILE_WIDTH;
+	private final int CANVAS_HT = Constants.TILES_DOWN * Constants.TILE_WIDTH;
 	
 	// fields
 	private GameFrame controller;
@@ -27,9 +29,9 @@ public class Canvas extends JPanel {
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, this.getSize().width, this.getSize().height);
 
-		int numTilesAcross = GameFrame.TILES_ACROSS;
-		int numTilesDown = GameFrame.TILES_DOWN;
-		int tileWd = GameFrame.TILE_WIDTH;
+		int numTilesAcross = Constants.TILES_ACROSS;
+		int numTilesDown = Constants.TILES_DOWN;
+		int tileWd = Constants.TILE_WIDTH;
 		
 		g.setColor(Color.BLACK);
 		

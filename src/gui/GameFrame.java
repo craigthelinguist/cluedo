@@ -9,9 +9,7 @@ import javax.swing.JFrame;
 public class GameFrame extends JFrame {
 
 	// constants
-	public static final int TILES_ACROSS = 26;
-	public static final int TILES_DOWN = 27;
-	public static final int TILE_WIDTH = 25;
+
 	
 	// model fields
 	private Board board;
