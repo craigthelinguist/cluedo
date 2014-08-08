@@ -210,21 +210,7 @@ public class GamePanel extends JPanel {
 		
 	}
 	
-	/** This method reads images from the file path and returns an ImageIcon 
-	 * 
-	 * @param path
-	 * @param description of image
-	 * @return ImageIcon
-	 */
-    protected static ImageIcon createImageIcon(String path, String description) {
-    	java.net.URL imgURL = GamePanel.class.getResource(path);
-    	if (imgURL != null) {
-    		return new ImageIcon(imgURL, description);
-    	} else {
-    		System.err.println("Error finding file: " + path);
-    		return null;
-    	}
-    }
+	
     
     /* testing the panel*/
     public static void main(String[] args) {
@@ -232,18 +218,15 @@ public class GamePanel extends JPanel {
             public void run() {
             UIManager.put("swing.boldMetal", Boolean.FALSE);
                  
-        createAndShowGUI();
+            JFrame frame = new JFrame("GamePanel");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.getContentPane().add(new GamePanel(null));
+            frame.pack();
+            frame.setVisible(true);
+     
             }
         });
     }
-    
-    private static void createAndShowGUI() {
-        JFrame frame = new JFrame("GamePanel");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(new GamePanel(null));
-        frame.pack();
-        frame.setVisible(true);
-    }
-	
+    	
 }
 
