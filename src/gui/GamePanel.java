@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -29,7 +31,7 @@ import javax.swing.JButton;
 import main.Constants;
 import main.Main;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements ActionListener {
 
 	// constants
 	private final int PANEL_WIDTH = Constants.TILES_ACROSS*Constants.TILE_WIDTH;
@@ -105,6 +107,11 @@ public class GamePanel extends JPanel {
 		buttonSuggest = new JButton("Suggest");
 		buttonEndTurn = new JButton("End Turn");
 		buttonRollDice = new JButton("Roll Dice");
+		
+		//setting up the listener for buttons
+		buttonRollDice.addActionListener(this);
+		buttonSuggest.addActionListener(this);
+
 		try{
 			dice1 = new ImageIcon(ImageIO.read(new FileInputStream(FILEPATH+"shitdice1.png")));
 			dice2 = new ImageIcon(ImageIO.read(new FileInputStream(FILEPATH+"shitdice1.png")));
@@ -172,7 +179,6 @@ public class GamePanel extends JPanel {
 					g.drawRect(x, y, CARD_WIDTH, CARD_HEIGHT);
 				}
 			}
-			
 		};
 		cards.setPreferredSize(new Dimension(450,PANEL_HEIGHT));
 		
@@ -232,7 +238,27 @@ public class GamePanel extends JPanel {
 		}
 	}
 	
-    
+    /** change this method later a lot of it is testing*/
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource().equals(buttonRollDice)) {
+			int[] array = controller.getBoard().rollDice(); //only creating array to test if the dice numbers were changed
+			for(int i = 0; i < array.length; i++) { //test to see what's inside this array
+				System.out.println(array[i]);
+			}
+		}
+		if(e.getSource().equals(buttonSuggest)) {
+			/*makes the suggestion dialog appear*/
+			SuggestionDialog sd = new SuggestionDialog();
+			sd.setVisible(true);
+	        //sd.setBounds(400,0,400,400);
+		}
+
+	}
+	
+	
+	
+	
     /* testing the panel*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -246,6 +272,8 @@ public class GamePanel extends JPanel {
             }
         });
     }
+
+
     	
 }
 

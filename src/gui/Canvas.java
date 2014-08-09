@@ -12,8 +12,9 @@ import main.Constants;
 public class Canvas extends JPanel {
 
 	// constants
-	private final int CANVAS_WD = Constants.TILES_ACROSS * Constants.TILE_WIDTH;
+	private final int CANVAS_WD = Constants.TILES_ACROSS * Constants.TILE_WIDTH; 
 	private final int CANVAS_HT = Constants.TILES_DOWN * Constants.TILE_WIDTH;
+	
 	
 	// fields
 	private GameFrame controller;
@@ -39,7 +40,7 @@ public class Canvas extends JPanel {
 		g.setColor(Color.RED);
 		
 		for (int i = 0; i < numTilesAcross; i++){
-			for (int j = 0; j < numTilesDown; j++){
+			for (int j = 0; j < numTilesDown+20; j++){
 
 				int x1 = i*tileWd;
 				int y1 = j*tileWd;
