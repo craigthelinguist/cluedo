@@ -1,5 +1,7 @@
 package gui;
 
+import game.Player;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -106,6 +108,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		buttonSuggest = new JButton("Suggest");
 		buttonEndTurn = new JButton("End Turn");
 		buttonRollDice = new JButton("Roll Dice");
+		setupButtonListeners();
 		
 		//setting up the listener for buttons
 		buttonRollDice.addActionListener(this);
@@ -161,6 +164,19 @@ public class GamePanel extends JPanel implements ActionListener {
 		);
 	}
 	
+	private void setupButtonListeners() {
+		
+		buttonEndTurn.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				controller.buttonPressed("End Turn");
+			}
+		
+		});
+		
+	}
+
 	private void setupCards(){
 
 		// card panel
@@ -168,8 +184,10 @@ public class GamePanel extends JPanel implements ActionListener {
 			@Override
 			protected void paintComponent(Graphics g){
 				
+				
 				g.setColor(Color.LIGHT_GRAY);
 				g.fillRect(0, 0, cards.getWidth(), 150);
+				
 				
 				g.setColor(Color.BLACK);
 				for (int i = 0; i < 6; i++){					
@@ -177,6 +195,9 @@ public class GamePanel extends JPanel implements ActionListener {
 					int y = 0;
 					g.drawRect(x, y, CARD_WIDTH, CARD_HEIGHT);
 				}
+				
+				
+				
 			}
 		};
 		cards.setPreferredSize(new Dimension(450,PANEL_HEIGHT));
@@ -227,14 +248,8 @@ public class GamePanel extends JPanel implements ActionListener {
 	 * Set the currently displayed portrait.
 	 * @param filename: name of the image that the portrait should display.
 	 */
-	public void setPortrait(String filename){
-		try{
-			portraitBox.setIcon(new ImageIcon(ImageIO.read(new FileInputStream(FILEPATH+filename))));
-		}
-		catch(Exception e){
-			JOptionPane.showMessageDialog(this, "Error loading portrait: " + e.getMessage());
-			return;
-		}
+	public void setPortrait(Image image){
+		portraitBox.setIcon(new ImageIcon(image));
 	}
 	
     /** change this method later a lot of it is testing*/

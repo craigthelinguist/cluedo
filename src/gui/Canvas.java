@@ -55,22 +55,18 @@ public class Canvas extends JPanel implements MouseListener{
 		}
 		else{
 		
-			if (controller.getBoard() != null){
-				g.drawImage(controller.getBoard().getImage(),0,0,null);
-			}
-			if (controller.getPlayers() != null){
-
+			if (controller == null) throw new NullPointerException("Something fucked up");
 				g.drawImage(controller.getBoard().getImage(),0,0,null);
 				Player[] players = controller.getPlayers();
 				for (int i = 0; i < players.length; i++){
 					
-					Image img = players[i].getAvatarImage();
+					Image img = players[i].getAvatar();
 					Tile tile = players[i].getLocation();
 					int x = TILE_WIDTH*tile.x + 4;
 					int y = TILE_WIDTH*tile.y + 4;
 					g.drawImage(img,x,y,null);
 					
-				}
+				
 			}
 			
 			

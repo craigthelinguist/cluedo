@@ -69,6 +69,14 @@ public class GameFrame extends JFrame {
 	 * @param button: name of button that was pressed.
 	 */
 	public void buttonPressed(String button){
+	
+		if (button.equals("End Turn")){
+			board.endTurn();
+			gamePanel.setPortrait(board.getCurrentPlayer().getPortrait());
+		}
+		
+
+		this.repaint();
 		
 	}
 	
@@ -88,10 +96,10 @@ public class GameFrame extends JFrame {
 		try{
 			board = new Board(players);
 			gamePanel.setVisible(true);
-			canvas.activateListener();
+			gamePanel.setPortrait(board.getCurrentPlayer().getPortrait());
 			this.pack();
+			canvas.activateListener();
 			canvas.repaint();
-			
 		}
 		catch(IOException e){
 			JOptionPane.showMessageDialog(this, "Error loading board! " + e);
@@ -105,6 +113,14 @@ public class GameFrame extends JFrame {
 	protected Player[] getPlayers(){
 		if (board == null) throw new NullPointerException("Trying to get player array from a board that doesn't exist!");
 		return board.getPlayers();
+	}
+	
+	/**
+	 * Return the player whose turn it is.
+	 * @return: player whose turn it is.
+	 */
+	protected Player getCurrentPlayer(){
+		return board.getCurrentPlayer();
 	}
 	
 	public static void main(String[] args){

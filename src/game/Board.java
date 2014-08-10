@@ -60,6 +60,9 @@ public class Board {
 		for (int i = 0; i < players.length; i++){
 			players[i].setLocation(spawnPoints[i]);
 		}
+		
+		// set starting player
+		currentPlayer = 0;
 	}
 	
 	/**
@@ -212,6 +215,14 @@ public class Board {
 	 */
 	public Player[] getPlayers(){
 		return players;
+	}
+	
+	/**
+	 * Return the player whose turn it currently is.
+	 * @return: a Player.
+	 */
+	public Player getCurrentPlayer(){
+		return players[currentPlayer];
 	}
 	
 }
