@@ -76,7 +76,7 @@ public class Canvas extends JPanel implements MouseListener{
 			
 			/*
 			 code for debugging: draws a grid of tiles over the board
-			*/
+			
 			int numTilesAcross = Constants.TILES_ACROSS;
 			int numTilesDown = Constants.TILES_DOWN;
 			int tileWd = Constants.TILE_WIDTH;
@@ -95,7 +95,7 @@ public class Canvas extends JPanel implements MouseListener{
 
 				}
 			}
-			
+			*/
 			
 			
 		}
