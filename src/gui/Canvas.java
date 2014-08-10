@@ -35,6 +35,7 @@ public class Canvas extends JPanel implements MouseListener{
 	 * Activates the mouse listener for this canvas.
 	 */
 	public void activateListener(){
+	//	this.setPreferredSize(new Dimension(CANVAS_WD,CANVAS_HT));
 		this.addMouseListener(this);
 	}
 	
