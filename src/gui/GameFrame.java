@@ -85,6 +85,8 @@ public class GameFrame extends JFrame {
 		if (players == null) return;
 		try{
 			board = new Board(players);
+			canvas.activateListener();
+			canvas.repaint();
 		}
 		catch(IOException e){
 			JOptionPane.showMessageDialog(this, "Error loading board! " + e);

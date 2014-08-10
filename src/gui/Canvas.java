@@ -52,33 +52,33 @@ public class Canvas extends JPanel implements MouseListener{
 		}
 		else{
 		
-		Board board = controller.getBoard();
-		if (board != null){
-			g.drawImage(board.getImage(),0,0,null);
-		}
-		
-		
-		int numTilesAcross = Constants.TILES_ACROSS;
-		int numTilesDown = Constants.TILES_DOWN;
-		int tileWd = Constants.TILE_WIDTH;
-		
-		g.setColor(Color.RED);
-		
-		for (int i = 0; i < numTilesAcross; i++){
-			for (int j = 0; j < numTilesDown+20; j++){
+			g.drawImage(controller.getBoard().getImage(),0,0,null);
+			
+			int numTilesAcross = Constants.TILES_ACROSS;
+			int numTilesDown = Constants.TILES_DOWN;
+			int tileWd = Constants.TILE_WIDTH;
+			
+			g.setColor(Color.RED);
+			
+			for (int i = 0; i < numTilesAcross; i++){
+				for (int j = 0; j < numTilesDown+20; j++){
 
-				int x1 = i*tileWd;
-				int y1 = j*tileWd;
-				if (i == 0 || i == numTilesAcross-1 || j == 0 || j == numTilesDown-1){
-					g.fillRect(x1, y1, tileWd, tileWd);
-				}
-				else{
-					g.drawRect(x1, y1, tileWd, tileWd);
-				}
+					int x1 = i*tileWd;
+					int y1 = j*tileWd;
+					if (i == 0 || i == numTilesAcross-1 || j == 0 || j == numTilesDown-1){
+						g.fillRect(x1, y1, tileWd, tileWd);
+					}
+					else{
+						g.drawRect(x1, y1, tileWd, tileWd);
+					}
 
+				}
 			}
+			
+			
 		}
-		}
+		
+		
 
 	}
 

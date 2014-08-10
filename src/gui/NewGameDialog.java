@@ -159,19 +159,16 @@ public class NewGameDialog extends JDialog {
 	}
 	
 	/**
-	 * The player clicks the start button in order to create a new instance of a cluedo
-	 * game. This listener captures that behaviour.
+	 * When the player clicks the start button this listener will validate the parameters
+	 * they have entered. If they are bad, it will display an appropriate error message.
+	 * Otherwise it will extract the information from the dropdowns and send that info to
+	 * GameFrame, which will create a new game.
 	 * @author craigthelinguist
 	 */
 	private class StartButtonListener implements ActionListener{
 
 		@Override
-		public void actionPerformed(ActionEvent e){
-			startGame();
-		}
-
-		private void startGame(){
-
+		public void actionPerformed(ActionEvent event){
 
 			// check at least three player dropdowns are not "None"
 			// check at least one human is playing
@@ -248,7 +245,7 @@ public class NewGameDialog extends JDialog {
 		}
 
 	}
-		
+
 	public static void main(String[] args){
 
 		new NewGameDialog(new GameFrame());
