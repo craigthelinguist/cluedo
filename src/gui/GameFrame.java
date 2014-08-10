@@ -72,7 +72,7 @@ public class GameFrame extends JFrame {
 	
 		if (button.equals("End Turn")){
 			board.endTurn();
-			gamePanel.setPortrait(board.getCurrentPlayer().getPortrait());
+			gamePanel.updatePortrait(board.getCurrentPlayer());
 		}
 		
 
@@ -96,7 +96,7 @@ public class GameFrame extends JFrame {
 		try{
 			board = new Board(players);
 			gamePanel.setVisible(true);
-			gamePanel.setPortrait(board.getCurrentPlayer().getPortrait());
+			gamePanel.updatePortrait(board.getCurrentPlayer());
 			this.pack();
 			canvas.activateListener();
 			canvas.repaint();

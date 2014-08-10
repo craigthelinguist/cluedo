@@ -72,6 +72,26 @@ public class Person extends Token{
 	public Image getPortraitImage(){
 		return imagePortrait;
 	}
+	
+	public String toString(){
+		
+		switch(type){
+		case mustard:
+			return "Col. Mustard";
+		case scarlett:
+			return "Miss Scarlett";
+		case plum:
+			return "Prof. Plum";
+		case peacock:
+			return "Mrs. Peacock";
+		case green:
+			return "Rvd. Green";
+		case white:
+			return "Mrs. White";
+		}
+		throw new IllegalArgumentException("Getting string of a Person with an invalid type.");
+		
+	}
 
 	
 }

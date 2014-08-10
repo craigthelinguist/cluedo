@@ -39,5 +39,9 @@ public class Player {
 	public void setLocation(Tile tile){
 		location = tile;
 	}
+	
+	public String toString(){
+		return avatar.toString();
+	}
 
 }

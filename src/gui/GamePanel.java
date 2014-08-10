@@ -17,6 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -246,10 +247,11 @@ public class GamePanel extends JPanel implements ActionListener {
 	
 	/**
 	 * Set the currently displayed portrait.
-	 * @param filename: name of the image that the portrait should display.
+	 * @param player: player whose name and portrait should be displayed.
 	 */
-	public void setPortrait(Image image){
-		portraitBox.setIcon(new ImageIcon(image));
+	public void updatePortrait(Player player){
+		portraitBox.setIcon(new ImageIcon(player.getPortrait()));
+		currentPlayer.setText(player.toString());
 	}
 	
     /** change this method later a lot of it is testing*/
