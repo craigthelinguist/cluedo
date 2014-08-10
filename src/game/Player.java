@@ -1,13 +1,14 @@
 package game;
 
+import cards.Person;
+
 public class Player {
 
-	private Character avatar;
+	private Person avatar;
 	private Tile location;
 	
-	public Player(Character character, Tile startPosition){
-		avatar = character;
-		location = startPosition;
+	public Player(Person p){
+		avatar = p;
 	}
 	
 	/**

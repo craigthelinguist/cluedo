@@ -3,49 +3,53 @@ package cards;
 import java.awt.Image;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
 import main.Constants;
 
-public class Character extends Token{
+public class Person extends Token{
 
-	private enum Type{ Mustard, White, Scarlett, Green, Peacock, Plum }
+	private enum Type{ mustard, white, scarlett, green, peacock, plum }
 	private final String FILEPATH = Constants.ASSETS;
 	private final Type type;
 	private final Image imageCard;
 	private final Image imageToken;
 	private final Image imagePortrait;
 	
-	public Character(String name) throws IOException{
+	public Person(String name) throws IOException{
+		
+		
 		type = Type.valueOf(name);
 		switch (name){
-		case "Mustard":
+		case "mustard":
 			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_mustard.png"));
 			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"portrait_mustard.png"));
 			imagePortrait = ImageIO.read(new FileInputStream(FILEPATH+"token_mustard.png"));
 			break;
-		case "White":
+		case "white":
 			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_white.png"));
 			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"portrait_white.png"));
 			imagePortrait = ImageIO.read(new FileInputStream(FILEPATH+"token_white.png"));
 			break;
-		case "Scarlett":
+		case "scarlett":
 			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_scarlett.png"));
 			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"portrait_scarlett.png"));
 			imagePortrait = ImageIO.read(new FileInputStream(FILEPATH+"token_scarlett.png"));
 			break;
-		case "Green":
+		case "green":
 			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_green.png"));
 			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"portrait_green.png"));
 			imagePortrait = ImageIO.read(new FileInputStream(FILEPATH+"token_green.png"));
 			break;
-		case "Peacock":
+		case "peacock":
 			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_peacock.png"));
 			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"portrait_peacock.png"));
 			imagePortrait = ImageIO.read(new FileInputStream(FILEPATH+"token_peacock.png"));
 			break;
-		case "Plum":
+		case "plum":
 			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_plum.png"));
 			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"portrait_plum.png"));
 			imagePortrait = ImageIO.read(new FileInputStream(FILEPATH+"token_plum.png"));

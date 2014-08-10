@@ -5,8 +5,10 @@ import java.awt.Image;
 import java.io.IOException;
 
 import game.Board;
+import game.Player;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class GameFrame extends JFrame {
 
@@ -22,13 +24,6 @@ public class GameFrame extends JFrame {
 	private Canvas canvas;
 	
 	public GameFrame(){
-		
-		try{
-			this.board = new Board(null);
-		}
-		catch(IOException e){
-			
-		}
 		
 		menu = new MenuBar(this);
 		gamePanel = new GamePanel(this);
@@ -49,6 +44,53 @@ public class GameFrame extends JFrame {
 	public Board getBoard(){
 		return board;
 	}
+	
+	/**
+	 * Check if this GameFrame is in a game.
+	 * @return: true if there's a game being played, false otherwise.
+	 */
+	public boolean playingGame(){
+		return board != null;
+	}
+	
+	/**
+	 * Respond to a mouse press.
+	 * @param x
+	 * @param y
+	 */
+	public void mousePressed(int x, int y){
+		System.out.println(board.tileFromCoordinates(x, y));
+	}
+	
+	/**
+	 * Respond to a button press.
+	 * @param button: name of button that was pressed.
+	 */
+	public void buttonPressed(String button){
+		
+	}
+	
+	/**
+	 * Bring up new game dialog.
+	 */
+	public void newGamePrompt(){
+		new NewGameDialog(this);
+	}
+	
+	/**
+	 * Generate a new game with the given array of players.
+	 * @param players: an array of players.
+	 */
+	public void newGame(Player[] players){
+		if (players == null) return;
+		try{
+			board = new Board(players);
+		}
+		catch(IOException e){
+			JOptionPane.showMessageDialog(this, "Error loading board! " + e);
+		}
+	}
+	
 	
 	public static void main(String[] args){
 		new GameFrame();

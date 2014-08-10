@@ -10,6 +10,7 @@ import java.util.Queue;
 
 import javax.imageio.ImageIO;
 
+import main.BoardParser;
 import main.Constants;
 
 import gui.GameFrame;
@@ -48,7 +49,7 @@ public class Board {
 	
 	public Board(Player[] players) throws IOException{
 		this.players = players;
-		tiles = new Tile[TILES_ACROSS][TILES_DOWN];
+		tiles = BoardParser.readBoard("board.txt");
 		imageBoard = ImageIO.read(new FileInputStream(FILEPATH + "board.png"));
 		state = State.ROLLING;
 		currentPlayer = 0;
@@ -108,8 +109,8 @@ public class Board {
 		int boardHeight = TILES_DOWN * TILE_WIDTH;
 		if (x < 0 || y < 0 || x > boardWidth || x > boardHeight)
 			throw new IllegalArgumentException("Point is not on the board");
-		int cellX = x % TILE_WIDTH;
-		int cellY = y % TILE_WIDTH;
+		int cellX = x / TILE_WIDTH;
+		int cellY = y / TILE_WIDTH;
 		return tiles[cellX][cellY];
 	}
 	

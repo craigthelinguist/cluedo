@@ -58,4 +58,8 @@ public class Tile {
 		return terrain == Terrain.SPAWN;
 	}
 	
+	public String toString(){
+		return "("+x+","+y+")";
+	}
+	
 }

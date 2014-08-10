@@ -45,15 +45,17 @@ public class MenuBar extends JMenuBar implements MenuListener, ActionListener {
         file.add(newGame);
         exit = new JMenuItem("Exit");
         file.add(exit);
-        exit.addActionListener(this);
         
         // set up help menu
         help = new JMenu("Help");
         add(help);
         instructions = new JMenuItem("Instructions");
         help.add(instructions);
-        instructions.addActionListener(this);
         
+        // add action listeners
+        newGame.addActionListener(this);
+        exit.addActionListener(this);
+        instructions.addActionListener(this);
 	}
 
 	@Override
@@ -62,12 +64,16 @@ public class MenuBar extends JMenuBar implements MenuListener, ActionListener {
 		if(e.getSource().equals(exit)) {
 			System.exit(0); //if user has clicked exit, exit the program.
 		}
-		if(e.getSource().equals(instructions)) {
+		else if(e.getSource().equals(instructions)) {
 			try {
 				displayInstructions();
 			} catch (IOException e1) {
-				e1.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Error loading instructions: " + e);
+				return;
 			}
+		}
+		else if (e.getSource().equals(newGame)){
+			controller.newGamePrompt();
 		}
 	}
 

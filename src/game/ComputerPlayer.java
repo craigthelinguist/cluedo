@@ -1,9 +1,11 @@
 package game;
 
+import cards.Person;
+
 public class ComputerPlayer extends Player{
 
-	public ComputerPlayer(Character character, Tile startPosition) {
-		super(character, startPosition);
+	public ComputerPlayer(Person character) {
+		super(character);
 	}
 
 }
