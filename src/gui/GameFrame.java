@@ -33,6 +33,7 @@ public class GameFrame extends JFrame {
 		this.add(menu,BorderLayout.NORTH);
 		this.add(canvas,BorderLayout.CENTER);
 		this.add(gamePanel,BorderLayout.SOUTH);
+		gamePanel.setVisible(false);
 		
 		this.setResizable(false);
 		this.pack();
@@ -85,6 +86,7 @@ public class GameFrame extends JFrame {
 		if (players == null) return;
 		try{
 			board = new Board(players);
+			gamePanel.setVisible(true);
 			canvas.activateListener();
 			canvas.repaint();
 		}
