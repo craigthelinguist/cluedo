@@ -88,7 +88,7 @@ public class Board {
 	 * End the current player's turn. update the currentPlayer and the game state.
 	 */
 	public void endTurn(){
-		currentPlayer = currentPlayer+1 % players.length;
+		currentPlayer = (currentPlayer+1)%players.length;
 		moves = 0;
 		validMoves = new ArrayList<>();
 		state = State.ROLLING;
