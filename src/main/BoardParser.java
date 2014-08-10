@@ -76,7 +76,7 @@ public class BoardParser {
 	 * Returns a Tile from the given character.
 	 * @param c
 	 */
-	private static Tile readTile(char c, int x, int y) throws IOException{
+	private static Tile readTile(char c, int y, int x) throws IOException{
 		switch(c){
 		case 'X':
 			return Tile.makeImpassableTile(x, y);
@@ -84,7 +84,7 @@ public class BoardParser {
 			return Tile.makeImpassableTile(x, y);
 		case '@':
 			// should return a passage
-			return Tile.makePassableTile(x, y);
+			return Tile.makeSpawnPointTile(x, y);
 		case '.':
 			return Tile.makePassableTile(x, y);
 		default:

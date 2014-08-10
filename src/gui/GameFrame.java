@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
 
@@ -95,6 +96,14 @@ public class GameFrame extends JFrame {
 		}
 	}
 	
+	/**
+	 * Return the array of players in the game.
+	 * @return: 
+	 */
+	protected Player[] getPlayers(){
+		if (board == null) throw new NullPointerException("Trying to get player array from a board that doesn't exist!");
+		return board.getPlayers();
+	}
 	
 	public static void main(String[] args){
 		new GameFrame();

@@ -54,6 +54,31 @@ public class Board {
 		state = State.ROLLING;
 		currentPlayer = 0;
 		validMoves = new ArrayList<>();
+		
+		// set the starting position for each player
+		Tile[] spawnPoints = findSpawnPoints();
+		for (int i = 0; i < players.length; i++){
+			players[i].setLocation(spawnPoints[i]);
+		}
+	}
+	
+	/**
+	 * Find and return an array of tiles that are starting points. Only returns as
+	 * many tiles as there are players in the game.
+	 * @return
+	 */
+	private Tile[] findSpawnPoints(){
+		Tile[] spawnPoints = new Tile[players.length];
+		int k = 0;
+		outer: for (int i = 0; i < tiles.length; i++){
+			for (int j = 0; j < tiles[0].length; j++){
+				if (tiles[i][j].isSpawnPoint()){
+					spawnPoints[k++] = tiles[i][j];
+					if (k == players.length) break outer;
+				}
+			}
+		}
+		return spawnPoints;
 	}
 	
 	/**
@@ -179,6 +204,14 @@ public class Board {
 	 */
 	public Image getImage(){
 		return imageBoard;
+	}
+	
+	/**
+	 * Return the array of players in this game.
+	 * @return: an array.
+	 */
+	public Player[] getPlayers(){
+		return players;
 	}
 	
 }

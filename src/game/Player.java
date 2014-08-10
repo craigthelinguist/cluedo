@@ -1,10 +1,12 @@
 package game;
 
+import java.awt.Image;
+
 import cards.Person;
 
 public class Player {
 
-	private Person avatar;
+	private final Person avatar;
 	private Tile location;
 	
 	public Player(Person p){
@@ -17,6 +19,14 @@ public class Player {
 	 */
 	public Tile getLocation(){
 		return location;
+	}
+	
+	/**
+	 * Return the image representing this player on the board.
+	 * @return
+	 */
+	public Image getAvatarImage(){
+		return avatar.getTokenImage();
 	}
 	
 	public void setLocation(Tile tile){

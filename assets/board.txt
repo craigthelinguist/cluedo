@@ -7,7 +7,7 @@
 
 board.png
 XXXXXXXXXXXXXXXXXXXXXXXXXX
-X######XXX@XXXX@XXX######X
+X######XXXXXXXXXXXX######X
 X#...##X...####...X#....#X
 X#....#..###..###..#....#X
 X#....#..#......#..#....#X

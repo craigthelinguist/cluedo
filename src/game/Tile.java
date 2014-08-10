@@ -38,7 +38,7 @@ public class Tile {
 		return new Tile(x,y,Terrain.IMPASSABLE);
 	}
 	
-	public static Tile makeSpawnTile(int x, int y){
+	public static Tile makeSpawnPointTile(int x, int y){
 		return new Tile(x,y,Terrain.SPAWN);
 	}
 	

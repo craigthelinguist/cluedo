@@ -39,7 +39,6 @@ public class GamePanel extends JPanel implements ActionListener {
 	private final int CARD_SEP = 5;
 	private final int CARD_WIDTH = 60;
 	private final int CARD_HEIGHT = 100;
-	private final char SEPARATOR = File.separatorChar;
 	private final String FILEPATH = Constants.ASSETS;
 	
 	// controller
