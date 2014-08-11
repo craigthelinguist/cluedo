@@ -324,6 +324,9 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 	 * @return String name of room that was selected
 	 */
 	public String getSelectedRoom(String s) {
+		if(s == null) {
+			return null;
+		}
         switch (s) {
     	case "Kitchen":
     		return "Kitchen";
@@ -356,6 +359,9 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 	 * @return String name of character that was selected
 	 */
 	public String getSelectedCharacter(String s) {
+		if(s == null) {
+			return null;
+		}
         switch (s) {
     	case "Colonel Mustard":
     		return "Mustard";
@@ -382,6 +388,9 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 	 * @return String name of weapon that was selected
 	 */
 	public String getSelectedWeapon(String s) {
+		if(s == null) {
+			return null;
+		}
         switch (s) {
     	case "Candlestick":
     		return "Candlestick";
