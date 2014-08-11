@@ -43,19 +43,19 @@ public class GamePanel extends JPanel implements ActionListener {
 	private final int CARD_WIDTH = 60;
 	private final int CARD_HEIGHT = 100;
 	private final String FILEPATH = Constants.ASSETS;
-	
+
 	// controller
 	private GameFrame controller;
-	
+
 	// portrait panel: contains name of current player and portrait
 	private JPanel portrait;
 	private JLabel currentPlayer;
 	private JLabel portraitBox;
 	private ImageIcon playerImage;
-	
+
 	// card panel: draws the player's cards
 	private JPanel cards;
-	
+
 	// button panel: contains buttons and the dice
 	private JPanel buttons;
 	private JButton buttonAccuse;
@@ -66,18 +66,18 @@ public class GamePanel extends JPanel implements ActionListener {
 	private ImageIcon dice1;
 	private JLabel dice2Label;
 	private ImageIcon dice2;
-	
+
 	public GamePanel(GameFrame frame) {
-		
+
 		// size & controller
 		this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
 		controller = frame;
-		
+
 		// set up the 3 panels
 		this.setupPortrait();
 		this.setupCards();
 		this.setupButtons();
-		
+
 		// add panels to this
 		GroupLayout layout = new GroupLayout(this);
 		this.setLayout(layout);
@@ -86,20 +86,20 @@ public class GamePanel extends JPanel implements ActionListener {
 		layout.setHorizontalGroup(horizontal);
 		layout.setVerticalGroup(vertical);
 		//layout.setAutoCreateContainerGaps(true);
-		
-		
+
+
 		horizontal.addComponent(portrait);
 		horizontal.addComponent(cards);
 		horizontal.addComponent(buttons);
-		
+
 		vertical.addGroup(layout.createParallelGroup()
 			.addComponent(portrait)
 			.addComponent(cards)
 			.addComponent(buttons)
 		);
-		
+
 	}
-	
+
 	private void setupButtons(){
 
 		// create components
@@ -110,7 +110,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		buttonEndTurn = new JButton("End Turn");
 		buttonRollDice = new JButton("Roll Dice");
 		setupButtonListeners();
-		
+
 		//setting up the listener for buttons
 		buttonRollDice.addActionListener(this);
 		buttonSuggest.addActionListener(this);
@@ -125,7 +125,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		}
 		dice1Label = new JLabel(dice1);
 		dice2Label = new JLabel(dice2);
-		
+
 		// dice panel
 		JPanel dicePanel = new JPanel();
 		GroupLayout diceLayout = new GroupLayout(dicePanel);
@@ -133,13 +133,13 @@ public class GamePanel extends JPanel implements ActionListener {
 		GroupLayout.SequentialGroup diceVertical = diceLayout.createSequentialGroup();
 		diceLayout.setHorizontalGroup(diceHorizontal);
 		diceLayout.setVerticalGroup(diceVertical);
-		
+
 		diceHorizontal.addComponent(dice1Label);
 		diceHorizontal.addComponent(dice2Label);
 		diceVertical.addGroup(diceLayout.createParallelGroup()
 			.addComponent(dice1Label)
 			.addComponent(dice2Label)
-		);	
+		);
 
 		// layout
 		GroupLayout layout = new GroupLayout(buttons);
@@ -149,13 +149,13 @@ public class GamePanel extends JPanel implements ActionListener {
 		layout.setHorizontalGroup(horizontal);
 		layout.setVerticalGroup(vertical);
 		layout.setAutoCreateGaps(true);
-		
+
 		vertical.addComponent(buttonEndTurn);
 		vertical.addComponent(buttonAccuse);
 		vertical.addComponent(buttonSuggest);
 		vertical.addComponent(buttonRollDice);
 		vertical.addComponent(dicePanel);
-		
+
 		horizontal.addGroup(layout.createParallelGroup(Alignment.CENTER)
 			.addComponent(buttonEndTurn)
 			.addComponent(buttonAccuse)
@@ -164,18 +164,37 @@ public class GamePanel extends JPanel implements ActionListener {
 			.addComponent(dicePanel)
 		);
 	}
-	
+
+	/**
+	 * Enables or disables the button with the given name.
+	 * @param enabled: whether the button should now be enabled (True) or disabled (false)
+	 * @param name: name of the button
+	 */
+	public void setButtonEnabled(String name, boolean enabled){
+		switch(name){
+		case "Accuse":
+			buttonAccuse.setEnabled(enabled);
+			return;
+		case "Suggest":
+			buttonSuggest.setEnabled(enabled);
+			return;
+		case "Roll Dice":
+			buttonRollDice.setEnabled(enabled);
+			return;
+		}
+	}
+
 	private void setupButtonListeners() {
-		
+
 		buttonEndTurn.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				controller.buttonPressed("End Turn");
 			}
-		
+
 		});
-		
+
 	}
 
 	private void setupCards(){
@@ -184,27 +203,27 @@ public class GamePanel extends JPanel implements ActionListener {
 		this.cards = new JPanel(){
 			@Override
 			protected void paintComponent(Graphics g){
-				
-				
+
+
 				g.setColor(Color.LIGHT_GRAY);
 				g.fillRect(0, 0, cards.getWidth(), 150);
-				
-				
+
+
 				g.setColor(Color.BLACK);
-				for (int i = 0; i < 6; i++){					
+				for (int i = 0; i < 6; i++){
 					int x = i*CARD_WIDTH + i*CARD_SEP;
 					int y = 0;
 					g.drawRect(x, y, CARD_WIDTH, CARD_HEIGHT);
 				}
-				
-				
-				
+
+
+
 			}
 		};
 		cards.setPreferredSize(new Dimension(450,PANEL_HEIGHT));
-		
+
 	}
-	
+
 	private void setupPortrait(){
 
 		// create components
@@ -224,7 +243,7 @@ public class GamePanel extends JPanel implements ActionListener {
 			System.exit(1);
 		}
 		portraitBox = new JLabel(playerImage);
-		
+
 		// layout
 		GroupLayout layout = new GroupLayout(portrait);
 		portrait.setLayout(layout);
@@ -234,17 +253,17 @@ public class GamePanel extends JPanel implements ActionListener {
 		layout.setVerticalGroup(vertical);
 		//layout.setAutoCreateContainerGaps(true);
 		layout.setAutoCreateGaps(true);
-		
+
 		vertical.addGroup(layout.createParallelGroup(Alignment.CENTER).addComponent(currentPlayer));
 		vertical.addGroup(layout.createParallelGroup(Alignment.CENTER).addComponent(portraitBox));
-		
+
 		horizontal.addGroup(layout.createParallelGroup(Alignment.CENTER)
 			.addComponent(currentPlayer)
 			.addComponent(portraitBox)
 		);
-		
+
 	}
-	
+
 	/**
 	 * Set the currently displayed portrait.
 	 * @param player: player whose name and portrait should be displayed.
@@ -253,11 +272,15 @@ public class GamePanel extends JPanel implements ActionListener {
 		portraitBox.setIcon(new ImageIcon(player.getPortrait()));
 		currentPlayer.setText(player.toString());
 	}
-	
+
     /** change this method later a lot of it is testing*/
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
+
 		if(e.getSource().equals(buttonRollDice)) {
+
+
 			int[] array = controller.getBoard().rollDice(); //only creating array to test if the dice numbers were changed
 			for(int i = 0; i < array.length; i++) { //test to see what's inside this array
 				System.out.println(array[i]);
@@ -271,10 +294,10 @@ public class GamePanel extends JPanel implements ActionListener {
 		}
 
 	}
-	
-	
-	
-	
+
+
+
+
     /* testing the panel*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -290,6 +313,6 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
 
-    	
+
 }
 

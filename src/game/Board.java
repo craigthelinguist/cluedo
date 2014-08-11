@@ -23,18 +23,19 @@ public class Board {
 	private final int TILES_DOWN = Constants.TILES_DOWN;
 	private final int TILE_WIDTH = Constants.TILE_WIDTH;
 	private final String FILEPATH = Constants.ASSETS;
-	
+
 	// immutable fields associated with this instance of a game
 	private final Tile[][] tiles;
 	private final Player[] players;
 	private final Image imageBoard;
-	
+	private final GameFrame controller;
+
 	// mutable fields associated with game state
 	private int currentPlayer;
 	private int moves; //how many squares they can move
 	private List<Tile> validMoves; //list of squares the player may move to
 	private State state;
-	
+
 	/**
 	 * State keeps track of which part of the player's turn is happening.
 	 *  - ROLLING: the player may roll dice or end turn.
@@ -46,25 +47,27 @@ public class Board {
 	private enum State{
 		ROLLING, MOVING, SUGGESTING, DONE
 	};
-	
-	public Board(Player[] players) throws IOException{
+
+	public Board(Player[] players, GameFrame frame) throws IOException{
+		controller = frame;
 		this.players = players;
 		tiles = BoardParser.readBoard("board.txt");
 		imageBoard = ImageIO.read(new FileInputStream(FILEPATH + "board.png"));
 		state = State.ROLLING;
 		currentPlayer = 0;
 		validMoves = new ArrayList<>();
-		
+
 		// set the starting position for each player
 		Tile[] spawnPoints = findSpawnPoints();
 		for (int i = 0; i < players.length; i++){
 			players[i].setLocation(spawnPoints[i]);
 		}
-		
-		// set starting player
+
+		// set starting conditions
 		currentPlayer = 0;
+		frame.enableButtonsForState(state.toString());
 	}
-	
+
 	/**
 	 * Find and return an array of tiles that are starting points. Only returns as
 	 * many tiles as there are players in the game.
@@ -83,7 +86,7 @@ public class Board {
 		}
 		return spawnPoints;
 	}
-	
+
 	/**
 	 * End the current player's turn. update the currentPlayer and the game state.
 	 */
@@ -93,7 +96,7 @@ public class Board {
 		validMoves = new ArrayList<>();
 		state = State.ROLLING;
 	}
-	
+
 	/**
 	 * Attempt to move the current player to the given Tile. If this move is
 	 * invalid, nothing will happen. Otherwise the player will be moved to
@@ -110,7 +113,7 @@ public class Board {
 		validMoves = computeValidMoves();
 		if (moves == 0) state = State.SUGGESTING;
 	}
-	
+
 	/**
 	 * Roll dice and update the number of moves the player can make, and update the
 	 * game state.
@@ -125,7 +128,7 @@ public class Board {
 		state = State.MOVING;
 		return new int[]{ dice1, dice2 };
 	}
-	
+
 	/**
 	 * From the given point (x,y) returns the appropriate Tile on this board.
 	 * @param x: x part of a point on the board.
@@ -141,7 +144,7 @@ public class Board {
 		int cellY = y / TILE_WIDTH;
 		return tiles[cellX][cellY];
 	}
-	
+
 	/**
 	 * Compute the list of tiles that the current player is allowed to move to,
 	 * given the current number of moves available to them. Does this using a
@@ -152,7 +155,7 @@ public class Board {
 		if (moves == 0) return new ArrayList<>();
 		List<Tile> validTiles = new ArrayList<>();
 		Tile start = players[currentPlayer].getLocation();
-		
+
 		// node that remembers each tile and its depth
 		class Node{
 			int depth;
@@ -173,7 +176,7 @@ public class Board {
 			validTiles.add(tile);
 			int depth = node.depth;
 			if (depth == moves) continue;
-			
+
 			// get tiles adjacent to tile
 			Tile above, below, left, right;
 			above = below = left = right = null;
@@ -181,7 +184,7 @@ public class Board {
 			if (tile.x > 0) left = tiles[tile.x-1][tile.y];
 			if (tile.y < tiles[0].length-1) below = tiles[tile.x][tile.y+1];
 			if (tile.y < tiles.length-1) right = tiles[tile.x][tile.y+1];
-			
+
 			// add adjacent tiles to queue
 			if (above != null && !validTiles.contains(above) && !queue.contains(above) && above.passable()){
 				queue.add(new Node(above,depth+1));
@@ -195,12 +198,12 @@ public class Board {
 			if (right != null && !validTiles.contains(right) && !queue.contains(right) && right.passable()){
 				queue.add(new Node(right,depth+1));
 			}
-			
+
 		}
-		
+
 		return validTiles;
 	}
-	
+
 	/**
 	 * Return the image representing this board.
 	 * @return: a BufferedImage;
@@ -208,7 +211,7 @@ public class Board {
 	public Image getImage(){
 		return imageBoard;
 	}
-	
+
 	/**
 	 * Return the array of players in this game.
 	 * @return: an array.
@@ -216,7 +219,7 @@ public class Board {
 	public Player[] getPlayers(){
 		return players;
 	}
-	
+
 	/**
 	 * Return the player whose turn it currently is.
 	 * @return: a Player.
@@ -224,5 +227,5 @@ public class Board {
 	public Player getCurrentPlayer(){
 		return players[currentPlayer];
 	}
-	
+
 }
