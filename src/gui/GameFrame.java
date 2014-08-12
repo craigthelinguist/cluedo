@@ -75,17 +75,8 @@ public class GameFrame extends JFrame {
 			gamePanel.updatePortrait(board.getCurrentPlayer());
 		}
 		else if (button.equals("Roll Dice")){
-
-			int[] array = getBoard().rollDice(); //only creating array to test if the dice numbers were changed
-			if (array != null){
-
-
-				for(int i = 0; i < array.length; i++) { //test to see what's inside this array
-					System.out.println(array[i]);
-				}
-
-			}
-
+			int[] array = getBoard().rollDice();
+			if (array != null) enableButtonsForState("Roll Dice");
 		}
 		else if (button.equals("Suggestion")){
 			/*makes the suggestion dialog appear*/
@@ -94,7 +85,7 @@ public class GameFrame extends JFrame {
 	        //sd.setBounds(400,0,400,400);
 		}
 
-
+		enableButtonsForState(board.getState());
 		this.repaint();
 
 	}
@@ -113,7 +104,7 @@ public class GameFrame extends JFrame {
 	public void newGame(Player[] players){
 		if (players == null) return;
 		try{
-			board = new Board(players,this);
+			board = new Board(players);
 			gamePanel.setVisible(true);
 			gamePanel.updatePortrait(board.getCurrentPlayer());
 			this.pack();
@@ -138,7 +129,7 @@ public class GameFrame extends JFrame {
 	 * Enables and disables buttons depending on the name of the state the player is in.
 	 * @param state
 	 */
-	public void enableButtonsForState(String state){
+	private void enableButtonsForState(String state){
 
 		switch(state){
 
@@ -146,6 +137,21 @@ public class GameFrame extends JFrame {
 			gamePanel.setButtonEnabled("Accuse",false);
 			gamePanel.setButtonEnabled("Suggest",false);
 			gamePanel.setButtonEnabled("Roll Dice",true);
+			return;
+		case "MOVING":
+			gamePanel.setButtonEnabled("Accuse", true);
+			gamePanel.setButtonEnabled("Suggest",true);
+			gamePanel.setButtonEnabled("Roll Dice",false);
+			return;
+		case "SUGGESTING":
+			gamePanel.setButtonEnabled("Accuse", true);
+			gamePanel.setButtonEnabled("Suggest",true);
+			gamePanel.setButtonEnabled("Roll Dice",false);
+			return;
+		case "DONE":
+			gamePanel.setButtonEnabled("Accuse", false);
+			gamePanel.setButtonEnabled("Suggest",false);
+			gamePanel.setButtonEnabled("Roll Dice", false);
 			return;
 		}
 

@@ -109,6 +109,8 @@ public class GamePanel extends JPanel implements ActionListener {
 		buttonSuggest = new JButton("Suggest");
 		buttonEndTurn = new JButton("End Turn");
 		buttonRollDice = new JButton("Roll Dice");
+		buttonSuggest.setEnabled(false);
+		buttonAccuse.setEnabled(false);
 		setupButtonListeners();
 
 		//setting up the listener for buttons
