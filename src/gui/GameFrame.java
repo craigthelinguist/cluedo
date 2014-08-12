@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import game.Player;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 
 public class GameFrame extends JFrame {
 
@@ -24,7 +26,7 @@ public class GameFrame extends JFrame {
 	private GamePanel gamePanel;
 	private Canvas canvas;
 
-	public GameFrame(){
+	public GameFrame() throws IOException{
 
 		menu = new MenuBar(this);
 		gamePanel = new GamePanel(this);
@@ -36,10 +38,30 @@ public class GameFrame extends JFrame {
 		this.add(gamePanel,BorderLayout.SOUTH);
 		gamePanel.setVisible(false);
 
+
 		this.setResizable(false);
 		this.pack();
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
+
+		this.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+
+		    	int dialogButton = JOptionPane.YES_NO_OPTION;
+		    	int dialogResult = JOptionPane.showConfirmDialog((Component) windowEvent.getSource(), "Are you sure you want to exit?", "Warning",dialogButton);
+		    	if(dialogResult==0){
+		    		System.exit(0);
+		    	}
+
+		    }
+
+		});
+
+		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
+
+
 
 	}
 
@@ -166,7 +188,12 @@ public class GameFrame extends JFrame {
 	}
 
 	public static void main(String[] args){
-		new GameFrame();
+		try {
+			new GameFrame();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -10,7 +10,11 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import main.Constants;
@@ -21,14 +25,17 @@ public class Canvas extends JPanel implements MouseListener{
 	private final int CANVAS_WD = Constants.TILES_ACROSS * Constants.TILE_WIDTH;
 	private final int CANVAS_HT = Constants.TILES_DOWN * Constants.TILE_WIDTH;
 	private final int TILE_WIDTH = Constants.TILE_WIDTH;
+	private static final String FILEPATH = Constants.ASSETS;
 
 	// fields
 	private GameFrame controller;
 	private MouseListener listener;
+	private Image titleImage;
 
-	public Canvas(GameFrame frame){
+	public Canvas(GameFrame frame) throws IOException{
 		controller = frame;
 		this.setPreferredSize(new Dimension(CANVAS_WD,CANVAS_HT));
+		titleImage = ImageIO.read(new FileInputStream(FILEPATH+"title.jpg"));
 	}
 
 	/**
@@ -50,8 +57,10 @@ public class Canvas extends JPanel implements MouseListener{
 	protected void paintComponent(Graphics g){
 
 		if (!controller.playingGame()){
-			g.setColor(Color.BLUE);
-			g.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+
+			g.drawImage(titleImage,0,0,this.CANVAS_WD,this.CANVAS_HT,null);
+
 		}
 		else{
 
