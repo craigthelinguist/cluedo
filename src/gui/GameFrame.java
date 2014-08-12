@@ -74,6 +74,25 @@ public class GameFrame extends JFrame {
 			board.endTurn();
 			gamePanel.updatePortrait(board.getCurrentPlayer());
 		}
+		else if (button.equals("Roll Dice")){
+
+			int[] array = getBoard().rollDice(); //only creating array to test if the dice numbers were changed
+			if (array != null){
+
+
+				for(int i = 0; i < array.length; i++) { //test to see what's inside this array
+					System.out.println(array[i]);
+				}
+
+			}
+
+		}
+		else if (button.equals("Suggestion")){
+			/*makes the suggestion dialog appear*/
+			SuggestionDialog sd = new SuggestionDialog();
+			sd.setVisible(true);
+	        //sd.setBounds(400,0,400,400);
+		}
 
 
 		this.repaint();

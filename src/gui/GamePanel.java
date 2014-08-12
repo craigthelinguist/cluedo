@@ -276,23 +276,12 @@ public class GamePanel extends JPanel implements ActionListener {
     /** change this method later a lot of it is testing*/
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-
 		if(e.getSource().equals(buttonRollDice)) {
-
-
-			int[] array = controller.getBoard().rollDice(); //only creating array to test if the dice numbers were changed
-			for(int i = 0; i < array.length; i++) { //test to see what's inside this array
-				System.out.println(array[i]);
-			}
+			controller.buttonPressed("Roll Dice");
 		}
-		if(e.getSource().equals(buttonSuggest)) {
-			/*makes the suggestion dialog appear*/
-			SuggestionDialog sd = new SuggestionDialog();
-			sd.setVisible(true);
-	        //sd.setBounds(400,0,400,400);
+		else if (e.getSource().equals(buttonSuggest)){
+			controller.buttonPressed("Suggestion");
 		}
-
 	}
 
 
