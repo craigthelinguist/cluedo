@@ -5,14 +5,18 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
 
 import javax.imageio.ImageIO;
 
+import cards.Card;
+import cards.Person;
+import cards.Room;
+import cards.Weapon;
 import main.BoardParser;
 import main.Constants;
-
 import gui.GameFrame;
 
 
@@ -28,6 +32,7 @@ public class Board {
 	private final Tile[][] tiles;
 	private final Player[] players;
 	private final Image imageBoard;
+	private final Suggestion solution;
 
 	// mutable fields associated with game state
 	private int currentPlayer;
@@ -60,6 +65,23 @@ public class Board {
 		for (int i = 0; i < players.length; i++){
 			players[i].setLocation(spawnPoints[i]);
 		}
+
+		// figure out winning hand
+		List<Card> cards = Constants.generateCards();
+		Collections.shuffle(cards);
+		Room r = null; Weapon w = null; Person p = null;
+		for (int i = 0; i < cards.size(); i++){
+			Card card = cards.get(i);
+			if (card instanceof Room && r != null) r = (Room)card;
+			else if (card instanceof Weapon && w != null) w = (Weapon)card;
+			else if (card instanceof Person && p != null) p = (Person)card;
+			if (p != null && w != null && r != null) break; //finished
+		}
+		if (r == null || w == null || p == null) throw new IOException("Board failed to load the cards.");
+		solution = new Suggestion(r,p,w);
+
+		// deal cards among remaining players
+
 
 		// set starting conditions
 		currentPlayer = 0;
