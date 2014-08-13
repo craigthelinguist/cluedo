@@ -28,7 +28,6 @@ public class Board {
 	private final Tile[][] tiles;
 	private final Player[] players;
 	private final Image imageBoard;
-	private final GameFrame controller;
 
 	// mutable fields associated with game state
 	private int currentPlayer;
@@ -48,8 +47,7 @@ public class Board {
 		ROLLING, MOVING, SUGGESTING, DONE
 	};
 
-	public Board(Player[] players, GameFrame frame) throws IOException{
-		controller = frame;
+	public Board(Player[] players) throws IOException{
 		this.players = players;
 		tiles = BoardParser.readBoard("board.txt");
 		imageBoard = ImageIO.read(new FileInputStream(FILEPATH + "board.png"));
@@ -65,7 +63,6 @@ public class Board {
 
 		// set starting conditions
 		currentPlayer = 0;
-		frame.enableButtonsForState(state.toString());
 	}
 
 	/**
@@ -103,22 +100,23 @@ public class Board {
 	 * that tile and the game state will be updated.
 	 * @param goal: the tile the player is trying to move to.
 	 */
-	public void movePlayer(Tile goal){
-		if (state == State.ROLLING || moves == 0) return;
-		if (!validMoves.contains(goal)) return; // invalid move
+	public boolean movePlayer(Tile goal){
+		if (state == State.ROLLING || moves == 0) return false;
+		if (!validMoves.contains(goal)) return false; // invalid move
 		Tile oldPosition = players[currentPlayer].getLocation();
 		players[currentPlayer].setLocation(goal);
 		int distMoved = Math.abs((oldPosition.x + oldPosition.y) - (goal.x + goal.y));
 		moves -= distMoved;
 		validMoves = computeValidMoves();
 		if (moves == 0) state = State.SUGGESTING;
+		return true;
 	}
 
 	/**
 	 * Roll dice and update the number of moves the player can make, and update the
 	 * game state.
 	 * @return: a pair of ints in an array, which represent the values rolled
-	 * with each dice.
+	 * with each dice. null if you are not able to roll.
 	 */
 	public int[] rollDice(){
 		if (state != State.ROLLING) return null;
@@ -226,6 +224,14 @@ public class Board {
 	 */
 	public Player getCurrentPlayer(){
 		return players[currentPlayer];
+	}
+
+	/**
+	 * Return a representation of hte board state as a string.
+	 * @return: a string
+	 */
+	public String getState(){
+		return state.toString();
 	}
 
 }
