@@ -43,7 +43,7 @@ public class GameFrame extends JFrame {
 		
 	}
 	
-	public Board getBoard(){
+	public Board getBoard() {
 		return board;
 	}
 	
