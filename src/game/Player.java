@@ -18,6 +18,17 @@ public class Player {
 	}
 
 	/**
+	 * return a list of cards this player is holding.
+	 */
+	public Image[] getCardImages(){
+		Image[] images = new Image[cards.size()];
+		for (int i = 0; i < cards.size(); i++){
+			images[i] = cards.get(i).getCardImage();
+		}
+		return images;
+	}
+
+	/**
 	 * Add a card to this player's hand.
 	 * @param c: a card.
 	 */
