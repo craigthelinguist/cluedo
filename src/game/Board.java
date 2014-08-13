@@ -74,17 +74,17 @@ public class Board {
 		Room r = null; Weapon w = null; Person p = null;
 		for (int i = 0; i < cards.size(); i++){
 			Card card = cards.get(i);
-			if (card instanceof Room && r != null){
+			if (card instanceof Room && r == null){
 				r = (Room)card;
 				cards.remove(i);
 				i--;
 			}
-			else if (card instanceof Weapon && w != null){
+			else if (card instanceof Weapon && w == null){
 				w = (Weapon)card;
 				cards.remove(i);
 				i--;
 			}
-			else if (card instanceof Person && p != null){
+			else if (card instanceof Person && p == null){
 				p = (Person)card;
 				cards.remove(i);
 				i--;
@@ -96,11 +96,10 @@ public class Board {
 		System.out.println(solution);
 
 		// deal cards among remaining players
-		int i = 0;
-		while (!cards.isEmpty()){
-			Card card = cards.get(0);
-			players[i].addCard(card);
-			i = (i+1) % players.length;
+		int j = 0;
+		for (int i = 0; i < cards.size(); i++){
+			players[j].addCard(cards.get(i));
+			j = (j+1) % players.length;
 		}
 
 		// set starting conditions
