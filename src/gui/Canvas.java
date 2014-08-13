@@ -10,7 +10,12 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import main.Constants;
@@ -18,19 +23,22 @@ import main.Constants;
 public class Canvas extends JPanel implements MouseListener{
 
 	// constants
-	private final int CANVAS_WD = Constants.TILES_ACROSS * Constants.TILE_WIDTH; 
+	private final int CANVAS_WD = Constants.TILES_ACROSS * Constants.TILE_WIDTH;
 	private final int CANVAS_HT = Constants.TILES_DOWN * Constants.TILE_WIDTH;
 	private final int TILE_WIDTH = Constants.TILE_WIDTH;
-	
+	private static final String FILEPATH = Constants.ASSETS;
+
 	// fields
 	private GameFrame controller;
 	private MouseListener listener;
-	
-	public Canvas(GameFrame frame){
+	private Image titleImage;
+
+	public Canvas(GameFrame frame) throws IOException{
 		controller = frame;
 		this.setPreferredSize(new Dimension(CANVAS_WD,CANVAS_HT));
+		titleImage = ImageIO.read(new FileInputStream(FILEPATH+"title.jpg"));
 	}
-		
+
 	/**
 	 * Activates the mouse listener for this canvas.
 	 */
@@ -38,84 +46,105 @@ public class Canvas extends JPanel implements MouseListener{
 	//	this.setPreferredSize(new Dimension(CANVAS_WD,CANVAS_HT));
 		this.addMouseListener(this);
 	}
-	
+
 	/**
 	 * Deactivates the mouse listener for this canvas.
 	 */
 	public void deactivateListener(){
 		this.removeMouseListener(this);
 	}
-	
+
 	@Override
 	protected void paintComponent(Graphics g){
-		
+
 		if (!controller.playingGame()){
-			g.setColor(Color.BLUE);
-			g.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+
+			g.drawImage(titleImage,0,0,this.CANVAS_WD,this.CANVAS_HT,null);
+
 		}
 		else{
-		
+
 			if (controller == null) throw new NullPointerException("Something fucked up");
 				g.drawImage(controller.getBoard().getImage(),0,0,null);
 				Player[] players = controller.getPlayers();
 				for (int i = 0; i < players.length; i++){
-					
+
 					Image img = players[i].getAvatar();
 					Tile tile = players[i].getLocation();
 					int x = TILE_WIDTH*tile.x + 4;
 					int y = TILE_WIDTH*tile.y + 4;
 					g.drawImage(img,x,y,null);
-					
-				
+
+
 			}
-			
-			
-			/*
-			 code for debugging: draws a grid of tiles over the board
-			
+
+
+
+
 			int numTilesAcross = Constants.TILES_ACROSS;
 			int numTilesDown = Constants.TILES_DOWN;
 			int tileWd = Constants.TILE_WIDTH;
 			g.setColor(Color.RED);
+			Board board = controller.getBoard();
 			for (int i = 0; i < numTilesAcross; i++){
-				for (int j = 0; j < numTilesDown+20; j++){
+				for (int j = 0; j < numTilesDown; j++){
+
+					Tile t = board.tileFromPosition(i,j);
+
 
 					int x1 = i*tileWd;
 					int y1 = j*tileWd;
 					if (i == 0 || i == numTilesAcross-1 || j == 0 || j == numTilesDown-1){
+
+						g.setColor(Color.BLACK);
 						g.fillRect(x1, y1, tileWd, tileWd);
 					}
 					else{
-						g.drawRect(x1, y1, tileWd, tileWd);
+
+						if (!t.passable()){
+							g.setColor(Color.GREEN);
+							g.fillRect(x1, y1, tileWd, tileWd);
+						}
+
+
 					}
 
 				}
 			}
-			*/
-			
-			
+
+
 		}
-		
-		
+		if(controller.getBoard() != null) {
+			if(controller.getBoard().getState() == "MOVING") {
+				g.setColor(Color.GREEN);
+				for(Tile t : controller.getBoard().getValidMoves()) {
+					g.drawRect(t.x*Constants.TILE_WIDTH,t.y*Constants.TILE_WIDTH, 25, 25);
+					g.drawRect(t.x*Constants.TILE_WIDTH,t.y*Constants.TILE_WIDTH, 24, 24);
+				}
+			}
+		}
 
 	}
+
+
 
 	@Override
 	public void mouseClicked(MouseEvent event) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent event) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent event) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -126,7 +155,7 @@ public class Canvas extends JPanel implements MouseListener{
 	@Override
 	public void mouseReleased(MouseEvent event) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }

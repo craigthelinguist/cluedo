@@ -1,18 +1,25 @@
 package game;
 
+import java.awt.Graphics;
 import java.awt.Image;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 
+import cards.Card;
+import cards.Person;
+import cards.Room;
+import cards.Weapon;
 import main.BoardParser;
 import main.Constants;
-
 import gui.GameFrame;
 
 
@@ -23,18 +30,19 @@ public class Board {
 	private final int TILES_DOWN = Constants.TILES_DOWN;
 	private final int TILE_WIDTH = Constants.TILE_WIDTH;
 	private final String FILEPATH = Constants.ASSETS;
-	
+
 	// immutable fields associated with this instance of a game
 	private final Tile[][] tiles;
 	private final Player[] players;
 	private final Image imageBoard;
-	
+	private final Suggestion solution;
+
 	// mutable fields associated with game state
 	private int currentPlayer;
 	private int moves; //how many squares they can move
 	private List<Tile> validMoves; //list of squares the player may move to
 	private State state;
-	
+
 	/**
 	 * State keeps track of which part of the player's turn is happening.
 	 *  - ROLLING: the player may roll dice or end turn.
@@ -46,7 +54,7 @@ public class Board {
 	private enum State{
 		ROLLING, MOVING, SUGGESTING, DONE
 	};
-	
+
 	public Board(Player[] players) throws IOException{
 		this.players = players;
 		tiles = BoardParser.readBoard("board.txt");
@@ -54,17 +62,53 @@ public class Board {
 		state = State.ROLLING;
 		currentPlayer = 0;
 		validMoves = new ArrayList<>();
-		
+
 		// set the starting position for each player
 		Tile[] spawnPoints = findSpawnPoints();
 		for (int i = 0; i < players.length; i++){
 			players[i].setLocation(spawnPoints[i]);
 		}
-		
-		// set starting player
+
+		// make cards and shuffle them
+		List<Card> cards = Constants.generateCards();
+		Collections.shuffle(cards);
+
+		// generate a winning combination (person who committed murder)
+		Room r = null; Weapon w = null; Person p = null;
+		for (int i = 0; i < cards.size(); i++){
+			Card card = cards.get(i);
+			if (card instanceof Room && r == null){
+				r = (Room)card;
+				cards.remove(i);
+				i--;
+			}
+			else if (card instanceof Weapon && w == null){
+				w = (Weapon)card;
+				cards.remove(i);
+				i--;
+			}
+			else if (card instanceof Person && p == null){
+				p = (Person)card;
+				cards.remove(i);
+				i--;
+			}
+			if (p != null && w != null && r != null) break; //finished
+		}
+		if (r == null || w == null || p == null) throw new IOException("Board failed to load the cards.");
+		solution = new Suggestion(r,p,w);
+		System.out.println(solution);
+
+		// deal cards among remaining players
+		int j = 0;
+		for (int i = 0; i < cards.size(); i++){
+			players[j].addCard(cards.get(i));
+			j = (j+1) % players.length;
+		}
+
+		// set starting conditions
 		currentPlayer = 0;
 	}
-	
+
 	/**
 	 * Find and return an array of tiles that are starting points. Only returns as
 	 * many tiles as there are players in the game.
@@ -83,7 +127,7 @@ public class Board {
 		}
 		return spawnPoints;
 	}
-	
+
 	/**
 	 * End the current player's turn. update the currentPlayer and the game state.
 	 */
@@ -93,39 +137,42 @@ public class Board {
 		validMoves = new ArrayList<>();
 		state = State.ROLLING;
 	}
-	
+
 	/**
 	 * Attempt to move the current player to the given Tile. If this move is
 	 * invalid, nothing will happen. Otherwise the player will be moved to
 	 * that tile and the game state will be updated.
 	 * @param goal: the tile the player is trying to move to.
 	 */
-	public void movePlayer(Tile goal){
-		if (state == State.ROLLING || moves == 0) return;
-		if (!validMoves.contains(goal)) return; // invalid move
+	public boolean movePlayer(Tile goal){
+		if (state == State.ROLLING || moves == 0) return false;
+		if (!validMoves.contains(goal)) return false; // invalid move
 		Tile oldPosition = players[currentPlayer].getLocation();
 		players[currentPlayer].setLocation(goal);
 		int distMoved = Math.abs((oldPosition.x + oldPosition.y) - (goal.x + goal.y));
 		moves -= distMoved;
 		validMoves = computeValidMoves();
 		if (moves == 0) state = State.SUGGESTING;
+		return true;
 	}
-	
+
 	/**
 	 * Roll dice and update the number of moves the player can make, and update the
 	 * game state.
 	 * @return: a pair of ints in an array, which represent the values rolled
-	 * with each dice.
+	 * with each dice. null if you are not able to roll.
 	 */
 	public int[] rollDice(){
 		if (state != State.ROLLING) return null;
 		int dice1 = (int)(Math.random()*5+1);
 		int dice2 = (int)(Math.random()*5+1);
 		moves = dice1+dice2;
+		System.out.println(moves); //testing output of dice
 		state = State.MOVING;
+		validMoves = computeValidMoves(); //testing
 		return new int[]{ dice1, dice2 };
 	}
-	
+
 	/**
 	 * From the given point (x,y) returns the appropriate Tile on this board.
 	 * @param x: x part of a point on the board.
@@ -141,7 +188,7 @@ public class Board {
 		int cellY = y / TILE_WIDTH;
 		return tiles[cellX][cellY];
 	}
-	
+
 	/**
 	 * Compute the list of tiles that the current player is allowed to move to,
 	 * given the current number of moves available to them. Does this using a
@@ -152,7 +199,7 @@ public class Board {
 		if (moves == 0) return new ArrayList<>();
 		List<Tile> validTiles = new ArrayList<>();
 		Tile start = players[currentPlayer].getLocation();
-		
+
 		// node that remembers each tile and its depth
 		class Node{
 			int depth;
@@ -166,22 +213,22 @@ public class Board {
 		// use queue to keep track of nodes for BFS
 		Queue<Node> queue = new ArrayDeque<>();
 		queue.offer(new Node(start,0));
+
 		while (!queue.isEmpty()){
 			Node node = queue.poll();
 			Tile tile = node.tile;
-			if (validTiles.contains(tile)) continue;
 			validTiles.add(tile);
 			int depth = node.depth;
 			if (depth == moves) continue;
-			
+
 			// get tiles adjacent to tile
 			Tile above, below, left, right;
 			above = below = left = right = null;
-			if (tile.y > 0) above = tiles[tile.x][tile.y-1];
-			if (tile.x > 0) left = tiles[tile.x-1][tile.y];
-			if (tile.y < tiles[0].length-1) below = tiles[tile.x][tile.y+1];
-			if (tile.y < tiles.length-1) right = tiles[tile.x][tile.y+1];
-			
+			if (tile.y > 0) above = tiles[tile.y][tile.x-1];
+			if (tile.x > 0) left = tiles[tile.y-1][tile.x];
+			if (tile.y < tiles[0].length-1) below = tiles[tile.y][tile.x+1];
+			if (tile.y < tiles.length-1) right = tiles[tile.y+1][tile.x];
+
 			// add adjacent tiles to queue
 			if (above != null && !validTiles.contains(above) && !queue.contains(above) && above.passable()){
 				queue.add(new Node(above,depth+1));
@@ -195,12 +242,16 @@ public class Board {
 			if (right != null && !validTiles.contains(right) && !queue.contains(right) && right.passable()){
 				queue.add(new Node(right,depth+1));
 			}
-			
+
 		}
-		
+
 		return validTiles;
 	}
-	
+
+	public Tile tileFromPosition(int x, int y){
+		return tiles[y][x];
+	}
+
 	/**
 	 * Return the image representing this board.
 	 * @return: a BufferedImage;
@@ -208,7 +259,7 @@ public class Board {
 	public Image getImage(){
 		return imageBoard;
 	}
-	
+
 	/**
 	 * Return the array of players in this game.
 	 * @return: an array.
@@ -216,7 +267,7 @@ public class Board {
 	public Player[] getPlayers(){
 		return players;
 	}
-	
+
 	/**
 	 * Return the player whose turn it currently is.
 	 * @return: a Player.
@@ -224,5 +275,21 @@ public class Board {
 	public Player getCurrentPlayer(){
 		return players[currentPlayer];
 	}
-	
+
+	/**
+	 * Return a representation of hte board state as a string.
+	 * @return: a string
+	 */
+	public String getState(){
+		return state.toString();
+	}
+
+	public List<Tile> getValidMoves() {
+		return validMoves;
+	}
+
+	public void setValidMoves(List<Tile> validMoves) {
+		this.validMoves = validMoves;
+	}
+
 }

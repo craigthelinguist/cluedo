@@ -27,18 +27,18 @@ public class NewGameDialog extends JDialog {
 	private JComboBox[] players = new JComboBox[NUM_PLAYERS];
 	private JComboBox[] characters = new JComboBox[NUM_PLAYERS];
 	private GameFrame controller;
-	
+
 	public NewGameDialog(GameFrame frame){
 
 		// set up for the dialog
 		super(frame,true); // prevents interaction with underlying JFrame
-		controller = frame;	
+		controller = frame;
 		this.setBounds(50, 50, 550, 450);
-		
+
 		/* button for starting the game */
 		JButton gameStarter = new JButton("Start Game");
 		gameStarter.addActionListener(new StartButtonListener());
-	
+
 		ComboBoxListener comboListener = new ComboBoxListener();
 
 		/* combo boxes for setting options */
@@ -54,8 +54,8 @@ public class NewGameDialog extends JDialog {
 			}
 			players[i].addActionListener(comboListener);
 		}
-		
-		
+
+
 
 		/* labels */
 		JLabel labelTitle = new JLabel("Welcome! Please set up a new game: ");
@@ -96,8 +96,8 @@ public class NewGameDialog extends JDialog {
 		vertical.addGroup(layout.createParallelGroup(Alignment.CENTER)
 			.addComponent(gameStarter)
 		);
-	
-		
+
+
 		/* Create first column */
 		ParallelGroup col1 = layout.createParallelGroup()
 			.addComponent(labelTitle)
@@ -118,7 +118,7 @@ public class NewGameDialog extends JDialog {
 		for (int i = 0; i < characters.length; i++){
 			col2.addComponent(characters[i]);
 		}
-		
+
 		/* Add button at end */
 		col1.addComponent(gameStarter);
 
@@ -143,7 +143,7 @@ public class NewGameDialog extends JDialog {
 
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			
+
 			// if the player is 'None' then grey-out the corresponding Character combobox
 			JComboBox<String> combo = (JComboBox<String>)(event.getSource());
 			for (int i = 0; i < 6; i++){
@@ -153,11 +153,11 @@ public class NewGameDialog extends JDialog {
 					return;
 				}
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	/**
 	 * When the player clicks the start button this listener will validate the parameters
 	 * they have entered. If they are bad, it will display an appropriate error message.
@@ -208,9 +208,9 @@ public class NewGameDialog extends JDialog {
 				int j = 0;
 				for (int i = 0; i < characters.length; i++){
 					if (players[i].getSelectedItem().equals("None")) continue;
-				
+
 					String name = (String) characters[i].getSelectedItem();
-				
+
 					switch(name){
 					case "Miss Scarlett":
 						playerArray[j++] = new Player(new Person("scarlett"));
@@ -248,7 +248,12 @@ public class NewGameDialog extends JDialog {
 
 	public static void main(String[] args){
 
-		new NewGameDialog(new GameFrame());
+		try {
+			new NewGameDialog(new GameFrame());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

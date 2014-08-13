@@ -13,7 +13,7 @@ public class TestsBoard {
 	/**
 	 * Roll 1000 pairs of dice. Check individual dice give a number in the range
 	 * [1,6].
-	 */
+
 	@Test
 	public void diceRoll_001() {
 		try {
@@ -31,5 +31,6 @@ public class TestsBoard {
 		}
 
 	}
+	*/
 
 }
