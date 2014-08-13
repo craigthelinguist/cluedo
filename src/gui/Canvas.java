@@ -104,8 +104,10 @@ public class Canvas extends JPanel implements MouseListener{
 		}
 		if(controller.getBoard() != null) {
 			if(controller.getBoard().getState() == "MOVING") {
+				g.setColor(Color.GREEN);
 				for(Tile t : controller.getBoard().getValidMoves()) {
-					g.drawRect(t.x,t.y, 25, 25);
+					g.drawRect(t.x*Constants.TILE_WIDTH,t.y*Constants.TILE_WIDTH, 25, 25);
+					g.drawRect(t.x*Constants.TILE_WIDTH,t.y*Constants.TILE_WIDTH, 24, 24);
 				}
 			}
 		}

@@ -165,7 +165,9 @@ public class Board {
 		int dice1 = (int)(Math.random()*5+1);
 		int dice2 = (int)(Math.random()*5+1);
 		moves = dice1+dice2;
+		System.out.println(moves); //testing output of dice
 		state = State.MOVING;
+		validMoves = computeValidMoves(); //testing
 		return new int[]{ dice1, dice2 };
 	}
 
