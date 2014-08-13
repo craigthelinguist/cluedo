@@ -81,28 +81,37 @@ public class Canvas extends JPanel implements MouseListener{
 
 
 
-				/**
-				 * debugging draws tile borders on screen
 
 			int numTilesAcross = Constants.TILES_ACROSS;
 			int numTilesDown = Constants.TILES_DOWN;
 			int tileWd = Constants.TILE_WIDTH;
 			g.setColor(Color.RED);
+			Board board = controller.getBoard();
 			for (int i = 0; i < numTilesAcross; i++){
-				for (int j = 0; j < numTilesDown+20; j++){
+				for (int j = 0; j < numTilesDown; j++){
+
+					Tile t = board.tileFromPosition(i,j);
+
 
 					int x1 = i*tileWd;
 					int y1 = j*tileWd;
 					if (i == 0 || i == numTilesAcross-1 || j == 0 || j == numTilesDown-1){
+
+						g.setColor(Color.BLACK);
 						g.fillRect(x1, y1, tileWd, tileWd);
 					}
 					else{
-						g.drawRect(x1, y1, tileWd, tileWd);
+
+						if (!t.passable()){
+							g.setColor(Color.GREEN);
+							g.fillRect(x1, y1, tileWd, tileWd);
+						}
+
+
 					}
 
 				}
 			}
-			*/
 
 
 		}

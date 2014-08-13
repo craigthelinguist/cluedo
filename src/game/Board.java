@@ -7,8 +7,10 @@ import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 
@@ -211,10 +213,10 @@ public class Board {
 		// use queue to keep track of nodes for BFS
 		Queue<Node> queue = new ArrayDeque<>();
 		queue.offer(new Node(start,0));
+
 		while (!queue.isEmpty()){
 			Node node = queue.poll();
 			Tile tile = node.tile;
-			if (validTiles.contains(tile)) continue;
 			validTiles.add(tile);
 			int depth = node.depth;
 			if (depth == moves) continue;
@@ -222,10 +224,10 @@ public class Board {
 			// get tiles adjacent to tile
 			Tile above, below, left, right;
 			above = below = left = right = null;
-			if (tile.y > 0) above = tiles[tile.x][tile.y-1];
-			if (tile.x > 0) left = tiles[tile.x-1][tile.y];
-			if (tile.y < tiles[0].length-1) below = tiles[tile.x][tile.y+1];
-			if (tile.y < tiles.length-1) right = tiles[tile.x][tile.y+1];
+			if (tile.y > 0) above = tiles[tile.y][tile.x-1];
+			if (tile.x > 0) left = tiles[tile.y-1][tile.x];
+			if (tile.y < tiles[0].length-1) below = tiles[tile.y][tile.x+1];
+			if (tile.y < tiles.length-1) right = tiles[tile.y+1][tile.x];
 
 			// add adjacent tiles to queue
 			if (above != null && !validTiles.contains(above) && !queue.contains(above) && above.passable()){
@@ -244,6 +246,10 @@ public class Board {
 		}
 
 		return validTiles;
+	}
+
+	public Tile tileFromPosition(int x, int y){
+		return tiles[y][x];
 	}
 
 	/**
