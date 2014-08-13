@@ -18,6 +18,14 @@ public class Player {
 	}
 
 	/**
+	 * Add a card to this player's hand.
+	 * @param c: a card.
+	 */
+	public void addCard(Card c){
+		cards.add(c);
+	}
+
+	/**
 	 * Return tile this player is standing on.
 	 * @return
 	 */

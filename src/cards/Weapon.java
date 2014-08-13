@@ -16,39 +16,39 @@ public class Weapon extends Token{
 	private final Type type;
 	private final Image imageCard;
 	private final Image imageToken;
-	
+
 	public Weapon(String name) throws IOException{
 		type = Type.valueOf(name);
 		switch (name){
 		case "Candlestick":
-			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_candlestick"));
-			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"token_candlestick"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_candlestick.png"));
+			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"token_candlestick.png"));
 			break;
 		case "Dagger":
-			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_dagger"));
-			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"token_dagger"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_dagger.png"));
+			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"token_dagger.png"));
 			break;
 		case "Pipe":
-			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_pipe"));
-			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"token_pipe"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_pipe.png"));
+			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"token_pipe.png"));
 			break;
 		case "Revolver":
-			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_revolver"));
-			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"token_revolver"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_revolver.png"));
+			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"token_revolver.png"));
 			break;
 		case "Rope":
-			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_rope"));
-			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"token_rope"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_rope.png"));
+			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"token_rope.png"));
 			break;
 		case "Spanner":
-			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_spanner"));
-			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"token_spanner"));
+			imageCard = ImageIO.read(new FileInputStream(FILEPATH+"card_spanner.png"));
+			imageToken = ImageIO.read(new FileInputStream(FILEPATH+"token_spanner.png"));
 			break;
 		default:
 			throw new IOException();
 		}
 	}
-	
+
 	@Override
 	public Image getTokenImage() {
 		return imageToken;

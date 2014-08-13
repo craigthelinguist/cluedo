@@ -67,22 +67,41 @@ public class Board {
 			players[i].setLocation(spawnPoints[i]);
 		}
 
-		// figure out winning hand
+		// make cards and shuffle them
 		List<Card> cards = Constants.generateCards();
 		Collections.shuffle(cards);
+
+		// generate a winning combination (person who committed murder)
 		Room r = null; Weapon w = null; Person p = null;
 		for (int i = 0; i < cards.size(); i++){
 			Card card = cards.get(i);
-			if (card instanceof Room && r != null) r = (Room)card;
-			else if (card instanceof Weapon && w != null) w = (Weapon)card;
-			else if (card instanceof Person && p != null) p = (Person)card;
+			if (card instanceof Room && r == null){
+				r = (Room)card;
+				cards.remove(i);
+				i--;
+			}
+			else if (card instanceof Weapon && w == null){
+				w = (Weapon)card;
+				cards.remove(i);
+				i--;
+			}
+			else if (card instanceof Person && p == null){
+				p = (Person)card;
+				cards.remove(i);
+				i--;
+			}
 			if (p != null && w != null && r != null) break; //finished
 		}
 		if (r == null || w == null || p == null) throw new IOException("Board failed to load the cards.");
 		solution = new Suggestion(r,p,w);
+		System.out.println(solution);
 
 		// deal cards among remaining players
-
+		int j = 0;
+		for (int i = 0; i < cards.size(); i++){
+			players[j].addCard(cards.get(i));
+			j = (j+1) % players.length;
+		}
 
 		// set starting conditions
 		currentPlayer = 0;
