@@ -18,10 +18,10 @@ public class Person extends Token{
 	private final Image imageCard;
 	private final Image imageToken;
 	private final Image imagePortrait;
-	
+
 	public Person(String name) throws IOException{
-		
-		
+
+
 		type = Type.valueOf(name);
 		switch (name){
 		case "mustard":
@@ -58,7 +58,7 @@ public class Person extends Token{
 			throw new IllegalArgumentException();
 		}
 	}
-	
+
 	@Override
 	public Image getTokenImage() {
 		return imageToken;
@@ -68,13 +68,13 @@ public class Person extends Token{
 	public Image getCardImage() {
 		return imageCard;
 	}
-	
+
 	public Image getPortraitImage(){
 		return imagePortrait;
 	}
-	
+
 	public String toString(){
-		
+
 		switch(type){
 		case mustard:
 			return "Col. Mustard";
@@ -90,8 +90,8 @@ public class Person extends Token{
 			return "Mrs. White";
 		}
 		throw new IllegalArgumentException("Getting string of a Person with an invalid type.");
-		
+
 	}
 
-	
+
 }

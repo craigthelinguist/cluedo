@@ -1,5 +1,7 @@
 package gui;
 
+import game.Suggestion;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -7,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
@@ -14,11 +17,18 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
 
+import cards.Person;
+import cards.Room;
+import cards.Weapon;
+
 public class SuggestionDialog extends JDialog implements ActionListener{
+
+	private GameFrame controller;
 
 	private final JPanel optionsPanel = new JPanel();
 	JButton suggestButton;
@@ -34,8 +44,8 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 	String selectionCharacter;
 	String selectionWeapon;
 
-	public SuggestionDialog() {
-
+	public SuggestionDialog(GameFrame frame) {
+		this.controller = frame;
 		setResizable(false);
 		setBounds(0, 0, 450, 340);
 		getContentPane().setLayout(new BorderLayout());
@@ -294,27 +304,36 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource().equals(suggestButton)) {
+		try{
+			if(e.getSource().equals(suggestButton)) {
+				/*3 strings to store which one is selected */
+				String currentRoom = getSelection(buttonGroupRooms);
+				String currentCharacter = getSelection(buttonGroupCharacters);
+				String currentWeapon = getSelection(buttonGroupWeapons);
 
-			/*3 strings to store which one is selected */
-			String currentRoom = "";
-			String currentCharacter = "";
-			String currentWeapon = "";
+				if (currentRoom == null || currentCharacter == null || currentWeapon == null){
+					JOptionPane.showMessageDialog(null, "Select one of each", "Select All Three",JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}
 
-			currentRoom = getSelection(buttonGroupRooms);
-			currentCharacter = getSelection(buttonGroupCharacters);
-			currentWeapon = getSelection(buttonGroupWeapons);
 
-			selectionRoom = getSelectedRoom(currentRoom);
-			selectionCharacter = getSelectedCharacter(currentCharacter);
-			selectionWeapon = getSelectedWeapon(currentWeapon);
+				Room selectionRoom = new Room(getSelectedRoom(currentRoom));
+				Person selectionCharacter = new Person (getSelectedCharacter(currentCharacter));
+				Weapon selectionWeapon = new Weapon (getSelectedWeapon(currentWeapon));
+				controller.makeSuggestion(new Suggestion(selectionRoom, selectionCharacter, selectionWeapon));
 
-			System.out.println(selectionRoom);
-			System.out.println(selectionCharacter);
-			System.out.println(selectionWeapon);
-	     }
-		if(e.getSource().equals(cancelButton)) {
-			dispose();
+
+				/*testing outputs*/
+				System.out.println(selectionRoom);
+				System.out.println(selectionCharacter);
+				System.out.println(selectionWeapon);
+			}
+			if(e.getSource().equals(cancelButton)) {
+				dispose();
+			}
+		}
+		catch (IOException e1) {
+			JOptionPane.showMessageDialog(this, "Error loading Card while making suggestion! " + e1);
 		}
 	}
 
@@ -411,14 +430,10 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 		return null;
 	}
 
-
-
-
-
 	/*for testing the dialog*/
 	public static void main(String[] args) {
 		try {
-			SuggestionDialog dialog = new SuggestionDialog();
+			SuggestionDialog dialog = new SuggestionDialog(new GameFrame());
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {

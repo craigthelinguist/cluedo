@@ -27,4 +27,16 @@ public class Suggestion {
 		return room==acc.room && person==acc.person && weapon==acc.weapon;
 	}
 
+	public Room getRoom() {
+		return room;
+	}
+
+	public Person getPerson() {
+		return person;
+	}
+
+	public Weapon getWeapon() {
+		return weapon;
+	}
+
 }

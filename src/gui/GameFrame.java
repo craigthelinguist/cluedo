@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import game.Board;
 import game.Player;
+import game.Suggestion;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -102,8 +103,9 @@ public class GameFrame extends JFrame {
 		}
 		else if (button.equals("Suggestion")){
 			/*makes the suggestion dialog appear*/
-			SuggestionDialog sd = new SuggestionDialog();
+			SuggestionDialog sd = new SuggestionDialog(this);
 			sd.setVisible(true);
+
 	        //sd.setBounds(400,0,400,400);
 		}
 
@@ -194,6 +196,14 @@ public class GameFrame extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public void makeSuggestion(Suggestion suggestion) {
+		// TODO Auto-generated method stub
+		/**atm this only creates suggestion, later on make it check to see if it's the right one etc
+		 *
+		 */
+		Suggestion suggest = new Suggestion(suggestion.getRoom(), suggestion.getPerson(), suggestion.getWeapon());
 	}
 
 }
