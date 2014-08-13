@@ -39,9 +39,8 @@ public class GamePanel extends JPanel implements ActionListener {
 	// constants
 	private final int PANEL_WIDTH = Constants.TILES_ACROSS*Constants.TILE_WIDTH;
 	private final int PANEL_HEIGHT = 150;
-	private final int CARD_SEP = 5;
-	private final int CARD_WIDTH = 60;
-	private final int CARD_HEIGHT = 100;
+	private final int CARD_SEP = 6;
+
 	private final String FILEPATH = Constants.ASSETS;
 
 	// controller
@@ -207,6 +206,39 @@ public class GamePanel extends JPanel implements ActionListener {
 			protected void paintComponent(Graphics g){
 
 
+
+				// draw cards in current player's hand
+				if (controller.playingGame()){
+
+					//g.setColor(Color.LIGHT_GRAY);
+					//g.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+					Player player = controller.getCurrentPlayer();
+					Image[] images = player.getCardImages();
+
+					int numCards = images.length;
+					int totalWidth = numCards*Constants.CARD_WIDTH + (numCards+1)*CARD_SEP;
+					int residual = this.getWidth() - totalWidth;
+					int offSet = residual/2;
+					int xStart = offSet;
+					int offSetDown = ((GamePanel.this.PANEL_HEIGHT) - (Constants.CARD_HEIGHT))/2;
+
+					for (int i = 0; i < images.length; i++){
+
+						int x = xStart + i*Constants.CARD_WIDTH + (i+1)*CARD_SEP;
+						int y = offSetDown;
+						g.drawImage(images[i],x,y,null);
+						g.setColor(Color.BLACK);
+						g.drawRect(x,y,Constants.CARD_WIDTH,Constants.CARD_HEIGHT);
+
+					}
+				}
+
+
+
+				/*
+				}
+
 				g.setColor(Color.LIGHT_GRAY);
 				g.fillRect(0, 0, cards.getWidth(), 150);
 
@@ -217,7 +249,7 @@ public class GamePanel extends JPanel implements ActionListener {
 					int y = 0;
 					g.drawRect(x, y, CARD_WIDTH, CARD_HEIGHT);
 				}
-
+*/
 
 
 			}

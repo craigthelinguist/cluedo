@@ -20,6 +20,8 @@ public class Constants {
 	public static final int TILES_ACROSS = 26;
 	public static final int TILES_DOWN = 27;
 	public static final int TILE_WIDTH = 25;
+	public static final int CARD_WIDTH = 68;
+	public static final int CARD_HEIGHT = 100;
 
 	public static List<Card> generateCards() throws IOException{
 

@@ -80,6 +80,9 @@ public class Canvas extends JPanel implements MouseListener{
 
 
 
+				/**
+				 * debugging draws tile borders on screen
+
 			int numTilesAcross = Constants.TILES_ACROSS;
 			int numTilesDown = Constants.TILES_DOWN;
 			int tileWd = Constants.TILE_WIDTH;
@@ -98,6 +101,7 @@ public class Canvas extends JPanel implements MouseListener{
 
 				}
 			}
+			*/
 
 
 		}
