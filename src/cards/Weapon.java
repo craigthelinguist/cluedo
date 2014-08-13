@@ -16,7 +16,7 @@ public class Weapon extends Token{
 	private final Type type;
 	private final Image imageCard;
 	private final Image imageToken;
-	
+
 	public Weapon(String name) throws IOException{
 		type = Type.valueOf(name);
 		switch (name){
@@ -48,7 +48,7 @@ public class Weapon extends Token{
 			throw new IOException();
 		}
 	}
-	
+
 	@Override
 	public Image getTokenImage() {
 		return imageToken;
