@@ -200,7 +200,10 @@ public class GameFrame extends JFrame {
 
 	public void makeSuggestion(Suggestion suggestion) {
 		// TODO Auto-generated method stub
-
+		/**atm this only creates suggestion, later on make it check to see if it's the right one etc
+		 *
+		 */
+		Suggestion suggest = new Suggestion(suggestion.getRoom(), suggestion.getPerson(), suggestion.getWeapon());
 	}
 
 }

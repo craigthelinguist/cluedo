@@ -40,8 +40,6 @@ public class Player {
 		return avatar.getPortraitImage();
 	}
 
-	private void
-
 	public void setLocation(Tile tile){
 		location = tile;
 	}
