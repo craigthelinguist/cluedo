@@ -4,7 +4,7 @@ import cards.Room;
 import cards.Token;
 
 public class Tile {
-	
+
 	/**
 	 * Signifies the 'type' of this tile - that is whether players can move onto this tile, or
 	 * whether it is a secret passage.
@@ -29,19 +29,19 @@ public class Tile {
 		this.y = y;
 		terrain = t;
 	}
-	
+
 	public static Tile makePassableTile(int x, int y){
 		return new Tile(x,y,Terrain.PASSABLE);
 	}
-	
+
 	public static Tile makeImpassableTile(int x, int y){
 		return new Tile(x,y,Terrain.IMPASSABLE);
 	}
-	
+
 	public static Tile makeSpawnPointTile(int x, int y){
 		return new Tile(x,y,Terrain.SPAWN);
 	}
-	
+
 	/**
 	 * Check if tile is passable.
 	 * @return: true if the tile is passable; false otherwise.
@@ -49,7 +49,7 @@ public class Tile {
 	public boolean passable(){
 		return terrain != Terrain.IMPASSABLE;
 	}
-	
+
 	/**
 	 * Check if tile is a spawn point.
 	 * @returnL true if tile is spawn point; false otherwise.
@@ -57,9 +57,9 @@ public class Tile {
 	public boolean isSpawnPoint(){
 		return terrain == Terrain.SPAWN;
 	}
-	
+
 	public String toString(){
 		return "("+x+","+y+")";
 	}
-	
+
 }

@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Graphics;
 import java.awt.Image;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -254,6 +255,14 @@ public class Board {
 	 */
 	public String getState(){
 		return state.toString();
+	}
+
+	public List<Tile> getValidMoves() {
+		return validMoves;
+	}
+
+	public void setValidMoves(List<Tile> validMoves) {
+		this.validMoves = validMoves;
 	}
 
 }

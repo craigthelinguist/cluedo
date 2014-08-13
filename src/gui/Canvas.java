@@ -13,6 +13,7 @@ import java.awt.event.MouseListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -101,10 +102,17 @@ public class Canvas extends JPanel implements MouseListener{
 
 
 		}
-
-
+		if(controller.getBoard() != null) {
+			if(controller.getBoard().getState() == "MOVING") {
+				for(Tile t : controller.getBoard().getValidMoves()) {
+					g.drawRect(t.x,t.y, 25, 25);
+				}
+			}
+		}
 
 	}
+
+
 
 	@Override
 	public void mouseClicked(MouseEvent event) {

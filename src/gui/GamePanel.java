@@ -39,9 +39,9 @@ public class GamePanel extends JPanel implements ActionListener {
 	// constants
 	private final int PANEL_WIDTH = Constants.TILES_ACROSS*Constants.TILE_WIDTH;
 	private final int PANEL_HEIGHT = 150;
-	private final int CARD_SEP = 5;
-	private final int CARD_WIDTH = 60;
-	private final int CARD_HEIGHT = 100;
+	private final int CARD_SEP = 6;
+	private final int CARD_WIDTH = 68;
+	private final int CARD_HEIGHT = 105;
 	private final String FILEPATH = Constants.ASSETS;
 
 	// controller
@@ -210,11 +210,14 @@ public class GamePanel extends JPanel implements ActionListener {
 				g.setColor(Color.LIGHT_GRAY);
 				g.fillRect(0, 0, cards.getWidth(), 150);
 
+				int offsetDown = ((GamePanel.this.PANEL_HEIGHT) - (GamePanel.this.CARD_HEIGHT))/2;
+
+
 
 				g.setColor(Color.BLACK);
 				for (int i = 0; i < 6; i++){
-					int x = i*CARD_WIDTH + i*CARD_SEP;
-					int y = 0;
+					int x = i*CARD_WIDTH + (i+1)*CARD_SEP;
+					int y = offsetDown;
 					g.drawRect(x, y, CARD_WIDTH, CARD_HEIGHT);
 				}
 
