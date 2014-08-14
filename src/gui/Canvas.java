@@ -89,30 +89,21 @@ public class Canvas extends JPanel implements MouseListener{
 			Board board = controller.getBoard();
 			for (int i = 0; i < numTilesAcross; i++){
 				for (int j = 0; j < numTilesDown; j++){
-
 					Tile t = board.tileFromPosition(i,j);
-
-
 					int x1 = i*tileWd;
 					int y1 = j*tileWd;
 					if (i == 0 || i == numTilesAcross-1 || j == 0 || j == numTilesDown-1){
-
 						g.setColor(Color.BLACK);
 						g.fillRect(x1, y1, tileWd, tileWd);
 					}
 					else{
-
 						if (!t.passable()){
-							g.setColor(Color.GREEN);
-							g.fillRect(x1, y1, tileWd, tileWd);
+							//g.setColor(Color.GREEN);
+							//g.fillRect(x1, y1, tileWd, tileWd);
 						}
-
-
 					}
-
 				}
 			}
-
 
 		}
 		if(controller.getBoard() != null) {
@@ -124,7 +115,6 @@ public class Canvas extends JPanel implements MouseListener{
 				}
 			}
 		}
-
 	}
 
 
