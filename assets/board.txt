@@ -1,4 +1,4 @@
-26 27 pass/impass north east south west 
+26 27
 
 //row 0
 0 0 impassable

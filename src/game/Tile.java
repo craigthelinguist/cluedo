@@ -23,35 +23,33 @@ public class Tile {
 	private Token occupant; // person on this tile
 	public final int x;
 	public final int y;
-	public final boolean canGoNorth;
-	public final  boolean canGoEast;
-	public final boolean canGoSouth;
-	public final boolean canGoWest;
+	public final Tile north;
+	public final Tile east;
+	public final Tile south;
+	public final Tile west;
 	
-
-	private Tile(int x, int y, Terrain t, boolean goNorth, boolean goEast, boolean goSouth, boolean goWest){
+	private Tile(int x, int y, Terrain t, Tile[] neighbours){
 		this.x = x;
 		this.y = y;
 		terrain = t;
-		this.canGoNorth = goNorth;
-		this.canGoEast = goEast;
-		this.canGoSouth = goSouth;
-		this.canGoWest = goWest;
-		
+		north = neighbours[0];
+		east = neighbours[1];
+		south = neighbours[2];
+		west = neighbours[3];
 	}
 
-	public static Tile makePassableTile(int x, int y, boolean goNorth, boolean goEast, boolean goSouth, boolean goWest){
-		return new Tile(x,y,Terrain.PASSABLE, goNorth, goEast, goSouth, goWest);
+	public static Tile makePassableTile(int x, int y, Tile[] neighbours){
+		return new Tile(x,y,Terrain.PASSABLE,neighbours);
 	}
-
-	public static Tile makeImpassableTile(int x, int y, boolean goNorth, boolean goEast, boolean goSouth, boolean goWest){
-		return new Tile(x,y,Terrain.IMPASSABLE, goNorth, goEast, goSouth, goWest);
+	
+	public static Tile makeSpawnTile(int x, int y, Tile[] neighbours){
+		return new Tile(x,y,Terrain.SPAWN,neighbours);
 	}
-
-	public static Tile makeSpawnPointTile(int x, int y , boolean goNorth, boolean goEast, boolean goSouth, boolean goWest){
-		return new Tile(x,y,Terrain.SPAWN,  goNorth, goEast, goSouth, goWest);
+	
+	public static Tile makeImpassableTile(int x, int y){
+		return new Tile(x,y,Terrain.IMPASSABLE,new Tile[4]);
 	}
-
+	
 	/**
 	 * Check if tile is passable.
 	 * @return: true if the tile is passable; false otherwise.
@@ -70,22 +68,6 @@ public class Tile {
 
 	public String toString(){
 		return "("+x+","+y+")";
-	}
-
-	public boolean isCanGoNorth() {
-		return canGoNorth;
-	}
-
-	public boolean isCanGoEast() {
-		return canGoEast;
-	}
-
-	public boolean isCanGoSouth() {
-		return canGoSouth;
-	}
-
-	public boolean isCanGoWest() {
-		return canGoWest;
 	}
 
 }
