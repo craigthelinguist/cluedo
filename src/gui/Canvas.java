@@ -8,12 +8,17 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Stack;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -66,7 +71,52 @@ public class Canvas extends JPanel implements MouseListener{
 		else{
 
 			if (controller == null) throw new NullPointerException("Something fucked up");
-				g.drawImage(controller.getBoard().getImage(),0,0,null);
+			BufferedImage image = (BufferedImage)controller.getBoard().getImage();
+			
+			// paint each valid tile
+			Set<Tile> tiles = controller.getBoard().getValidMoves();
+			for (Tile tile : tiles){
+			
+				int row = tile.y;
+				int col = tile.x;
+				System.out.println("Row " + row + ", Col " + col);
+				int startX = col*Constants.TILE_WIDTH + Constants.TILE_WIDTH/2;
+				int startY = row*Constants.TILE_WIDTH + Constants.TILE_WIDTH/2;
+				Set<Point> visited = new HashSet<>();
+				Stack<Point> toVisit = new Stack<>();
+				toVisit.push(new Point(startX,startY));
+				int regular = image.getRGB(startX,startY);
+				int white = (255 << 16) | (255 << 8) | 255;
+				
+				// recurse from here, colouring everything that is the same as regular
+				while (!toVisit.isEmpty()){
+					
+					Point p = toVisit.pop();
+					if (visited.contains(p)) continue;
+					else visited.add(p);
+					int pixel = image.getRGB(p.x,p.y);
+					if (pixel != regular) continue;
+					else image.setRGB(p.x,p.y,white);
+					
+					// add surrounding pixels
+					Point north = new Point(p.x,p.y-1);
+					Point south = new Point(p.x,p.y+1);
+					Point west = new Point(p.x-1,p.y);
+					Point east = new Point(p.x+1,p.y);
+					if (!visited.contains(north)) toVisit.add(north);
+					if (!visited.contains(south)) toVisit.add(south);
+					if (!visited.contains(west)) toVisit.add(west);
+					if (!visited.contains(east)) toVisit.add(east);
+					
+					
+				}
+				
+				
+				
+			}
+			
+			
+				g.drawImage(image,0,0,null);
 				Player[] players = controller.getPlayers();
 				for (int i = 0; i < players.length; i++){
 
@@ -80,14 +130,7 @@ public class Canvas extends JPanel implements MouseListener{
 			}
 		}
 		if(controller.getBoard() != null) {
-			
-			if(controller.getBoard().getState() == "MOVING") {
-				g.setColor(Color.GREEN);
-				for(Tile t : controller.getBoard().getValidMoves()) {
-					g.drawRect(t.x*Constants.TILE_WIDTH,t.y*Constants.TILE_WIDTH, 25, 25);
-					g.drawRect(t.x*Constants.TILE_WIDTH,t.y*Constants.TILE_WIDTH, 24, 24);
-				}
-			}
+	
 			
 			/**
 			 * debugging code: draws tiles and their adjacencies
@@ -136,9 +179,7 @@ public class Canvas extends JPanel implements MouseListener{
 		
 		
 	}
-
-
-
+	
 	@Override
 	public void mouseClicked(MouseEvent event) {
 		// TODO Auto-generated method stub

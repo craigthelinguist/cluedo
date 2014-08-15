@@ -2,6 +2,9 @@ package game;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayDeque;
@@ -34,7 +37,7 @@ public class Board {
 	// immutable fields associated with this instance of a game
 	public final Tile[][] tiles;
 	private final Player[] players;
-	private final Image imageBoard;
+	private final BufferedImage imageBoard;
 	private final Suggestion solution;
 
 	// mutable fields associated with game state
@@ -249,7 +252,8 @@ public class Board {
 			}
 			
 		}
-
+		
+		validTiles.remove(start); // tile you're standing on
 		return validTiles;
 	}
 
@@ -258,11 +262,14 @@ public class Board {
 	}
 
 	/**
-	 * Return the image representing this board.
+	 * Return a clone of the image representing this board.
 	 * @return: a BufferedImage;
 	 */
-	public Image getImage(){
-		return imageBoard;
+	public BufferedImage getImage(){
+		ColorModel model = imageBoard.getColorModel();
+		boolean alpha = model.isAlphaPremultiplied();
+		WritableRaster raster = imageBoard.copyData(null);
+		return new BufferedImage(model, raster, alpha, null);
 	}
 
 	/**
