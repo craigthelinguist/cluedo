@@ -1,4 +1,4 @@
-26 27
+// row column passable/impassable north east south west
 
 //row 0
 0 0 impassable
@@ -250,10 +250,10 @@
 8 22 t t f t
 8 23 t f f t
 8 24 impassable
-8 25 impassble
+8 25 impassable
 
 //row 9
-9 0 impassalbe
+9 0 impassable
 9 1 impassable
 9 2 t t f f
 9 3 t t f t

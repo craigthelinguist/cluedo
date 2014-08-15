@@ -26,38 +26,60 @@ public class BoardParser {
 	
 	// cannot instantiate BoardParser
 	private BoardParser(){}
-
+	
 	public static Tile[][] readBoard(final String FILENAME)
-	throws FileNotFoundException, IOException{
+	throws FileNotFoundException, IOException, IllegalArgumentException{
 		
 		Scanner scan = null;
 		Tile tiles[][] = null;
 		
 		try{
-			String FILEPATH = Constants.ASSETS;
-			int TILES_ACROSS = Constants.TILES_ACROSS;
-			int TILES_DOWN = Constants.TILES_DOWN;
-			tiles = new Tile[TILES_DOWN][TILES_ACROSS];
-			String boardTokens = "X@#.";
-		
+			final String FILEPATH = Constants.ASSETS;
 			scan = new Scanner(new File(FILEPATH + FILENAME));
+			int tilesDown = Constants.TILES_DOWN;
+			int tilesAcross = Constants.TILES_ACROSS;
+			tiles = new Tile[tilesDown][tilesAcross];
 			String line = null;
-		
-			while (true){
+			
+			int numTilesToScan = tilesAcross*tilesDown;
+			int tilesScanned = 0;
+			while (tilesScanned < numTilesToScan){
+				
 				line = scan.nextLine().trim();
 				if (line.isEmpty()) continue; // empty line
-				if (boardTokens.contains(""+line.charAt(0))) break;
-			}
-
-			for (int i = 0; i < TILES_DOWN; i++){
-		
-				char[] array = line.toCharArray();
-				if (array.length != TILES_ACROSS) throw new IOException("Bad board dimensions");
-				for (int j = 0; j < TILES_ACROSS; j++){
-					tiles[i][j] = readTile(array[j],i,j);
+				else if (line.startsWith("//")) continue; //comment
+				else{
+					
+					String[] array = line.split(" ");
+					int row = Integer.parseInt(array[0]);
+					int col = Integer.parseInt(array[1]);
+					
+					
+					try{
+						if (array[2].equalsIgnoreCase("impassable")){
+							tiles[row][col] = Tile.makeImpassableTile(col,row);
+						}
+						else if (array[2].equalsIgnoreCase("portal")){
+							boolean[] neighbours = scanNeighbours(array,3);
+							tiles[row][col] = Tile.makeSpawnTile(col,row,neighbours);
+						}
+						else if (array[2].equalsIgnoreCase("passage")){
+							throw new UnsupportedOperationException("secret passages don't work yet");
+						}
+						else{
+							boolean[] neighbours = scanNeighbours(array,2);
+							tiles[row][col] = Tile.makePassableTile(col, row, neighbours);
+						}
+					}
+					catch(IllegalArgumentException e){
+						throw new IllegalArgumentException("Done goofed on row " + row + " and col " + col);
+					}
+					
+					tilesScanned++;
+				
+					
 				}
-				if (i < TILES_DOWN-1) line = scan.nextLine();
-			
+				
 			}
 			
 		}
@@ -67,29 +89,24 @@ public class BoardParser {
 		finally{
 			scan.close();
 		}
-		
+
 		return tiles;
 		
 	}
-	
-	/**
-	 * Returns a Tile from the given character.
-	 * @param c
-	 */
-	private static Tile readTile(char c, int y, int x) throws IOException{
-		switch(c){
-		case 'X':
-			return Tile.makeImpassableTile(x, y);
-		case '#':
-			return Tile.makeImpassableTile(x, y);
-		case '@':
-			// should return a passage
-			return Tile.makeSpawnPointTile(x, y);
-		case '.':
-			return Tile.makePassableTile(x, y);
-		default:
-			throw new IOException("Bad character");
+
+	private static boolean[] scanNeighbours(String[] array, int index) throws IllegalArgumentException{
+
+		for (int i = index; i < index+4; i++){
+			if (! (array[i].equals("t") || array[i].equals("f")) ) throw new IllegalArgumentException();
 		}
+		
+		boolean north = array[2].equals('t');
+		boolean east = array[3].equals('t');
+		boolean south = array[4].equals('t');
+		boolean west = array[5].equals('t');
+		boolean[] bools = new boolean[]{ north, east, south, west };
+		return bools;
+		
 	}
 	
 	public static void main(String[] args){
@@ -98,7 +115,7 @@ public class BoardParser {
 			BoardParser.readBoard("board.txt");
 		}
 		catch(Exception e){
-			System.out.println("Error:" + e);
+			System.out.println("Done goofed: " + e);
 		}
 		
 	}

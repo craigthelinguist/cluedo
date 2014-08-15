@@ -17,37 +17,43 @@ public class Tile {
 	}
 
 	// fields
-	private Token token;
-	private Room room;
-	private Terrain terrain;
+	private Room room; // room this tile is in
 	private Token occupant; // person on this tile
+	private Terrain terrain;
 	public final int x;
 	public final int y;
-	public final Tile north;
-	public final Tile east;
-	public final Tile south;
-	public final Tile west;
+	public final boolean NORTH;
+	public final boolean EAST;
+	public final boolean SOUTH;
+	public final boolean WEST;
 	
-	private Tile(int x, int y, Terrain t, Tile[] neighbours){
+	private final Tile passage;
+	
+	private Tile(int x, int y, Terrain t, boolean[] neighbours, Tile secretPassage){
 		this.x = x;
 		this.y = y;
 		terrain = t;
-		north = neighbours[0];
-		east = neighbours[1];
-		south = neighbours[2];
-		west = neighbours[3];
+		NORTH = neighbours[0];
+		EAST = neighbours[1];
+		SOUTH = neighbours[2];
+		WEST = neighbours[3];
+		passage = secretPassage;
 	}
 
-	public static Tile makePassableTile(int x, int y, Tile[] neighbours){
-		return new Tile(x,y,Terrain.PASSABLE,neighbours);
+	public static Tile makePassableTile(int x, int y, boolean[] neighbours){
+		return new Tile(x,y,Terrain.PASSABLE,neighbours,null);
 	}
 	
-	public static Tile makeSpawnTile(int x, int y, Tile[] neighbours){
-		return new Tile(x,y,Terrain.SPAWN,neighbours);
+	public static Tile makeSpawnTile(int x, int y, boolean[] neighbours){
+		return new Tile(x,y,Terrain.SPAWN,neighbours,null);
 	}
 	
 	public static Tile makeImpassableTile(int x, int y){
-		return new Tile(x,y,Terrain.IMPASSABLE,new Tile[4]);
+		return new Tile(x,y,Terrain.IMPASSABLE,new boolean[4],null);
+	}
+	
+	public static Tile makeSecretPassageTile(int x, int y, boolean[] neighbours, Tile passage){
+		return new Tile(x,y,Terrain.PASSABLE,neighbours,passage);
 	}
 	
 	/**
