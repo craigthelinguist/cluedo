@@ -22,14 +22,16 @@ public class Tile {
 	private Terrain terrain;
 	public final int x;
 	public final int y;
+
 	public final boolean NORTH;
 	public final boolean EAST;
 	public final boolean SOUTH;
 	public final boolean WEST;
-	
+
 	private final Tile passage;
 	
 	private Tile(int x, int y, Terrain t, boolean[] neighbours, Tile secretPassage){
+
 		this.x = x;
 		this.y = y;
 		terrain = t;
@@ -38,11 +40,15 @@ public class Tile {
 		SOUTH = neighbours[2];
 		WEST = neighbours[3];
 		passage = secretPassage;
+
 	}
+
 
 	public static Tile makePassableTile(int x, int y, boolean[] neighbours){
 		return new Tile(x,y,Terrain.PASSABLE,neighbours,null);
 	}
+	
+
 	
 	public static Tile makeSpawnTile(int x, int y, boolean[] neighbours){
 		return new Tile(x,y,Terrain.SPAWN,neighbours,null);
@@ -51,7 +57,8 @@ public class Tile {
 	public static Tile makeImpassableTile(int x, int y){
 		return new Tile(x,y,Terrain.IMPASSABLE,new boolean[4],null);
 	}
-	
+
+
 	public static Tile makeSecretPassageTile(int x, int y, boolean[] neighbours, Tile passage){
 		return new Tile(x,y,Terrain.PASSABLE,neighbours,passage);
 	}
@@ -131,6 +138,22 @@ public class Tile {
 	
 	public String toString(){
 		return "Row: " + y + ", Col: " + x;
+	}
+
+	public boolean isCanGoNorth() {
+		return canGoNorth;
+	}
+
+	public boolean isCanGoEast() {
+		return canGoEast;
+	}
+
+	public boolean isCanGoSouth() {
+		return canGoSouth;
+	}
+
+	public boolean isCanGoWest() {
+		return canGoWest;
 	}
 
 }
