@@ -9,6 +9,7 @@ import java.io.IOException;
 import game.Board;
 import game.Player;
 import game.Suggestion;
+import game.Tile;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -85,6 +86,8 @@ public class GameFrame extends JFrame {
 	 */
 	public void mousePressed(int x, int y){
 		System.out.println(board.tileFromCoordinates(x, y));
+		Tile tile = board.tileFromCoordinates(x, y);
+		if (board.movePlayer(tile)) updateGUI();
 	}
 
 	/**
@@ -99,7 +102,6 @@ public class GameFrame extends JFrame {
 		}
 		else if (button.equals("Roll Dice")){
 			int[] array = getBoard().rollDice();
-			if (array != null) enableButtonsForState("Roll Dice");
 		}
 		else if (button.equals("Suggestion")){
 			/*makes the suggestion dialog appear*/
@@ -108,10 +110,7 @@ public class GameFrame extends JFrame {
 
 	        //sd.setBounds(400,0,400,400);
 		}
-
-		enableButtonsForState(board.getState());
-		this.repaint();
-
+		updateGUI();
 	}
 
 	/**
@@ -150,35 +149,39 @@ public class GameFrame extends JFrame {
 	}
 
 	/**
-	 * Enables and disables buttons depending on the name of the state the player is in.
+	 * Updates the GUI to display relevant information depending on the given state of play.
 	 * @param state
 	 */
-	private void enableButtonsForState(String state){
+	private void updateGUI(){
 
+		String state = board.getState();
 		switch(state){
 
 		case "ROLLING":
 			gamePanel.setButtonEnabled("Accuse",false);
 			gamePanel.setButtonEnabled("Suggest",false);
 			gamePanel.setButtonEnabled("Roll Dice",true);
-			return;
+			break;
 		case "MOVING":
 			gamePanel.setButtonEnabled("Accuse", true);
 			gamePanel.setButtonEnabled("Suggest",true);
 			gamePanel.setButtonEnabled("Roll Dice",false);
-			return;
+			break;
 		case "SUGGESTING":
 			gamePanel.setButtonEnabled("Accuse", true);
 			gamePanel.setButtonEnabled("Suggest",true);
 			gamePanel.setButtonEnabled("Roll Dice",false);
-			return;
+			break;
 		case "DONE":
 			gamePanel.setButtonEnabled("Accuse", false);
 			gamePanel.setButtonEnabled("Suggest",false);
 			gamePanel.setButtonEnabled("Roll Dice", false);
-			return;
+			break;
 		}
 
+		gamePanel.setMovesRemaining(board.getMovesLeft());
+		repaint();
+		
 	}
 
 	/**

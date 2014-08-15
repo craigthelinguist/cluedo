@@ -78,33 +78,6 @@ public class Canvas extends JPanel implements MouseListener{
 
 
 			}
-
-
-
-
-			int numTilesAcross = Constants.TILES_ACROSS;
-			int numTilesDown = Constants.TILES_DOWN;
-			int tileWd = Constants.TILE_WIDTH;
-			g.setColor(Color.RED);
-			Board board = controller.getBoard();
-			for (int i = 0; i < numTilesAcross; i++){
-				for (int j = 0; j < numTilesDown; j++){
-					Tile t = board.tileFromPosition(i,j);
-					int x1 = i*tileWd;
-					int y1 = j*tileWd;
-					if (i == 0 || i == numTilesAcross-1 || j == 0 || j == numTilesDown-1){
-						g.setColor(Color.BLACK);
-						g.fillRect(x1, y1, tileWd, tileWd);
-					}
-					else{
-						if (!t.passable()){
-							//g.setColor(Color.GREEN);
-							//g.fillRect(x1, y1, tileWd, tileWd);
-						}
-					}
-				}
-			}
-
 		}
 		if(controller.getBoard() != null) {
 			if(controller.getBoard().getState() == "MOVING") {
@@ -114,7 +87,53 @@ public class Canvas extends JPanel implements MouseListener{
 					g.drawRect(t.x*Constants.TILE_WIDTH,t.y*Constants.TILE_WIDTH, 24, 24);
 				}
 			}
+			
+			/**
+			 * debugging code: draws tiles and their adjacencies
+			Board b = controller.getBoard();
+			Tile[][] tiles = b.tiles;
+			final int TILE_WIDTH = Constants.TILE_WIDTH;
+			
+			for (int i = 0; i < tiles.length; i++){
+				for (int j = 0; j < tiles[i].length; j++){
+					Tile t = tiles[i][j];
+					
+
+					g.setColor(Color.ORANGE);
+					
+					if (!t.passable()){
+						g.fillRect(j*TILE_WIDTH,i*TILE_WIDTH,TILE_WIDTH,TILE_WIDTH);
+					}
+					else{
+						g.drawRect(j*TILE_WIDTH, i*TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
+						int centreX = j*TILE_WIDTH + (TILE_WIDTH/2);
+						int centreY = i*TILE_WIDTH + (TILE_WIDTH/2);
+						g.setColor(Color.BLUE);						
+						if (t.NORTH){
+							g.drawLine(centreX, centreY, centreX, centreY-(TILE_WIDTH/2));
+						}
+						if (t.EAST){
+							g.drawLine(centreX,centreY,centreX+(TILE_WIDTH/2),centreY);
+						}
+						if (t.SOUTH){
+							g.drawLine(centreX,centreY,centreX,centreY+(TILE_WIDTH/2));
+						}
+						if (t.WEST){
+							g.drawLine(centreX,centreY,centreX-(TILE_WIDTH/2),centreY);
+						}
+						
+						
+					}
+					
+				}
+			}
+			**/
+			
+			
 		}
+
+		
+		
 	}
 
 

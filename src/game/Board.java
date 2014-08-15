@@ -32,7 +32,7 @@ public class Board {
 	private final String FILEPATH = Constants.ASSETS;
 
 	// immutable fields associated with this instance of a game
-	private final Tile[][] tiles;
+	public final Tile[][] tiles;
 	private final Player[] players;
 	private final Image imageBoard;
 	private final Suggestion solution;
@@ -40,7 +40,7 @@ public class Board {
 	// mutable fields associated with game state
 	private int currentPlayer;
 	private int moves; //how many squares they can move
-	private List<Tile> validMoves; //list of squares the player may move to
+	private Set<Tile> validMoves; //list of squares the player may move to
 	private State state;
 
 	/**
@@ -61,7 +61,7 @@ public class Board {
 		imageBoard = ImageIO.read(new FileInputStream(FILEPATH + "board.png"));
 		state = State.ROLLING;
 		currentPlayer = 0;
-		validMoves = new ArrayList<>();
+		validMoves = new HashSet<>();
 
 		// set the starting position for each player
 		Tile[] spawnPoints = findSpawnPoints();
@@ -134,7 +134,7 @@ public class Board {
 	public void endTurn(){
 		currentPlayer = (currentPlayer+1)%players.length;
 		moves = 0;
-		validMoves = new ArrayList<>();
+		validMoves = new HashSet<>();
 		state = State.ROLLING;
 	}
 
@@ -149,7 +149,7 @@ public class Board {
 		if (!validMoves.contains(goal)) return false; // invalid move
 		Tile oldPosition = players[currentPlayer].getLocation();
 		players[currentPlayer].setLocation(goal);
-		int distMoved = Math.abs((oldPosition.x + oldPosition.y) - (goal.x + goal.y));
+		int distMoved = Math.abs((oldPosition.x - goal.x) + (oldPosition.y - goal.y));
 		moves -= distMoved;
 		validMoves = computeValidMoves();
 		if (moves == 0) state = State.SUGGESTING;
@@ -186,18 +186,18 @@ public class Board {
 			throw new IllegalArgumentException("Point is not on the board");
 		int cellX = x / TILE_WIDTH;
 		int cellY = y / TILE_WIDTH;
-		return tiles[cellX][cellY];
+		return tiles[cellY][cellX];
 	}
 
 	/**
-	 * Compute the list of tiles that the current player is allowed to move to,
+	 * Compute the set of tiles that the current player is allowed to move to,
 	 * given the current number of moves available to them. Does this using a
 	 * breadth-first search.
 	 * @return: a list of tiles that the currentPlayer can move to.
 	 */
-	private List<Tile> computeValidMoves(){
-		if (moves == 0) return new ArrayList<>();
-		List<Tile> validTiles = new ArrayList<>();
+	private Set<Tile> computeValidMoves(){
+		if (moves == 0) return new HashSet<>();
+		Set<Tile> validTiles = new HashSet<>();
 		Tile start = players[currentPlayer].getLocation();
 
 		// node that remembers each tile and its depth
@@ -222,27 +222,27 @@ public class Board {
 			if (depth == moves) continue;
 
 			// get tiles adjacent to tile
-			Tile above, below, left, right;
-			above = below = left = right = null;
-			if (tile.y > 0) above = tiles[tile.y][tile.x-1];
-			if (tile.x > 0) left = tiles[tile.y-1][tile.x];
-			if (tile.y < tiles[0].length-1) below = tiles[tile.y][tile.x+1];
-			if (tile.y < tiles.length-1) right = tiles[tile.y+1][tile.x];
-
-			// add adjacent tiles to queue
-			if (above != null && !validTiles.contains(above) && !queue.contains(above) && above.passable()){
-				queue.add(new Node(above,depth+1));
+			if (tile.NORTH){
+				Tile above = tiles[tile.y-1][tile.x];
+				if (queue.contains(above)) break;
+				else queue.offer(new Node(above,depth+1));
 			}
-			if (left != null && !validTiles.contains(left) && !queue.contains(left) && left.passable()){
-				queue.add(new Node(left,depth+1));
+			if (tile.EAST){
+				Tile right = tiles[tile.y][tile.x+1];
+				if (queue.contains(right)) break;
+				else queue.offer(new Node(right,depth+1));
 			}
-			if (below != null && !validTiles.contains(below) && !queue.contains(below) && below.passable()){
-				queue.add(new Node(below,depth+1));
+			if (tile.SOUTH){
+				Tile below = tiles[tile.y+1][tile.x];
+				if (queue.contains(below)) break;
+				else queue.offer(new Node(below,depth+1));
 			}
-			if (right != null && !validTiles.contains(right) && !queue.contains(right) && right.passable()){
-				queue.add(new Node(right,depth+1));
+			if (tile.WEST){
+				Tile left = tiles[tile.y][tile.x-1];
+				if (queue.contains(left)) break;
+				else queue.offer(new Node(left,depth+1));
 			}
-
+			
 		}
 
 		return validTiles;
@@ -283,13 +283,14 @@ public class Board {
 	public String getState(){
 		return state.toString();
 	}
+	
+	public int getMovesLeft(){
+		return moves;
+	}
 
-	public List<Tile> getValidMoves() {
+	public Set<Tile> getValidMoves() {
 		return validMoves;
 	}
 
-	public void setValidMoves(List<Tile> validMoves) {
-		this.validMoves = validMoves;
-	}
 
 }

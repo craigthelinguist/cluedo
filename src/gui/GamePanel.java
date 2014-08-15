@@ -61,10 +61,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	private JButton buttonSuggest;
 	private JButton buttonEndTurn;
 	private JButton buttonRollDice;
-	private JLabel dice1Label;
-	private ImageIcon dice1;
-	private JLabel dice2Label;
-	private ImageIcon dice2;
+	private JLabel movesLabel;
 
 	public GamePanel(GameFrame frame) {
 
@@ -115,32 +112,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		//setting up the listener for buttons
 		buttonRollDice.addActionListener(this);
 		buttonSuggest.addActionListener(this);
-
-		try{
-			dice1 = new ImageIcon(ImageIO.read(new FileInputStream(FILEPATH+"shitdice1.png")));
-			dice2 = new ImageIcon(ImageIO.read(new FileInputStream(FILEPATH+"shitdice1.png")));
-		}
-		catch(Exception e){
-			JOptionPane.showMessageDialog(this, "Error loading dice: " + e.getMessage());
-			System.exit(1);
-		}
-		dice1Label = new JLabel(dice1);
-		dice2Label = new JLabel(dice2);
-
-		// dice panel
-		JPanel dicePanel = new JPanel();
-		GroupLayout diceLayout = new GroupLayout(dicePanel);
-		GroupLayout.SequentialGroup diceHorizontal = diceLayout.createSequentialGroup();
-		GroupLayout.SequentialGroup diceVertical = diceLayout.createSequentialGroup();
-		diceLayout.setHorizontalGroup(diceHorizontal);
-		diceLayout.setVerticalGroup(diceVertical);
-
-		diceHorizontal.addComponent(dice1Label);
-		diceHorizontal.addComponent(dice2Label);
-		diceVertical.addGroup(diceLayout.createParallelGroup()
-			.addComponent(dice1Label)
-			.addComponent(dice2Label)
-		);
+		movesLabel = new JLabel("Moves: 0");
 
 		// layout
 		GroupLayout layout = new GroupLayout(buttons);
@@ -155,14 +127,14 @@ public class GamePanel extends JPanel implements ActionListener {
 		vertical.addComponent(buttonAccuse);
 		vertical.addComponent(buttonSuggest);
 		vertical.addComponent(buttonRollDice);
-		vertical.addComponent(dicePanel);
+		vertical.addComponent(movesLabel);
 
 		horizontal.addGroup(layout.createParallelGroup(Alignment.CENTER)
 			.addComponent(buttonEndTurn)
 			.addComponent(buttonAccuse)
 			.addComponent(buttonSuggest)
 			.addComponent(buttonRollDice)
-			.addComponent(dicePanel)
+			.addComponent(movesLabel)
 		);
 	}
 
@@ -233,27 +205,6 @@ public class GamePanel extends JPanel implements ActionListener {
 
 					}
 				}
-
-
-
-				/*
-				}
-
-				g.setColor(Color.LIGHT_GRAY);
-				g.fillRect(0, 0, cards.getWidth(), 150);
-
-				int offsetDown = ((GamePanel.this.PANEL_HEIGHT) - (GamePanel.this.CARD_HEIGHT))/2;
-
-
-
-				g.setColor(Color.BLACK);
-				for (int i = 0; i < 6; i++){
-					int x = i*CARD_WIDTH + (i+1)*CARD_SEP;
-					int y = offsetDown;
-					g.drawRect(x, y, CARD_WIDTH, CARD_HEIGHT);
-				}
-*/
-
 
 			}
 		};
@@ -338,7 +289,13 @@ public class GamePanel extends JPanel implements ActionListener {
         });
     }
 
-
-
+    /**
+     * Set the string in the JLabel at the bottom of the buttons panel.
+     * @param string: text that the JLabel should display.
+     */
+    public void setMovesRemaining(int amount){
+    	this.movesLabel.setText("Moves: " + amount);
+    }
+    
 }
 
