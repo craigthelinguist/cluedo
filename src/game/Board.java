@@ -149,7 +149,7 @@ public class Board {
 		if (!validMoves.contains(goal)) return false; // invalid move
 		Tile oldPosition = players[currentPlayer].getLocation();
 		players[currentPlayer].setLocation(goal);
-		int distMoved = Math.abs((oldPosition.x + oldPosition.y) - (goal.x + goal.y));
+		int distMoved = Math.abs((oldPosition.x - goal.x) + (oldPosition.y - goal.y));
 		moves -= distMoved;
 		validMoves = computeValidMoves();
 		if (moves == 0) state = State.SUGGESTING;
@@ -190,7 +190,7 @@ public class Board {
 	}
 
 	/**
-	 * Compute the list of tiles that the current player is allowed to move to,
+	 * Compute the set of tiles that the current player is allowed to move to,
 	 * given the current number of moves available to them. Does this using a
 	 * breadth-first search.
 	 * @return: a list of tiles that the currentPlayer can move to.

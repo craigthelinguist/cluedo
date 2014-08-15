@@ -9,6 +9,7 @@ import java.io.IOException;
 import game.Board;
 import game.Player;
 import game.Suggestion;
+import game.Tile;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -85,6 +86,8 @@ public class GameFrame extends JFrame {
 	 */
 	public void mousePressed(int x, int y){
 		System.out.println(board.tileFromCoordinates(x, y));
+		Tile tile = board.tileFromCoordinates(x, y);
+		if (board.movePlayer(tile)) updateGUI();
 	}
 
 	/**
@@ -107,10 +110,7 @@ public class GameFrame extends JFrame {
 
 	        //sd.setBounds(400,0,400,400);
 		}
-
-		enableButtonsForState(board.getState());
-		this.repaint();
-
+		updateGUI();
 	}
 
 	/**
@@ -149,11 +149,12 @@ public class GameFrame extends JFrame {
 	}
 
 	/**
-	 * Enables and disables buttons depending on the name of the state the player is in.
+	 * Updates the GUI to display relevant information depending on the given state of play.
 	 * @param state
 	 */
-	private void enableButtonsForState(String state){
+	private void updateGUI(){
 
+		String state = board.getState();
 		switch(state){
 
 		case "ROLLING":
@@ -179,6 +180,7 @@ public class GameFrame extends JFrame {
 		}
 
 		gamePanel.setMovesRemaining(board.getMovesLeft());
+		repaint();
 		
 	}
 
