@@ -40,7 +40,7 @@ public class Board {
 	// mutable fields associated with game state
 	private int currentPlayer;
 	private int moves; //how many squares they can move
-	private List<Tile> validMoves; //list of squares the player may move to
+	private Set<Tile> validMoves; //list of squares the player may move to
 	private State state;
 
 	/**
@@ -61,7 +61,7 @@ public class Board {
 		imageBoard = ImageIO.read(new FileInputStream(FILEPATH + "board.png"));
 		state = State.ROLLING;
 		currentPlayer = 0;
-		validMoves = new ArrayList<>();
+		validMoves = new HashSet<>();
 
 		// set the starting position for each player
 		Tile[] spawnPoints = findSpawnPoints();
@@ -134,7 +134,7 @@ public class Board {
 	public void endTurn(){
 		currentPlayer = (currentPlayer+1)%players.length;
 		moves = 0;
-		validMoves = new ArrayList<>();
+		validMoves = new HashSet<>();
 		state = State.ROLLING;
 	}
 
@@ -195,9 +195,9 @@ public class Board {
 	 * breadth-first search.
 	 * @return: a list of tiles that the currentPlayer can move to.
 	 */
-	private List<Tile> computeValidMoves(){
-		if (moves == 0) return new ArrayList<>();
-		List<Tile> validTiles = new ArrayList<>();
+	private Set<Tile> computeValidMoves(){
+		if (moves == 0) return new HashSet<>();
+		Set<Tile> validTiles = new HashSet<>();
 		Tile start = players[currentPlayer].getLocation();
 
 		// node that remembers each tile and its depth
@@ -288,12 +288,9 @@ public class Board {
 		return moves;
 	}
 
-	public List<Tile> getValidMoves() {
+	public Set<Tile> getValidMoves() {
 		return validMoves;
 	}
 
-	public void setValidMoves(List<Tile> validMoves) {
-		this.validMoves = validMoves;
-	}
 
 }

@@ -72,6 +72,63 @@ public class Tile {
 		return terrain == Terrain.SPAWN;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (EAST ? 1231 : 1237);
+		result = prime * result + (NORTH ? 1231 : 1237);
+		result = prime * result + (SOUTH ? 1231 : 1237);
+		result = prime * result + (WEST ? 1231 : 1237);
+		result = prime * result
+				+ ((occupant == null) ? 0 : occupant.hashCode());
+		result = prime * result + ((passage == null) ? 0 : passage.hashCode());
+		result = prime * result + ((room == null) ? 0 : room.hashCode());
+		result = prime * result + ((terrain == null) ? 0 : terrain.hashCode());
+		result = prime * result + x;
+		result = prime * result + y;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Tile other = (Tile) obj;
+		if (EAST != other.EAST)
+			return false;
+		if (NORTH != other.NORTH)
+			return false;
+		if (SOUTH != other.SOUTH)
+			return false;
+		if (WEST != other.WEST)
+			return false;
+		if (occupant == null) {
+			if (other.occupant != null)
+				return false;
+		} else if (!occupant.equals(other.occupant))
+			return false;
+		if (passage == null) {
+			if (other.passage != null)
+				return false;
+		} else if (!passage.equals(other.passage))
+			return false;
+		if (room != other.room)
+			return false;
+		if (terrain != other.terrain)
+			return false;
+		if (x != other.x)
+			return false;
+		if (y != other.y)
+			return false;
+		return true;
+	}
+	
+	
 	public String toString(){
 		return "Row: " + y + ", Col: " + x;
 	}
