@@ -23,6 +23,11 @@ public class Tile {
 	private Token occupant; // person on this tile
 	public final int x;
 	public final int y;
+	private boolean canGoNorth;
+	private boolean canGoEast;
+	private boolean canGoSouth;
+	private boolean canGoWest;
+	
 
 	private Tile(int x, int y, Terrain t){
 		this.x = x;
