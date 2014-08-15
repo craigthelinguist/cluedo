@@ -112,6 +112,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		//setting up the listener for buttons
 		buttonRollDice.addActionListener(this);
 		buttonSuggest.addActionListener(this);
+		buttonAccuse.addActionListener(this);
 		movesLabel = new JLabel("Moves: 0");
 
 		// layout
@@ -269,6 +270,9 @@ public class GamePanel extends JPanel implements ActionListener {
 		}
 		else if (e.getSource().equals(buttonSuggest)){
 			controller.buttonPressed("Suggestion");
+		}
+		else if (e.getSource().equals(buttonAccuse)){
+			controller.buttonPressed("Accuse");
 		}
 	}
 

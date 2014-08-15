@@ -141,19 +141,19 @@ public class Tile {
 	}
 
 	public boolean isCanGoNorth() {
-		return canGoNorth;
+		return NORTH;
 	}
 
 	public boolean isCanGoEast() {
-		return canGoEast;
+		return EAST;
 	}
 
 	public boolean isCanGoSouth() {
-		return canGoSouth;
+		return SOUTH;
 	}
 
 	public boolean isCanGoWest() {
-		return canGoWest;
+		return WEST;
 	}
 
 }
