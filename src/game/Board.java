@@ -217,6 +217,7 @@ public class Board {
 		while (!queue.isEmpty()){
 			Node node = queue.poll();
 			Tile tile = node.tile;
+			if (validTiles.contains(tile)) continue;
 			validTiles.add(tile);
 			int depth = node.depth;
 			if (depth == moves) continue;
