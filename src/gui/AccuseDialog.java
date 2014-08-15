@@ -320,7 +320,7 @@ public class AccuseDialog extends JDialog implements ActionListener{
 				Room selectionRoom = new Room(getSelectedRoom(currentRoom));
 				Person selectionCharacter = new Person (getSelectedCharacter(currentCharacter));
 				Weapon selectionWeapon = new Weapon (getSelectedWeapon(currentWeapon));
-				controller.makeSuggestion(new Suggestion(selectionRoom, selectionCharacter, selectionWeapon));
+				controller.makeAccusation(new Suggestion(selectionRoom, selectionCharacter, selectionWeapon));
 
 
 				/*testing outputs*/
