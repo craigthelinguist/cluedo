@@ -105,14 +105,14 @@ public class GameFrame extends JFrame {
 		}
 		else if (button.equals("Suggestion")){
 			/*makes the suggestion dialog appear*/
-			SuggestionDialog sd = new SuggestionDialog(this);
+			SuggestionDialog sd = new SuggestionDialog(this, true);
 			sd.setVisible(true);
 
 	        //sd.setBounds(400,0,400,400);
 		}
 		else if (button.equals("Accuse")){
 			/*makes the accusation dialog appear*/
-			AccuseDialog ad = new AccuseDialog(this);
+			SuggestionDialog ad = new SuggestionDialog(this, false);
 			ad.setVisible(true);
 		}
 		updateGUI();

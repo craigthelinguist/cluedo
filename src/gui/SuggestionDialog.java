@@ -31,9 +31,11 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 	private GameFrame controller;
 
 	private final JPanel optionsPanel = new JPanel();
+	/*declare buttons*/
 	JButton suggestButton;
 	JButton cancelButton;
-
+	JButton accuseButton;
+	
 	/*declare the button groups */
 	ButtonGroup buttonGroupRooms;
 	ButtonGroup buttonGroupCharacters;
@@ -44,7 +46,11 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 	String selectionCharacter;
 	String selectionWeapon;
 
-	public SuggestionDialog(GameFrame frame) {
+	/*true is suggestion false is accusation */
+	boolean type; //type of dialog
+	
+	public SuggestionDialog(GameFrame frame, boolean type) {
+		this.type = type;
 		this.controller = frame;
 		setResizable(false);
 		setBounds(0, 0, 450, 340);
@@ -272,11 +278,20 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-		suggestButton = new JButton("Suggest");
-		suggestButton.setActionCommand("OK");
-		buttonPane.add(suggestButton);
-		getRootPane().setDefaultButton(suggestButton);
-		suggestButton.addActionListener(this);
+		if(type == true) {
+			suggestButton = new JButton("Suggest");
+			suggestButton.setActionCommand("OK");
+			buttonPane.add(suggestButton);
+			getRootPane().setDefaultButton(suggestButton);
+			suggestButton.addActionListener(this);
+		}
+		else if(type == false) {
+			accuseButton = new JButton("Accuse");
+			accuseButton.setActionCommand("OK");
+			buttonPane.add(accuseButton);
+			getRootPane().setDefaultButton(accuseButton);
+			accuseButton.addActionListener(this);
+		}
 
 		cancelButton = new JButton("Cancel");
 		cancelButton.setActionCommand("Cancel");
@@ -383,17 +398,17 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 		}
         switch (s) {
     	case "Colonel Mustard":
-    		return "Mustard";
+    		return "mustard";
     	case "Mrs White":
-    		return "White";
+    		return "white";
     	case "Miss Scarlett":
-    		return "Scarlett";
+    		return "scarlett";
     	case "Reverend Green":
-    		return "Green";
+    		return "green";
     	case "Mrs Peacock":
-    		return "Peacock";
+    		return "peacock";
     	case "Mr Plum":
-    		return "Plum";
+    		return "plum";
     	default:
     		System.out.println("No selection made");
     		break;
@@ -433,7 +448,7 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 	/*for testing the dialog*/
 	public static void main(String[] args) {
 		try {
-			SuggestionDialog dialog = new SuggestionDialog(new GameFrame());
+			SuggestionDialog dialog = new SuggestionDialog(new GameFrame(), false);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
