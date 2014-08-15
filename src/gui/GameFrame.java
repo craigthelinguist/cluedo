@@ -111,6 +111,11 @@ public class GameFrame extends JFrame {
 
 	        //sd.setBounds(400,0,400,400);
 		}
+		else if (button.equals("Accuse")){
+			/*makes the accusation dialog appear*/
+			AccuseDialog ad = new AccuseDialog(this);
+			ad.setVisible(true);
+		}
 		updateGUI();
 	}
 
@@ -203,6 +208,14 @@ public class GameFrame extends JFrame {
 	}
 
 	public void makeSuggestion(Suggestion suggestion) {
+		// TODO Auto-generated method stub
+		/**atm this only creates suggestion, later on make it check to see if it's the right one etc
+		 *
+		 */
+		Suggestion suggest = new Suggestion(suggestion.getRoom(), suggestion.getPerson(), suggestion.getWeapon());
+	}
+
+	public void makeAccusation(Suggestion suggestion) {
 		// TODO Auto-generated method stub
 		/**atm this only creates suggestion, later on make it check to see if it's the right one etc
 		 *
