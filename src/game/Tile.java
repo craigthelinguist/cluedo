@@ -18,7 +18,7 @@ public class Tile {
 
 	// fields
 	private Room.Type room; // room this tile is in
-	private Token occupant; // person on this tile
+	private Player occupant; // person on this tile
 	private Terrain terrain;
 	public final int x;
 	public final int y;
@@ -62,21 +62,25 @@ public class Tile {
 	public static Tile makeSecretPassageTile(int x, int y, boolean[] neighbours, Tile passage){
 		return new Tile(x,y,Terrain.PASSABLE,neighbours,passage);
 	}
-	
-	/**
-	 * Check if tile is passable.
-	 * @return: true if the tile is passable; false otherwise.
-	 */
-	public boolean passable(){
-		return terrain != Terrain.IMPASSABLE;
-	}
 
+	public boolean canTravel(Player p){
+		return terrain != Terrain.IMPASSABLE && (p == occupant || occupant == null);
+	}
+	
 	/**
 	 * Check if tile is a spawn point.
 	 * @returnL true if tile is spawn point; false otherwise.
 	 */
 	public boolean isSpawnPoint(){
 		return terrain == Terrain.SPAWN;
+	}
+	
+	/**
+	 * Set that someone is now on this tile.
+	 * @param t: the thing on this tile.
+	 */
+	public void setOccupant(Player p){
+		occupant = p;
 	}
 
 	@Override
@@ -138,22 +142,6 @@ public class Tile {
 	
 	public String toString(){
 		return "Row: " + y + ", Col: " + x;
-	}
-
-	public boolean isCanGoNorth() {
-		return canGoNorth;
-	}
-
-	public boolean isCanGoEast() {
-		return canGoEast;
-	}
-
-	public boolean isCanGoSouth() {
-		return canGoSouth;
-	}
-
-	public boolean isCanGoWest() {
-		return canGoWest;
 	}
 
 }

@@ -85,8 +85,9 @@ public class GameFrame extends JFrame {
 	 * @param y
 	 */
 	public void mousePressed(int x, int y){
-		System.out.println(board.tileFromCoordinates(x, y));
+		//System.out.println(board.tileFromCoordinates(x, y));
 		Tile tile = board.tileFromCoordinates(x, y);
+		System.out.println("Can travel: " + tile.canTravel(getCurrentPlayer()));
 		if (board.movePlayer(tile)) updateGUI();
 	}
 
