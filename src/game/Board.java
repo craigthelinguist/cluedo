@@ -149,7 +149,7 @@ public class Board {
 		if (!validMoves.contains(goal)) return false; // invalid move
 		Tile oldPosition = players[currentPlayer].getLocation();
 		players[currentPlayer].setLocation(goal);
-		int distMoved = Math.abs((oldPosition.x - goal.x) + (oldPosition.y - goal.y));
+		int distMoved = Math.abs(oldPosition.x - goal.x) + Math.abs(oldPosition.y - goal.y);
 		moves -= distMoved;
 		validMoves = computeValidMoves();
 		if (moves == 0) state = State.SUGGESTING;
