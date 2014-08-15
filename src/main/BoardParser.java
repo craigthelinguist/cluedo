@@ -100,10 +100,10 @@ public class BoardParser {
 			if (! (array[i].equals("t") || array[i].equals("f")) ) throw new IllegalArgumentException();
 		}
 		
-		boolean north = array[2].equals('t');
-		boolean east = array[3].equals('t');
-		boolean south = array[4].equals('t');
-		boolean west = array[5].equals('t');
+		boolean north = array[index].equals("t");
+		boolean east = array[index+1].equals("t");
+		boolean south = array[index+2].equals("t");
+		boolean west = array[index+3].equals("t");
 		boolean[] bools = new boolean[]{ north, east, south, west };
 		return bools;
 		

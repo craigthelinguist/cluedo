@@ -703,11 +703,11 @@
 //row 25
 25 0 impassable
 25 1 t t f f
-25 2 t t f f
-25 3 t t f f
-25 4 t t f f
-25 5 t t f f
-25 6 t f f f
+25 2 t t f t
+25 3 t t f t
+25 4 t t f t
+25 5 t t f t
+25 6 t f f t
 25 7 impassable
 25 8 portal t f f f
 25 9 impassable

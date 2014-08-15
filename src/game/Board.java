@@ -32,7 +32,7 @@ public class Board {
 	private final String FILEPATH = Constants.ASSETS;
 
 	// immutable fields associated with this instance of a game
-	private final Tile[][] tiles;
+	public final Tile[][] tiles;
 	private final Player[] players;
 	private final Image imageBoard;
 	private final Suggestion solution;
@@ -186,7 +186,7 @@ public class Board {
 			throw new IllegalArgumentException("Point is not on the board");
 		int cellX = x / TILE_WIDTH;
 		int cellY = y / TILE_WIDTH;
-		return tiles[cellX][cellY];
+		return tiles[cellY][cellX];
 	}
 
 	/**
@@ -222,27 +222,27 @@ public class Board {
 			if (depth == moves) continue;
 
 			// get tiles adjacent to tile
-			Tile above, below, left, right;
-			above = below = left = right = null;
-			if (tile.y > 0) above = tiles[tile.y][tile.x-1];
-			if (tile.x > 0) left = tiles[tile.y-1][tile.x];
-			if (tile.y < tiles[0].length-1) below = tiles[tile.y][tile.x+1];
-			if (tile.y < tiles.length-1) right = tiles[tile.y+1][tile.x];
-
-			// add adjacent tiles to queue
-			if (above != null && !validTiles.contains(above) && !queue.contains(above) && above.passable()){
-				queue.add(new Node(above,depth+1));
+			if (tile.NORTH){
+				Tile above = tiles[tile.y-1][tile.x];
+				if (queue.contains(above)) break;
+				else queue.offer(new Node(above,depth+1));
 			}
-			if (left != null && !validTiles.contains(left) && !queue.contains(left) && left.passable()){
-				queue.add(new Node(left,depth+1));
+			if (tile.EAST){
+				Tile right = tiles[tile.y][tile.x+1];
+				if (queue.contains(right)) break;
+				else queue.offer(new Node(right,depth+1));
 			}
-			if (below != null && !validTiles.contains(below) && !queue.contains(below) && below.passable()){
-				queue.add(new Node(below,depth+1));
+			if (tile.SOUTH){
+				Tile below = tiles[tile.y+1][tile.x];
+				if (queue.contains(below)) break;
+				else queue.offer(new Node(below,depth+1));
 			}
-			if (right != null && !validTiles.contains(right) && !queue.contains(right) && right.passable()){
-				queue.add(new Node(right,depth+1));
+			if (tile.WEST){
+				Tile left = tiles[tile.y][tile.x-1];
+				if (queue.contains(left)) break;
+				else queue.offer(new Node(left,depth+1));
 			}
-
+			
 		}
 
 		return validTiles;
@@ -282,6 +282,10 @@ public class Board {
 	 */
 	public String getState(){
 		return state.toString();
+	}
+	
+	public int getMovesLeft(){
+		return moves;
 	}
 
 	public List<Tile> getValidMoves() {

@@ -10,7 +10,7 @@ import main.Constants;
 
 public class Room extends Card{
 	
-	private enum Type{ Kitchen, Ballroom, Conservatory, Dining, Lounge, Hall, Library, Study, Billiard }
+	public enum Type{ Kitchen, Ballroom, Conservatory, Dining, Lounge, Hall, Library, Study, Billiard }
 	private final String FILEPATH = Constants.ASSETS;
 	private final Type type;
 	private final Image imageCard;

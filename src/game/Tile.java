@@ -17,7 +17,7 @@ public class Tile {
 	}
 
 	// fields
-	private Room room; // room this tile is in
+	private Room.Type room; // room this tile is in
 	private Token occupant; // person on this tile
 	private Terrain terrain;
 	public final int x;
@@ -73,7 +73,7 @@ public class Tile {
 	}
 
 	public String toString(){
-		return "("+x+","+y+")";
+		return "Row: " + y + ", Col: " + x;
 	}
 
 }

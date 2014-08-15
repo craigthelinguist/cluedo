@@ -99,7 +99,6 @@ public class GameFrame extends JFrame {
 		}
 		else if (button.equals("Roll Dice")){
 			int[] array = getBoard().rollDice();
-			if (array != null) enableButtonsForState("Roll Dice");
 		}
 		else if (button.equals("Suggestion")){
 			/*makes the suggestion dialog appear*/
@@ -161,24 +160,26 @@ public class GameFrame extends JFrame {
 			gamePanel.setButtonEnabled("Accuse",false);
 			gamePanel.setButtonEnabled("Suggest",false);
 			gamePanel.setButtonEnabled("Roll Dice",true);
-			return;
+			break;
 		case "MOVING":
 			gamePanel.setButtonEnabled("Accuse", true);
 			gamePanel.setButtonEnabled("Suggest",true);
 			gamePanel.setButtonEnabled("Roll Dice",false);
-			return;
+			break;
 		case "SUGGESTING":
 			gamePanel.setButtonEnabled("Accuse", true);
 			gamePanel.setButtonEnabled("Suggest",true);
 			gamePanel.setButtonEnabled("Roll Dice",false);
-			return;
+			break;
 		case "DONE":
 			gamePanel.setButtonEnabled("Accuse", false);
 			gamePanel.setButtonEnabled("Suggest",false);
 			gamePanel.setButtonEnabled("Roll Dice", false);
-			return;
+			break;
 		}
 
+		gamePanel.setMovesRemaining(board.getMovesLeft());
+		
 	}
 
 	/**
