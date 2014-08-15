@@ -2,6 +2,9 @@ package game;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayDeque;
@@ -34,7 +37,7 @@ public class Board {
 	// immutable fields associated with this instance of a game
 	public final Tile[][] tiles;
 	private final Player[] players;
-	private final Image imageBoard;
+	private final BufferedImage imageBoard;
 	private final Suggestion solution;
 
 	// mutable fields associated with game state
@@ -67,6 +70,7 @@ public class Board {
 		Tile[] spawnPoints = findSpawnPoints();
 		for (int i = 0; i < players.length; i++){
 			players[i].setLocation(spawnPoints[i]);
+			spawnPoints[i].setOccupant(players[i]);
 		}
 
 		// make cards and shuffle them
@@ -96,7 +100,6 @@ public class Board {
 		}
 		if (r == null || w == null || p == null) throw new IOException("Board failed to load the cards.");
 		solution = new Suggestion(r,p,w);
-		System.out.println(solution);
 
 		// deal cards among remaining players
 		int j = 0;
@@ -147,8 +150,11 @@ public class Board {
 	public boolean movePlayer(Tile goal){
 		if (state == State.ROLLING || moves == 0) return false;
 		if (!validMoves.contains(goal)) return false; // invalid move
-		Tile oldPosition = players[currentPlayer].getLocation();
-		players[currentPlayer].setLocation(goal);
+		Player player = players[currentPlayer];
+		Tile oldPosition = player.getLocation();
+		player.setLocation(goal);
+		oldPosition.setOccupant(null);
+		goal.setOccupant(player);
 		int distMoved = Math.abs(oldPosition.x - goal.x) + Math.abs(oldPosition.y - goal.y);
 		moves -= distMoved;
 		validMoves = computeValidMoves();
@@ -198,7 +204,8 @@ public class Board {
 	private Set<Tile> computeValidMoves(){
 		if (moves == 0) return new HashSet<>();
 		Set<Tile> validTiles = new HashSet<>();
-		Tile start = players[currentPlayer].getLocation();
+		Player player = players[currentPlayer];
+		Tile start = player.getLocation();
 
 		// node that remembers each tile and its depth
 		class Node{
@@ -218,7 +225,7 @@ public class Board {
 			Node node = queue.poll();
 			Tile tile = node.tile;
 			if (validTiles.contains(tile)) continue;
-			validTiles.add(tile);
+			if (tile.canTravel(player)) validTiles.add(tile);
 			int depth = node.depth;
 			if (depth == moves) continue;
 
@@ -245,7 +252,8 @@ public class Board {
 			}
 			
 		}
-
+		
+		validTiles.remove(start); // tile you're standing on
 		return validTiles;
 	}
 
@@ -254,11 +262,14 @@ public class Board {
 	}
 
 	/**
-	 * Return the image representing this board.
+	 * Return a clone of the image representing this board.
 	 * @return: a BufferedImage;
 	 */
-	public Image getImage(){
-		return imageBoard;
+	public BufferedImage getImage(){
+		ColorModel model = imageBoard.getColorModel();
+		boolean alpha = model.isAlphaPremultiplied();
+		WritableRaster raster = imageBoard.copyData(null);
+		return new BufferedImage(model, raster, alpha, null);
 	}
 
 	/**
