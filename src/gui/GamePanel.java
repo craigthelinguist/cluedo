@@ -217,13 +217,14 @@ public class GamePanel extends JPanel implements ActionListener {
 
 
 					/*testing labels for cards*/
-						for(int i = 0; i < player.getCardImages().length;i++) {
-							//cardLabels[i] = new JLabel();
-							cardLabels[i].setToolTipText(player.getPlayersCards().get(i).getType().toString());
-							ImageIcon icon = new ImageIcon(images[i]); 
-							cardLabels[i].setIcon(icon);
-							add(cardLabels[i]);
-						}
+					for(int i = 0; i < player.getCardImages().length;i++) {
+						//cardLabels[i] = new JLabel();
+						cardLabels[i].setToolTipText(player.getPlayersCards().get(i).getType().toString());
+						
+						ImageIcon icon = new ImageIcon(images[i]); 
+						cardLabels[i].setIcon(icon);
+						add(cardLabels[i]);
+					}
 					/*testing ends here*/
 					
 						
