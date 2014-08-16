@@ -307,17 +307,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		
 		// refuting a suggestion
 		if (refuting){
-			refuteOptions = new JComboBox<>();
-			if (player.hasCard(suggestion.person)) refuteOptions.addItem(suggestion.person);
-			if (player.hasCard(suggestion.room)) refuteOptions.addItem(suggestion.room);
-			if (player.hasCard(suggestion.weapon)) refuteOptions.addItem(suggestion.weapon);
-			if (refuteOptions.getItemCount() == 0){
-				refuteButton.setText("Pass");
-			}
-			else{
-				refuteButton.setText("Refute");
-				refuteOptions.setSelectedIndex(0);
-			}
+
 		}
 		// rolling & moving
 		else{
@@ -398,8 +388,50 @@ public class GamePanel extends JPanel implements ActionListener {
 	 * @param suggestor: who made suggestion
 	 * @param suggestion: the suggestion made
 	 */
-	public void startRefuting(Player suggestor, Suggestion suggestion){
-		if (!refuting) this.layout.replace(buttons,refutePanel);
+	public void startRefuting(final Player suggestor, Suggestion suggestion){
+		if (!refuting){
+			refuteOptions = new JComboBox<>();
+			Player player = suggestor;
+			if (player.hasCard(suggestion.person)) refuteOptions.addItem(suggestion.person);
+			if (player.hasCard(suggestion.room)) refuteOptions.addItem(suggestion.room);
+			if (player.hasCard(suggestion.weapon)) refuteOptions.addItem(suggestion.weapon);
+			if (refuteOptions.getItemCount() == 0){
+				refuteButton.setText("Pass");
+			}
+			else{
+				refuteButton.setText("Refute");
+				refuteOptions.setSelectedIndex(0);
+			}
+			
+			// set action listeners for the button
+			ActionListener[] listeners = refuteButton.getActionListeners();
+			for (int i = 0; i < listeners.length; i++){
+				if (listeners[i] == null) break;
+				else refuteButton.removeActionListener(listeners[i]);
+			}
+			if (refuteOptions.getItemCount() == 0){
+				
+				refuteButton.addActionListener(new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						controller.buttonPressed("Pass");
+					}			
+				});
+				
+			}
+			else{
+
+				refuteButton.addActionListener(new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						controller.refute((Card)(refuteOptions.getSelectedItem()), suggestor);
+					}			
+				});
+				
+			}
+		
+			this.layout.replace(buttons,refutePanel);
+		}
 		refuting=true;
 		this.suggestor=suggestor;
 		this.suggestion=suggestion;

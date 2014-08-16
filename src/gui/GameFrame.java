@@ -21,6 +21,7 @@ import javax.swing.WindowConstants;
 
 import main.Constants;
 
+import cards.Card;
 import cards.Person;
 
 public class GameFrame extends JFrame {
@@ -119,6 +120,12 @@ public class GameFrame extends JFrame {
 		else if (button.equals("Accuse")){
 			new SuggestionDialog(this, true);
 		}
+		else if (button.equals("Pass")){
+			Player player = board.getCurrentPlayer();
+			new TalkDialog(this,player.getPortrait(),player.toString(),"Hmm... I can't refute anything.");
+			board.endTurn();
+		}
+		
 		if (board != null) gamePanel.updateGamePanel();
 
 		canvas.repaint();
@@ -266,4 +273,10 @@ public class GameFrame extends JFrame {
 			e.printStackTrace();
 		}
 	}
+
+	public void refute(Card card, Player suggestor) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
