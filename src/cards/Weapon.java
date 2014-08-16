@@ -59,8 +59,4 @@ public class Weapon extends Token{
 		return imageCard;
 	}
 
-	public Type getType() {
-		return type;
-	}
-
 }

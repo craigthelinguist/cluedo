@@ -93,10 +93,5 @@ public class Person extends Token{
 
 	}
 
-	public Type getType() {
-		return type;
-	}
 
-	
-	
 }

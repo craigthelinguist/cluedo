@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -32,7 +31,6 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 
-import cards.Card;
 import main.Constants;
 import main.Main;
 
@@ -65,14 +63,8 @@ public class GamePanel extends JPanel implements ActionListener {
 	private JButton buttonRollDice;
 	private JLabel movesLabel;
 
-	
-	/*declare jlabels for the cards*/
-	JLabel[] cardLabels = new JLabel[6];
-
-	
 	public GamePanel(GameFrame frame) {
 
-		
 		// size & controller
 		this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
 		controller = frame;
@@ -81,8 +73,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		this.setupPortrait();
 		this.setupCards();
 		this.setupButtons();
-		this.setUpCardLables();
-		
+
 		// add panels to this
 		GroupLayout layout = new GroupLayout(this);
 		this.setLayout(layout);
@@ -103,16 +94,6 @@ public class GamePanel extends JPanel implements ActionListener {
 			.addComponent(buttons)
 		);
 
-	}
-
-	/**
-	 * This method creates new labels so as to not create a new label every time a player's
-	 * turn ends. This stops it from creating labels to the sunset.
-	 */
-	private void setUpCardLables() {
-		for(int i = 0; i < cardLabels.length;i++) {
-			cardLabels[i] = new JLabel();
-		}
 	}
 
 	private void setupButtons(){
@@ -215,25 +196,11 @@ public class GamePanel extends JPanel implements ActionListener {
 					int xStart = offSet;
 					int offSetDown = ((GamePanel.this.PANEL_HEIGHT) - (Constants.CARD_HEIGHT))/2;
 
-
-					/*testing labels for cards*/
-						for(int i = 0; i < player.getCardImages().length;i++) {
-							//cardLabels[i] = new JLabel();
-							cardLabels[i].setToolTipText(player.getPlayersCards().get(i).getType().toString());
-							ImageIcon icon = new ImageIcon(images[i]); 
-							cardLabels[i].setIcon(icon);
-							add(cardLabels[i]);
-						}
-					/*testing ends here*/
-					
-						
-						
 					for (int i = 0; i < images.length; i++){
 
-						
 						int x = xStart + i*Constants.CARD_WIDTH + (i+1)*CARD_SEP;
 						int y = offSetDown;
-						//g.drawImage(images[i],x,y,null); //draws the image of the card
+						g.drawImage(images[i],x,y,null);
 						g.setColor(Color.BLACK);
 						g.drawRect(x,y,Constants.CARD_WIDTH,Constants.CARD_HEIGHT);
 
@@ -245,7 +212,6 @@ public class GamePanel extends JPanel implements ActionListener {
 		cards.setPreferredSize(new Dimension(450,PANEL_HEIGHT));
 
 	}
-
 
 	private void setupPortrait(){
 
