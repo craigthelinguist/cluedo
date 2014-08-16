@@ -259,6 +259,8 @@ public class GamePanel extends JPanel implements ActionListener {
 	 */
 	public void updatePortrait(Player player){
 		portraitBox.setIcon(new ImageIcon(player.getPortrait()));
+		if (player.eliminated()) currentPlayer.setForeground(Color.RED);
+		else currentPlayer.setForeground(Color.BLACK);
 		currentPlayer.setText(player.toString());
 	}
 

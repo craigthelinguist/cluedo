@@ -11,12 +11,22 @@ public class Player {
 	private final Person avatar;
 	private Tile location;
 	private LinkedList<Card> cards;
-
+	private boolean eliminated;
+	
 	public Player(Person p){
 		avatar = p;
 		cards = new LinkedList<>();
+		eliminated = false;
 	}
 
+	public void eliminate(){
+		eliminated = true;
+	}
+	
+	public boolean eliminated(){
+		return eliminated;
+	}
+	
 	/**
 	 * return a list of cards this player is holding.
 	 */
@@ -61,6 +71,10 @@ public class Player {
 
 	public void setLocation(Tile tile){
 		location = tile;
+	}
+	
+	public boolean isFemale(){
+		return avatar.isFemale();
 	}
 
 	public String toString(){

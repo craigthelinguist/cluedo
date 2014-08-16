@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import game.Board;
@@ -148,6 +149,8 @@ public class GameFrame extends JFrame {
 	private void updateGUI(){
 
 		String state = board.getState();
+		boolean eliminated = board.getCurrentPlayer().eliminated();
+		
 		switch(state){
 
 		case "ROLLING":
@@ -156,13 +159,13 @@ public class GameFrame extends JFrame {
 			gamePanel.setButtonEnabled("Roll Dice",true);
 			break;
 		case "MOVING":
-			gamePanel.setButtonEnabled("Accuse", true);
-			gamePanel.setButtonEnabled("Suggest",true);
+			gamePanel.setButtonEnabled("Accuse", eliminated ? false : true);
+			gamePanel.setButtonEnabled("Suggest",eliminated ? false : true);
 			gamePanel.setButtonEnabled("Roll Dice",false);
 			break;
 		case "SUGGESTING":
-			gamePanel.setButtonEnabled("Accuse", true);
-			gamePanel.setButtonEnabled("Suggest",true);
+			gamePanel.setButtonEnabled("Accuse", eliminated ? false : true);
+			gamePanel.setButtonEnabled("Suggest",eliminated ? false : true);
 			gamePanel.setButtonEnabled("Roll Dice",false);
 			break;
 		case "DONE":
@@ -197,11 +200,7 @@ public class GameFrame extends JFrame {
 	 * @param suggestion: the triple of cards you think solves the murder.
 	 */
 	protected void makeAccusation(Suggestion accusation) {
-		
-		
 		new AccusationDialog(this,accusation,board.solution);
-		
-		
 	}
 
 
@@ -212,9 +211,38 @@ public class GameFrame extends JFrame {
 		new NewGameDialog(this);
 	}
 
-	protected void showVictoryDialog(){
+	/**
+	 * Current player has won the game. Display this to everyone.
+	 */
+	protected void playerWon(){
+		Player winner = board.getCurrentPlayer();
+		StringBuilder sb = new StringBuilder();
+		sb.append(winner.toString() + " has won the game!");
+		sb.append("The murderer was " + board.solution.toString());
+		new TalkDialog(this,winner,sb.toString(),"");
+		board = null;
+		menu = new MenuBar(this);
+		gamePanel = new GamePanel(this);
+		canvas.repaint();
 	}
 	
+
+	/**
+	 * Current player has lost the game. Update the board to reflect this and move to
+	 * next player's turn.
+	 */
+	public void playerLost() {
+		Player loser = board.getCurrentPlayer();
+		String pronoun = loser.isFemale() ? "she" : "he";
+		StringBuilder sb = new StringBuilder();
+		sb.append(loser.toString() + " has been eliminated!");
+		sb.append(" Although " + loser.toString() + " cannot solve the mystery, " + pronoun + " may still move around and refute suggestions.");
+		new TalkDialog(this,loser,sb.toString(),"");
+		board.eliminatePlayer();
+		this.buttonPressed("End Turn");
+	}
+
+
 	public static void main(String[] args){
 		try {
 			new GameFrame();
@@ -223,14 +251,4 @@ public class GameFrame extends JFrame {
 			e.printStackTrace();
 		}
 	}
-
-	/**
-	 * Current player has lost the game. Update the board to reflect this and move to
-	 * next player's turn.
-	 */
-	public void playerLost() {
-	
-	}
-
-	
 }

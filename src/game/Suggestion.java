@@ -24,7 +24,7 @@ public class Suggestion {
 		if (other == null) return false;
 		if (!(other instanceof Suggestion)) return false;
 		Suggestion acc = (Suggestion)other;
-		return room==acc.room && person==acc.person && weapon==acc.weapon;
+		return room.equals(acc.room) && person.equals(acc.person) && weapon.equals(acc.weapon);
 	}
 
 	public Room getRoom() {

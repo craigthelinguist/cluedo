@@ -51,6 +51,7 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 	
 	public SuggestionDialog(GameFrame frame, boolean isAccusation) {
 		super(frame,true); // prevents interaction with underlying JFrame
+		System.out.println(frame.getBoard().solution);
 		this.isAccusation = isAccusation;
 		this.controller = frame;
 		setResizable(false);
@@ -333,9 +334,10 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 				Weapon weapon = new Weapon (getSelectedWeapon(currentWeapon));
 				Suggestion suggest = new Suggestion(room,character,weapon);
 			
+
+				dispose();
 				if (isAccusation) controller.makeAccusation(suggest);
 				else controller.makeSuggestion(suggest);
-				dispose();
 				
 			}
 			else if(e.getSource().equals(cancelButton)) {
