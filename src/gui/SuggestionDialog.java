@@ -47,10 +47,10 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 	String selectionWeapon;
 
 	/*true is suggestion false is accusation */
-	boolean type; //type of dialog
+	boolean isAccusation;
 	
-	public SuggestionDialog(GameFrame frame, boolean type) {
-		this.type = type;
+	public SuggestionDialog(GameFrame frame, boolean isAccusation) {
+		this.isAccusation = isAccusation;
 		this.controller = frame;
 		setResizable(false);
 		setBounds(0, 0, 450, 340);
@@ -278,25 +278,18 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-		if(type == true) {
-			suggestButton = new JButton("Suggest");
-			suggestButton.setActionCommand("OK");
-			buttonPane.add(suggestButton);
-			getRootPane().setDefaultButton(suggestButton);
-			suggestButton.addActionListener(this);
-		}
-		else if(type == false) {
-			accuseButton = new JButton("Accuse");
-			accuseButton.setActionCommand("OK");
-			buttonPane.add(accuseButton);
-			getRootPane().setDefaultButton(accuseButton);
-			accuseButton.addActionListener(this);
-		}
-
+		String text = (isAccusation) ? "Accuse" : "Suggest";
+		suggestButton = new JButton(text);
+		buttonPane.add(suggestButton);
+		getRootPane().setDefaultButton(suggestButton);
+		suggestButton.addActionListener(this);
+		
 		cancelButton = new JButton("Cancel");
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 		cancelButton.addActionListener(this);
+	
+		this.setVisible(true);
 	}
 
 	/**
