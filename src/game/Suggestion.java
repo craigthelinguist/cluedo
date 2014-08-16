@@ -39,4 +39,8 @@ public class Suggestion {
 		return weapon;
 	}
 
+	public String toString(){
+		return person + " in the " + room + " room, with the " + weapon + ".";		
+	}
+	
 }

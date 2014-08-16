@@ -50,6 +50,7 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 	boolean isAccusation;
 	
 	public SuggestionDialog(GameFrame frame, boolean isAccusation) {
+		super(frame,true); // prevents interaction with underlying JFrame
 		this.isAccusation = isAccusation;
 		this.controller = frame;
 		setResizable(false);

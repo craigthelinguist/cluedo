@@ -55,4 +55,29 @@ public class Room extends Card{
 		return imageCard;
 	}
 
+	public String toString(){
+		
+		switch(type){
+		case Kitchen:
+			return "kitchen";
+		case Ballroom:
+			return "ball";
+		case Conservatory:
+			return "conservatory";
+		case Dining:
+			return "dining";
+		case Lounge:
+			return "lounge";
+		case Hall:
+			return "hall";
+		case Library:
+			return "library";
+		case Study:
+			return "study";
+		case Billiard:
+			return "billiard";
+		default:
+			throw new IllegalArgumentException();
+		}
+	}
 }

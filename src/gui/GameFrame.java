@@ -114,13 +114,6 @@ public class GameFrame extends JFrame {
 	}
 
 	/**
-	 * Bring up new game dialog.
-	 */
-	protected void newGamePrompt(){
-		new NewGameDialog(this);
-	}
-
-	/**
 	 * Generate a new game with the given array of players.
 	 * @param players: an array of players.
 	 */
@@ -192,17 +185,36 @@ public class GameFrame extends JFrame {
 		return board.getCurrentPlayer();
 	}
 
-	protected void makeSuggestion(Suggestion suggestion) {
+	protected void makeSuggestion(Suggestion suggest) {
 		
 		
 	}
 
-	protected void makeAccusation(Suggestion suggestion) {
+	/**
+	 * The current player has accused someone of being the murderer. If they are correct,
+	 * they win the game. Otherwise they are eliminated. If only one person remains then
+	 * they should be declared the winner.
+	 * @param suggestion: the triple of cards you think solves the murder.
+	 */
+	protected void makeAccusation(Suggestion accusation) {
+		
+		
+		new AccusationDialog(this,accusation,board.solution);
 		
 		
 	}
 
 
+	/**
+	 * Bring up new game dialog.
+	 */
+	protected void newGamePrompt(){
+		new NewGameDialog(this);
+	}
+
+	protected void showVictoryDialog(){
+	}
+	
 	public static void main(String[] args){
 		try {
 			new GameFrame();
@@ -210,6 +222,14 @@ public class GameFrame extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Current player has lost the game. Update the board to reflect this and move to
+	 * next player's turn.
+	 */
+	public void playerLost() {
+	
 	}
 
 	
