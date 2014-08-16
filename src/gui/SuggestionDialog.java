@@ -47,10 +47,11 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 	String selectionWeapon;
 
 	/*true is suggestion false is accusation */
-	boolean type; //type of dialog
+	boolean isAccusation;
 	
-	public SuggestionDialog(GameFrame frame, boolean type) {
-		this.type = type;
+	public SuggestionDialog(GameFrame frame, boolean isAccusation) {
+		super(frame,true); // prevents interaction with underlying JFrame
+		this.isAccusation = isAccusation;
 		this.controller = frame;
 		setResizable(false);
 		setBounds(0, 0, 450, 340);
@@ -278,25 +279,18 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-		if(type == true) {
-			suggestButton = new JButton("Suggest");
-			suggestButton.setActionCommand("OK");
-			buttonPane.add(suggestButton);
-			getRootPane().setDefaultButton(suggestButton);
-			suggestButton.addActionListener(this);
-		}
-		else if(type == false) {
-			accuseButton = new JButton("Accuse");
-			accuseButton.setActionCommand("OK");
-			buttonPane.add(accuseButton);
-			getRootPane().setDefaultButton(accuseButton);
-			accuseButton.addActionListener(this);
-		}
-
+		String text = (isAccusation) ? "Accuse" : "Suggest";
+		suggestButton = new JButton(text);
+		buttonPane.add(suggestButton);
+		getRootPane().setDefaultButton(suggestButton);
+		suggestButton.addActionListener(this);
+		
 		cancelButton = new JButton("Cancel");
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 		cancelButton.addActionListener(this);
+	
+		this.setVisible(true);
 	}
 
 	/**
@@ -321,29 +315,30 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		try{
 			if(e.getSource().equals(suggestButton)) {
-				/*3 strings to store which one is selected */
+				
+				// store what was selected
 				String currentRoom = getSelection(buttonGroupRooms);
 				String currentCharacter = getSelection(buttonGroupCharacters);
 				String currentWeapon = getSelection(buttonGroupWeapons);
-
+				
+				// validate selection
 				if (currentRoom == null || currentCharacter == null || currentWeapon == null){
 					JOptionPane.showMessageDialog(null, "Select one of each", "Select All Three",JOptionPane.INFORMATION_MESSAGE);
 					return;
 				}
-
-
-				Room selectionRoom = new Room(getSelectedRoom(currentRoom));
-				Person selectionCharacter = new Person (getSelectedCharacter(currentCharacter));
-				Weapon selectionWeapon = new Weapon (getSelectedWeapon(currentWeapon));
-				controller.makeSuggestion(new Suggestion(selectionRoom, selectionCharacter, selectionWeapon));
-
-
-				/*testing outputs*/
-				System.out.println(selectionRoom);
-				System.out.println(selectionCharacter);
-				System.out.println(selectionWeapon);
+				
+				// make suggestion and tell controller to deal with it
+				Room room = new Room(getSelectedRoom(currentRoom));
+				Person character = new Person (getSelectedCharacter(currentCharacter));
+				Weapon weapon = new Weapon (getSelectedWeapon(currentWeapon));
+				Suggestion suggest = new Suggestion(room,character,weapon);
+			
+				if (isAccusation) controller.makeAccusation(suggest);
+				else controller.makeSuggestion(suggest);
+				dispose();
+				
 			}
-			if(e.getSource().equals(cancelButton)) {
+			else if(e.getSource().equals(cancelButton)) {
 				dispose();
 			}
 		}

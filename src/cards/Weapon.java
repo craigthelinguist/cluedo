@@ -59,4 +59,25 @@ public class Weapon extends Token{
 		return imageCard;
 	}
 
+	public String toString(){
+		
+		switch (type){
+		case Candlestick:
+			return "candlestick";
+		case Dagger:
+			return "dagger";
+		case Pipe:
+			return "pipe";
+		case Revolver:
+			return "revolver";
+		case Rope:
+			return "rope";
+		case Spanner:
+			return "spanner";
+		default:
+			throw new IllegalArgumentException();
+		}
+		
+	}
+
 }

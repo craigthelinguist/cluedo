@@ -75,7 +75,7 @@ public class GameFrame extends JFrame {
 	 * Check if this GameFrame is in a game.
 	 * @return: true if there's a game being played, false otherwise.
 	 */
-	public boolean playingGame(){
+	protected boolean playingGame(){
 		return board != null;
 	}
 
@@ -84,7 +84,7 @@ public class GameFrame extends JFrame {
 	 * @param x
 	 * @param y
 	 */
-	public void mousePressed(int x, int y){
+	protected void mousePressed(int x, int y){
 		//System.out.println(board.tileFromCoordinates(x, y));
 		Tile tile = board.tileFromCoordinates(x, y);
 		System.out.println("Can travel: " + tile.canTravel(getCurrentPlayer()));
@@ -95,42 +95,29 @@ public class GameFrame extends JFrame {
 	 * Respond to a button press.
 	 * @param button: name of button that was pressed.
 	 */
-	public void buttonPressed(String button){
+	protected void buttonPressed(String button){
 
 		if (button.equals("End Turn")){
 			board.endTurn();
 			gamePanel.updatePortrait(board.getCurrentPlayer());
 		}
 		else if (button.equals("Roll Dice")){
-			int[] array = getBoard().rollDice();
+			board.rollDice();
 		}
 		else if (button.equals("Suggestion")){
-			/*makes the suggestion dialog appear*/
-			SuggestionDialog sd = new SuggestionDialog(this, true);
-			sd.setVisible(true);
-
-	        //sd.setBounds(400,0,400,400);
+			new SuggestionDialog(this, false);
 		}
 		else if (button.equals("Accuse")){
-			/*makes the accusation dialog appear*/
-			SuggestionDialog ad = new SuggestionDialog(this, false);
-			ad.setVisible(true);
+			new SuggestionDialog(this, true);
 		}
 		updateGUI();
-	}
-
-	/**
-	 * Bring up new game dialog.
-	 */
-	public void newGamePrompt(){
-		new NewGameDialog(this);
 	}
 
 	/**
 	 * Generate a new game with the given array of players.
 	 * @param players: an array of players.
 	 */
-	public void newGame(Player[] players){
+	protected void newGame(Player[] players){
 		if (players == null) return;
 		try{
 			board = new Board(players);
@@ -198,6 +185,36 @@ public class GameFrame extends JFrame {
 		return board.getCurrentPlayer();
 	}
 
+	protected void makeSuggestion(Suggestion suggest) {
+		
+		
+	}
+
+	/**
+	 * The current player has accused someone of being the murderer. If they are correct,
+	 * they win the game. Otherwise they are eliminated. If only one person remains then
+	 * they should be declared the winner.
+	 * @param suggestion: the triple of cards you think solves the murder.
+	 */
+	protected void makeAccusation(Suggestion accusation) {
+		
+		
+		new AccusationDialog(this,accusation,board.solution);
+		
+		
+	}
+
+
+	/**
+	 * Bring up new game dialog.
+	 */
+	protected void newGamePrompt(){
+		new NewGameDialog(this);
+	}
+
+	protected void showVictoryDialog(){
+	}
+	
 	public static void main(String[] args){
 		try {
 			new GameFrame();
@@ -207,20 +224,13 @@ public class GameFrame extends JFrame {
 		}
 	}
 
-	public void makeSuggestion(Suggestion suggestion) {
-		// TODO Auto-generated method stub
-		/**atm this only creates suggestion, later on make it check to see if it's the right one etc
-		 *
-		 */
-		Suggestion suggest = new Suggestion(suggestion.getRoom(), suggestion.getPerson(), suggestion.getWeapon());
+	/**
+	 * Current player has lost the game. Update the board to reflect this and move to
+	 * next player's turn.
+	 */
+	public void playerLost() {
+	
 	}
 
-	public void makeAccusation(Suggestion suggestion) {
-		// TODO Auto-generated method stub
-		/**atm this only creates suggestion, later on make it check to see if it's the right one etc
-		 *
-		 */
-		Suggestion suggest = new Suggestion(suggestion.getRoom(), suggestion.getPerson(), suggestion.getWeapon());
-	}
-
+	
 }

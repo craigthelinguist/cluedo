@@ -38,7 +38,7 @@ public class Board {
 	public final Tile[][] tiles;
 	private final Player[] players;
 	private final BufferedImage imageBoard;
-	private final Suggestion solution;
+	public final Suggestion solution;
 
 	// mutable fields associated with game state
 	private int currentPlayer;
