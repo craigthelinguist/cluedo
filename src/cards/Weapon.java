@@ -80,4 +80,11 @@ public class Weapon extends Token{
 		
 	}
 
+	public boolean equals(Object other){
+		if (other == null) return false;
+		if (!(other instanceof Weapon)) return false;
+		Weapon w = (Weapon)other;
+		return w.type == type;
+	}
+	
 }

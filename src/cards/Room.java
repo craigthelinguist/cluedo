@@ -80,4 +80,12 @@ public class Room extends Card{
 			throw new IllegalArgumentException();
 		}
 	}
+	
+	public boolean equals(Object other){
+		if (other == null) return false;
+		if (!(other instanceof Room)) return false;
+		Room r = (Room)other;
+		return r.type == type;
+	}
+	
 }

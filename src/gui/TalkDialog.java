@@ -30,8 +30,15 @@ import cards.Person;
  */
 public class TalkDialog extends JDialog{
 
-	JButton button;
+	private JButton button;
 	
+	/**
+	 * 
+	 * @param controller: controller to which this dialog is attached.
+	 * @param player: the player talking. Their portrait will be drawn.
+	 * @param talker: name of talker that will be displayed.
+	 * @param msg: the message to be displayed.
+	 */
 	public TalkDialog(JFrame controller, final Player player, String talker, String msg){
 		super(controller,true);
 		

@@ -111,7 +111,7 @@ public class GameFrame extends JFrame {
 		else if (button.equals("Accuse")){
 			new SuggestionDialog(this, true);
 		}
-		updateGUI();
+		if (board != null) updateGUI();
 	}
 
 	/**
@@ -218,12 +218,13 @@ public class GameFrame extends JFrame {
 		Player winner = board.getCurrentPlayer();
 		StringBuilder sb = new StringBuilder();
 		sb.append(winner.toString() + " has won the game!");
-		sb.append("The murderer was " + board.solution.toString());
+		sb.append(" The murderer was " + board.solution.toString());
 		new TalkDialog(this,winner,sb.toString(),"");
 		board = null;
-		menu = new MenuBar(this);
-		gamePanel = new GamePanel(this);
-		canvas.repaint();
+		gamePanel.setVisible(false);
+		canvas.deactivateListener();
+		this.pack();
+		this.repaint();
 	}
 	
 

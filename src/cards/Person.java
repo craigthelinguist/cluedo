@@ -99,5 +99,11 @@ public class Person extends Token{
 
 	}
 
+	public boolean equals(Object other){
+		if (other == null) return false;
+		if (!(other instanceof Person)) return false;
+		Person p = (Person)other;
+		return p.type == type;
+	}
 
 }
