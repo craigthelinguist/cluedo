@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import cards.Card;
@@ -10,11 +11,12 @@ public class Player {
 
 	private final Person avatar;
 	private Tile location;
-	private LinkedList<Card> cards;
+	private ArrayList<Card> cards;
 
+	
 	public Player(Person p){
 		avatar = p;
-		cards = new LinkedList<>();
+		cards = new ArrayList<Card>();
 	}
 
 	/**
@@ -36,6 +38,15 @@ public class Player {
 		cards.add(c);
 	}
 
+	
+	/**
+	 * Get the cards in this player's hand.
+	 * @return cards
+	 */
+	public ArrayList<Card> getPlayersCards() {
+		return cards;
+	}
+	
 	/**
 	 * Return tile this player is standing on.
 	 * @return

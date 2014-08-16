@@ -55,4 +55,9 @@ public class Room extends Card{
 		return imageCard;
 	}
 
+	public Type getType() {
+		return type;
+	}
+
+	
 }

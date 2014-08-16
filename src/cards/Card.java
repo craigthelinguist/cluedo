@@ -9,5 +9,8 @@ public abstract class Card {
 	 * @return: a bufferedImage
 	 */
 	public abstract Image getCardImage();
+
+	public abstract Object getType();
+
 	
 }
