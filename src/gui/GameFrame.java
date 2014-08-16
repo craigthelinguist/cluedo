@@ -126,10 +126,10 @@ public class GameFrame extends JFrame {
 			Player player = board.getCurrentPlayer();
 			new TalkDialog(this,player.getPortrait(),player.toString(),"Hmm... I can't refute anything.");
 			board.endTurn();
+			if (getCurrentPlayer() == gamePanel.getSuggestor()) failedRefute();
 		}
 		
 		if (board != null) gamePanel.updateGamePanel();
-
 		canvas.repaint();
 	}
 
@@ -236,7 +236,7 @@ public class GameFrame extends JFrame {
 		sb.append(" Although " + loser.toString() + " cannot solve the mystery, " + pronoun + " may still move around and refute suggestions.");
 		new TalkDialog(this,loser.getPortrait(),sb.toString(),"");
 		board.eliminatePlayer();
-		if (board.everyoneLost()){
+		if (board.everyoneLost()){;
 			try {
 				Image img = ImageIO.read(new FileInputStream(Constants.ASSETS + File.separatorChar + "portrait_brown.png"));
 				String msg = "Arr! Ya have all failed the late Dr. Black! I can reveal that 'twas in fact " + board.solution.toString() + " Go home ya scallywags!";
@@ -290,6 +290,19 @@ public class GameFrame extends JFrame {
 		Player refuter = this.getCurrentPlayer();
 		new TalkDialog(this,refuter.getPortrait(),refuter.toString(),msg);
 		board.endSuggestion(gamePanel.getSuggestor());
+		gamePanel.endRefuting();
+		gamePanel.updateGamePanel();
+	}
+	
+	/**
+	 * The current suggestion could not be refuted. Display this in a TalkDialog,
+	 * update game state, and update the gui.
+	 */
+	public void failedRefute(){
+		String msg = "Looks like no-one can deny my suggestion....";
+		Player suggestor = gamePanel.getSuggestor();
+		new TalkDialog(this,suggestor.getPortrait(),suggestor.toString(),msg);
+		board.endSuggestion(suggestor);
 		gamePanel.endRefuting();
 		gamePanel.updateGamePanel();
 	}

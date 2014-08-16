@@ -377,7 +377,7 @@ public class GamePanel extends JPanel implements ActionListener {
 				setButtonEnabled("Roll Dice",false);
 				break;
 			case "DONE":
-				setButtonEnabled("Accuse", false);
+				setButtonEnabled("Accuse", eliminated ? false : true);
 				setButtonEnabled("Suggest",false);
 				setButtonEnabled("Roll Dice", false);
 				break;

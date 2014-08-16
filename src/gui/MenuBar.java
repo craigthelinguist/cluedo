@@ -33,8 +33,8 @@ public class MenuBar extends JMenuBar implements MenuListener, ActionListener {
 	private final int MENU_WD = Constants.TILES_ACROSS*Constants.TILE_WIDTH;
 
 	// fields
-	private JMenu file, help;
-	private JMenuItem newGame, exit, instructions;
+	private JMenu file, help, cheats;
+	private JMenuItem newGame, exit, instructions, solution;
 	private GameFrame controller;
 	
 	public MenuBar(GameFrame frame) {
@@ -57,10 +57,17 @@ public class MenuBar extends JMenuBar implements MenuListener, ActionListener {
         instructions = new JMenuItem("Instructions");
         help.add(instructions);
         
+        // set up cheats menu
+        cheats = new JMenu("Cheats");
+        add(cheats);
+        solution = new JMenuItem("Solution");
+        cheats.add(solution);
+        
         // add action listeners
         newGame.addActionListener(this);
         exit.addActionListener(this);
         instructions.addActionListener(this);
+        cheats.addActionListener(this);
 	}
 
 	@Override
@@ -79,6 +86,12 @@ public class MenuBar extends JMenuBar implements MenuListener, ActionListener {
 		}
 		else if (e.getSource().equals(newGame)){
 			controller.newGamePrompt();
+		}
+		else if (e.getSource().equals(solution)){
+			if (controller.playingGame()){
+				System.out.println(controller.getBoard().solution.toString());
+			}
+			
 		}
 	}
 
