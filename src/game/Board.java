@@ -311,5 +311,16 @@ public class Board {
 		players[currentPlayer].eliminate();
 	}
 
+	/**
+	 * Return true if every player has been eliminated.
+	 * @return: true if all have been elmiinated, false otherwise.
+	 */
+	public boolean everyoneLost() {
+		for (int i = 0; i < players.length; i++){
+			if (!players[i].eliminated()) return false;
+		}
+		return true;
+	}
+
 
 }

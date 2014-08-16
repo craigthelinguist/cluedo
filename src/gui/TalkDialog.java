@@ -39,14 +39,15 @@ public class TalkDialog extends JDialog{
 	 * @param talker: name of talker that will be displayed.
 	 * @param msg: the message to be displayed.
 	 */
-	public TalkDialog(JFrame controller, final Player player, String talker, String msg){
+	public TalkDialog(JFrame controller, final Image portrait, String talker, String msg){
 		super(controller,true);
 		
 		// set up portrait that will be drawn
 		JPanel canvas = new JPanel(){
 			@Override
 			protected void paintComponent(Graphics g){
-				g.drawImage(player.getPortrait(),0,0,null);
+				if (portrait == null) g.drawImage(portrait,0,0,null);
+				else g.drawImage(portrait,0,0,null);
 			}
 		};
 		canvas.setPreferredSize(new Dimension(Constants.CARD_WIDTH, Constants.CARD_HEIGHT));

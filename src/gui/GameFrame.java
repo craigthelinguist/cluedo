@@ -16,6 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
+import cards.Person;
+
 public class GameFrame extends JFrame {
 
 	// constants
@@ -115,6 +117,28 @@ public class GameFrame extends JFrame {
 	}
 
 	/**
+	 * The current player has suggested that someone might be the murderer. GameFrame
+	 * should cycle through each player. If they hold none of the cards in the suggestion
+	 * they may only pass.
+	 * @param suggest
+	 */
+	protected void makeSuggestion(Suggestion suggest) {
+		
+		
+	}
+
+	/**
+	 * The current player has accused someone of being the murderer. If they are correct,
+	 * they win the game. Otherwise they are eliminated. If only one person remains then
+	 * they should be declared the winner.
+	 * @param suggestion: the triple of cards you think solves the murder.
+	 */
+	protected void makeAccusation(Suggestion accusation) {
+		new AccusationDialog(this,accusation,board.solution);
+	}
+
+
+	/**
 	 * Generate a new game with the given array of players.
 	 * @param players: an array of players.
 	 */
@@ -122,10 +146,9 @@ public class GameFrame extends JFrame {
 		if (players == null) return;
 		try{
 			board = new Board(players);
-			gamePanel.setVisible(true);
-			gamePanel.updatePortrait(board.getCurrentPlayer());
-			this.pack();
+			gamePanel.activate();
 			canvas.activateListener();
+			this.pack();
 			canvas.repaint();
 		}
 		catch(IOException e){
@@ -188,22 +211,6 @@ public class GameFrame extends JFrame {
 		return board.getCurrentPlayer();
 	}
 
-	protected void makeSuggestion(Suggestion suggest) {
-		
-		
-	}
-
-	/**
-	 * The current player has accused someone of being the murderer. If they are correct,
-	 * they win the game. Otherwise they are eliminated. If only one person remains then
-	 * they should be declared the winner.
-	 * @param suggestion: the triple of cards you think solves the murder.
-	 */
-	protected void makeAccusation(Suggestion accusation) {
-		new AccusationDialog(this,accusation,board.solution);
-	}
-
-
 	/**
 	 * Bring up new game dialog.
 	 */
@@ -219,11 +226,8 @@ public class GameFrame extends JFrame {
 		StringBuilder sb = new StringBuilder();
 		sb.append(winner.toString() + " has won the game!");
 		sb.append(" The murderer was " + board.solution.toString());
-		new TalkDialog(this,winner,sb.toString(),"");
-		board = null;
-		gamePanel.setVisible(false);
-		canvas.deactivateListener();
-		this.pack();
+		new TalkDialog(this,winner.getPortrait(),sb.toString(),"");
+		quitCurrentGame();
 		this.repaint();
 	}
 	
@@ -238,11 +242,34 @@ public class GameFrame extends JFrame {
 		StringBuilder sb = new StringBuilder();
 		sb.append(loser.toString() + " has been eliminated!");
 		sb.append(" Although " + loser.toString() + " cannot solve the mystery, " + pronoun + " may still move around and refute suggestions.");
-		new TalkDialog(this,loser,sb.toString(),"");
+		new TalkDialog(this,loser.getPortrait(),sb.toString(),"");
 		board.eliminatePlayer();
-		this.buttonPressed("End Turn");
+		if (board.everyoneLost()){
+			String msg = "Arr! Ya have all failed the late Dr. Black! I can reveal that 'twas in fact " + board.solution.toString() + " Go home ya scallywags!";
+			try {
+				new TalkDialog(this,new Person("mustard").getPortraitImage(),"Cpt. Brown",msg);
+			} catch (IOException e) {
+				new TalkDialog(this,null,"Cpt. Brown",msg);
+			}
+			quitCurrentGame();
+		}
+		else{
+			this.buttonPressed("End Turn");
+			this.updateGUI();
+		}
 	}
-
+	
+	/**
+	 * Quit the game currently being played. Should deactivate all parts of the gui.
+	 */
+	private void quitCurrentGame(){
+		board = null;
+		gamePanel.deactivate();
+		canvas.deactivateListener();
+		this.pack();
+		this.repaint();
+		canvas.repaint();
+	}
 
 	public static void main(String[] args){
 		try {

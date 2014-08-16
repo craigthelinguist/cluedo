@@ -19,10 +19,17 @@ public class Player {
 		eliminated = false;
 	}
 
+	/**
+	 * Set this player to be eliminated from the game.
+	 */
 	public void eliminate(){
 		eliminated = true;
 	}
 	
+	/**
+	 * Check if this player has been eliminated from the game.
+	 * @return: true if the player has been eliminated; false otherwise.
+	 */
 	public boolean eliminated(){
 		return eliminated;
 	}
@@ -44,6 +51,15 @@ public class Player {
 	 */
 	public void addCard(Card c){
 		cards.add(c);
+	}
+	
+	/**
+	 * Return true if the player has the specified card in their hand.
+	 * @param c: card to check.
+	 * @return: true if player is holding the card; false otherwise.
+	 */
+	public boolean hasCard(Card c){
+		return cards.contains(c);
 	}
 
 	/**

@@ -4,35 +4,26 @@ import game.Player;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.GroupLayout;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JButton;
 
 import main.Constants;
-import main.Main;
 
 public class GamePanel extends JPanel implements ActionListener {
 
@@ -62,6 +53,11 @@ public class GamePanel extends JPanel implements ActionListener {
 	private JButton buttonEndTurn;
 	private JButton buttonRollDice;
 	private JLabel movesLabel;
+	
+	// refuting: whether players are refuting a suggestion or rolling/moving.
+	// suggestor: the person who instigated a suggestion, or null if you aren't refuting.
+	private boolean refuting = false;
+	private Player suggestor = null;
 
 	public GamePanel(GameFrame frame) {
 
@@ -302,6 +298,35 @@ public class GamePanel extends JPanel implements ActionListener {
     public void setMovesRemaining(int amount){
     	this.movesLabel.setText("Moves: " + amount);
     }
+
+    /**
+     * Activate this GamePanel. It should make itself visible and update
+     * itself.
+     */
+	public void activate() {
+		refuting = false;
+		updatePortrait(controller.getBoard().getCurrentPlayer());
+		setVisible(true);
+	}
+	
+	/**
+	 * Deactivate this GamePanel. It should hide.
+	 */
+	public void deactivate(){
+		refuting = false;
+		setVisible(false);
+	}
+	
+	/**
+	 * Set this GamePanel to be in refuting mode. Refuting mode means that the
+	 * players are taking turns to refute a suggestion, or pass.
+	 * @param refutingMode: whether you are not refuting or not.
+	 */
+	public void setRefuting(Player suggestor, boolean refutingMode){
+		refuting = refutingMode;
+	}
+	
+	
     
 }
 
