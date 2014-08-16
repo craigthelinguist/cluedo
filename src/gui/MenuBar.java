@@ -1,12 +1,15 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -16,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
@@ -79,14 +84,23 @@ public class MenuBar extends JMenuBar implements MenuListener, ActionListener {
 
 	public static void displayInstructions()throws IOException {
 	    BufferedReader br = new BufferedReader(new FileReader("gameInstructions/instructions.txt"));
-		JTextArea textArea = new JTextArea(500,380);
+		JTextArea textArea = new JTextArea(20,50);
+				
+		/*create new border with title */
+		TitledBorder border  = BorderFactory.createTitledBorder("How To Play:");
+		/*create new font for the title */
+		Font font = new Font ("Arial", Font.BOLD, 20);
+		/*set title font and center the title */
+		border.setTitleFont(font);
+		border.setTitleJustification(TitledBorder.CENTER);
+		/*set the border around text area */
+		textArea.setBorder(border);
+		
 		textArea.read(br,null);
-		JScrollPane scrollPane = new JScrollPane(textArea);
 		textArea.setLineWrap(true);  
 		textArea.setWrapStyleWord(true); 
-		scrollPane.setPreferredSize( new Dimension(500, 380));
-	    br.close();
-	    JOptionPane.showMessageDialog(null, scrollPane, "How-To-Play",JOptionPane.INFORMATION_MESSAGE);
+	    br.close(); //close the bufferedreader
+	    JOptionPane.showMessageDialog(null, textArea, "How-To-Play",JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	/**
