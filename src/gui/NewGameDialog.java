@@ -232,6 +232,7 @@ public class NewGameDialog extends JDialog {
 						break;
 					}
 				}
+				dispose();
 				controller.newGame(playerArray);
 			}
 			catch(IOException e){

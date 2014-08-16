@@ -150,12 +150,24 @@ public class GameFrame extends JFrame {
 	protected void newGame(Player[] players){
 		if (players == null) return;
 		try{
+			
 			board = new Board(players);
 			gamePanel.activate();
 			canvas.activateListener();
-
 			this.pack();
 			canvas.repaint();
+			
+
+			try{
+				Image img = ImageIO.read(new FileInputStream(Constants.ASSETS + File.separatorChar + "portrait_brown.png"));
+				String msg = "Ahoy there mateys! There be a murder mystery at the estate of Dr. Black. It is yer' task to figure out whodunnit by making suggestions. When ya think ya have it, make yer' accusation! Best of luck to ya landlubbers!";
+				new TalkDialog(this,img,"Cpt. Brown",msg);
+			}
+			catch(IOException e){
+			
+			}
+			
+			
 		}
 		catch(IOException e){
 			JOptionPane.showMessageDialog(this, "Error loading board! " + e);
