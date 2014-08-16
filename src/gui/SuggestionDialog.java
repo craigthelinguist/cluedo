@@ -314,29 +314,30 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		try{
 			if(e.getSource().equals(suggestButton)) {
-				/*3 strings to store which one is selected */
+				
+				// store what was selected
 				String currentRoom = getSelection(buttonGroupRooms);
 				String currentCharacter = getSelection(buttonGroupCharacters);
 				String currentWeapon = getSelection(buttonGroupWeapons);
-
+				
+				// validate selection
 				if (currentRoom == null || currentCharacter == null || currentWeapon == null){
 					JOptionPane.showMessageDialog(null, "Select one of each", "Select All Three",JOptionPane.INFORMATION_MESSAGE);
 					return;
 				}
-
-
-				Room selectionRoom = new Room(getSelectedRoom(currentRoom));
-				Person selectionCharacter = new Person (getSelectedCharacter(currentCharacter));
-				Weapon selectionWeapon = new Weapon (getSelectedWeapon(currentWeapon));
-				controller.makeSuggestion(new Suggestion(selectionRoom, selectionCharacter, selectionWeapon));
-
-
-				/*testing outputs*/
-				System.out.println(selectionRoom);
-				System.out.println(selectionCharacter);
-				System.out.println(selectionWeapon);
+				
+				// make suggestion and tell controller to deal with it
+				Room room = new Room(getSelectedRoom(currentRoom));
+				Person character = new Person (getSelectedCharacter(currentCharacter));
+				Weapon weapon = new Weapon (getSelectedWeapon(currentWeapon));
+				Suggestion suggest = new Suggestion(room,character,weapon);
+			
+				if (isAccusation) controller.makeAccusation(suggest);
+				else controller.makeSuggestion(suggest);
+				dispose();
+				
 			}
-			if(e.getSource().equals(cancelButton)) {
+			else if(e.getSource().equals(cancelButton)) {
 				dispose();
 			}
 		}

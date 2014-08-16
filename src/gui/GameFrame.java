@@ -75,7 +75,7 @@ public class GameFrame extends JFrame {
 	 * Check if this GameFrame is in a game.
 	 * @return: true if there's a game being played, false otherwise.
 	 */
-	public boolean playingGame(){
+	protected boolean playingGame(){
 		return board != null;
 	}
 
@@ -84,7 +84,7 @@ public class GameFrame extends JFrame {
 	 * @param x
 	 * @param y
 	 */
-	public void mousePressed(int x, int y){
+	protected void mousePressed(int x, int y){
 		//System.out.println(board.tileFromCoordinates(x, y));
 		Tile tile = board.tileFromCoordinates(x, y);
 		System.out.println("Can travel: " + tile.canTravel(getCurrentPlayer()));
@@ -95,7 +95,7 @@ public class GameFrame extends JFrame {
 	 * Respond to a button press.
 	 * @param button: name of button that was pressed.
 	 */
-	public void buttonPressed(String button){
+	protected void buttonPressed(String button){
 
 		if (button.equals("End Turn")){
 			board.endTurn();
@@ -116,7 +116,7 @@ public class GameFrame extends JFrame {
 	/**
 	 * Bring up new game dialog.
 	 */
-	public void newGamePrompt(){
+	protected void newGamePrompt(){
 		new NewGameDialog(this);
 	}
 
@@ -124,7 +124,7 @@ public class GameFrame extends JFrame {
 	 * Generate a new game with the given array of players.
 	 * @param players: an array of players.
 	 */
-	public void newGame(Player[] players){
+	protected void newGame(Player[] players){
 		if (players == null) return;
 		try{
 			board = new Board(players);
@@ -192,6 +192,17 @@ public class GameFrame extends JFrame {
 		return board.getCurrentPlayer();
 	}
 
+	protected void makeSuggestion(Suggestion suggestion) {
+		
+		
+	}
+
+	protected void makeAccusation(Suggestion suggestion) {
+		
+		
+	}
+
+
 	public static void main(String[] args){
 		try {
 			new GameFrame();
@@ -201,20 +212,5 @@ public class GameFrame extends JFrame {
 		}
 	}
 
-	public void makeSuggestion(Suggestion suggestion) {
-		// TODO Auto-generated method stub
-		/**atm this only creates suggestion, later on make it check to see if it's the right one etc
-		 *
-		 */
-		Suggestion suggest = new Suggestion(suggestion.getRoom(), suggestion.getPerson(), suggestion.getWeapon());
-	}
-
-	public void makeAccusation(Suggestion suggestion) {
-		// TODO Auto-generated method stub
-		/**atm this only creates suggestion, later on make it check to see if it's the right one etc
-		 *
-		 */
-		Suggestion suggest = new Suggestion(suggestion.getRoom(), suggestion.getPerson(), suggestion.getWeapon());
-	}
-
+	
 }
