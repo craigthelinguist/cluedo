@@ -67,7 +67,7 @@ public class MenuBar extends JMenuBar implements MenuListener, ActionListener {
         newGame.addActionListener(this);
         exit.addActionListener(this);
         instructions.addActionListener(this);
-        cheats.addActionListener(this);
+        solution.addActionListener(this);
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class MenuBar extends JMenuBar implements MenuListener, ActionListener {
 		}
 		else if (e.getSource().equals(solution)){
 			if (controller.playingGame()){
-				System.out.println(controller.getBoard().solution.toString());
+				System.out.println("Solution is: " + controller.getBoard().solution.toString());
 			}
 			
 		}
@@ -136,18 +136,6 @@ public class MenuBar extends JMenuBar implements MenuListener, ActionListener {
 		// TODO Auto-generated method stub
 	}
 	
-	
-    /* testing the panel*/
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            UIManager.put("swing.boldMetal", Boolean.FALSE);
-                 
-        createAndShowGUI();
-            }
-        });
-    }
-    
     private static void createAndShowGUI() {
         JFrame frame = new JFrame("MenuBarTesting");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

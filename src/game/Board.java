@@ -10,10 +10,13 @@ import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 
 import javax.imageio.ImageIO;
 
@@ -43,7 +46,7 @@ public class Board {
 	// mutable fields associated with game state
 	private int currentPlayer;
 	private int moves; //how many squares they can move
-	private Set<Tile> validMoves; //list of squares the player may move to
+	private Map<Tile,Integer> validMoves; // Mapping of Tile Player Can Move To -> Distance from player position
 	private State state;
 
 	/**
@@ -64,7 +67,7 @@ public class Board {
 		imageBoard = ImageIO.read(new FileInputStream(FILEPATH + "board.png"));
 		state = State.ROLLING;
 		currentPlayer = 0;
-		validMoves = new HashSet<>();
+		validMoves = new HashMap<>();
 
 		// set the starting position for each player
 		Tile[] spawnPoints = findSpawnPoints();
@@ -137,7 +140,7 @@ public class Board {
 	public void endTurn(){
 		currentPlayer = (currentPlayer+1)%players.length;
 		moves = 0;
-		validMoves = new HashSet<>();
+		validMoves = new HashMap<>();
 		state = State.ROLLING;
 	}
 
@@ -149,19 +152,19 @@ public class Board {
 	 */
 	public boolean movePlayer(Tile goal){
 		if (state == State.ROLLING || moves == 0) return false;
-		if (!validMoves.contains(goal)) return false; // invalid move
+		if (!validMoves.containsKey(goal)) return false; // invalid move
+		Integer distMoved = validMoves.get(goal);
+		moves -= distMoved;
 		Player player = players[currentPlayer];
 		Tile oldPosition = player.getLocation();
 		player.setLocation(goal);
 		oldPosition.setOccupant(null);
 		goal.setOccupant(player);
-		int distMoved = Math.abs(oldPosition.x - goal.x) + Math.abs(oldPosition.y - goal.y);
-		moves -= distMoved;
 		validMoves = computeValidMoves();
 		if (moves == 0) state = State.SUGGESTING;
 		return true;
 	}
-
+	
 	/**
 	 * Roll dice and update the number of moves the player can make, and update the
 	 * game state.
@@ -201,9 +204,9 @@ public class Board {
 	 * breadth-first search.
 	 * @return: a list of tiles that the currentPlayer can move to.
 	 */
-	private Set<Tile> computeValidMoves(){
-		if (moves == 0) return new HashSet<>();
-		Set<Tile> validTiles = new HashSet<>();
+	private Map<Tile,Integer> computeValidMoves(){
+		if (moves == 0) return new HashMap<>();
+		Map<Tile,Integer> validTiles = new HashMap<>();
 		Player player = players[currentPlayer];
 		Tile start = player.getLocation();
 
@@ -224,8 +227,8 @@ public class Board {
 		while (!queue.isEmpty()){
 			Node node = queue.poll();
 			Tile tile = node.tile;
-			if (validTiles.contains(tile)) continue;
-			if (tile.canTravel(player)) validTiles.add(tile);
+			if (validTiles.containsKey(tile)) continue;
+			if (tile.canTravel(player)) validTiles.put(tile,node.depth);
 			int depth = node.depth;
 			if (depth == moves) continue;
 
@@ -301,7 +304,7 @@ public class Board {
 	}
 
 	public Set<Tile> getValidMoves() {
-		return validMoves;
+		return validMoves.keySet();
 	}
 
 	/**
