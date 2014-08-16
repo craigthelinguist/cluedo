@@ -110,28 +110,6 @@ public class Tile {
 		if (getClass() != obj.getClass())
 			return false;
 		Tile other = (Tile) obj;
-		if (EAST != other.EAST)
-			return false;
-		if (NORTH != other.NORTH)
-			return false;
-		if (SOUTH != other.SOUTH)
-			return false;
-		if (WEST != other.WEST)
-			return false;
-		if (occupant == null) {
-			if (other.occupant != null)
-				return false;
-		} else if (!occupant.equals(other.occupant))
-			return false;
-		if (passage == null) {
-			if (other.passage != null)
-				return false;
-		} else if (!passage.equals(other.passage))
-			return false;
-		if (room != other.room)
-			return false;
-		if (terrain != other.terrain)
-			return false;
 		if (x != other.x)
 			return false;
 		if (y != other.y)
