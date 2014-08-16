@@ -102,15 +102,13 @@ public class GameFrame extends JFrame {
 			gamePanel.updatePortrait(board.getCurrentPlayer());
 		}
 		else if (button.equals("Roll Dice")){
-			int[] array = getBoard().rollDice();
+			board.rollDice();
 		}
 		else if (button.equals("Suggestion")){
-			/*makes the suggestion dialog appear*/
-			SuggestionDialog sd = new SuggestionDialog(this, false);
+			new SuggestionDialog(this, false);
 		}
 		else if (button.equals("Accuse")){
-			/*makes the accusation dialog appear*/
-			SuggestionDialog ad = new SuggestionDialog(this, true);
+			new SuggestionDialog(this, true);
 		}
 		updateGUI();
 	}
