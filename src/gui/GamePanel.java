@@ -155,7 +155,11 @@ public class GamePanel extends JPanel implements ActionListener {
 		refutePanel.setPreferredSize(buttons.getPreferredSize());
 		
 		refuteOptions = new JComboBox<>();
-		refuteLabel = new JLabel("Refute");
+		refuteOptions.setEditable(false);
+		refuteOptions.setMaximumSize(new Dimension(refutePanel.getPreferredSize().width,10));
+		refuteOptions.setMinimumSize(refuteOptions.getMinimumSize());
+		
+		refuteLabel = new JLabel("Choice");
 		refuteButton = new JButton("Pass");
 
 		
@@ -167,7 +171,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		layout.setVerticalGroup(vertical);
 		layout.setAutoCreateGaps(true);
 		
-		horizontal.addGroup(layout.createParallelGroup()
+		horizontal.addGroup(layout.createParallelGroup(Alignment.CENTER)
 			.addComponent(refuteButton)
 			.addComponent(refuteLabel)
 			.addComponent(refuteOptions)
@@ -183,7 +187,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	 * @param enabled: whether the button should now be enabled (True) or disabled (false)
 	 * @param name: name of the button
 	 */
-	public void setButtonEnabled(String name, boolean enabled){
+	protected void setButtonEnabled(String name, boolean enabled){
 		switch(name){
 		case "Accuse":
 			buttonAccuse.setEnabled(enabled);
@@ -296,7 +300,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	 * Update all info the GamePanel is displaying. It will
 	 * @param player: player whose name and portrait should be displayed.
 	 */
-	public void updateGamePanel(){
+	protected void updateGamePanel(){
 
 		// update the portrait being displayed
 		Player player = controller.getCurrentPlayer();
@@ -305,13 +309,53 @@ public class GamePanel extends JPanel implements ActionListener {
 		else currentPlayer.setForeground(Color.BLACK);
 		currentPlayer.setText(player.toString());
 		
-		// refuting a suggestion
+		// refuting
 		if (refuting){
+			refuteOptions.removeAllItems();
+			if (player.hasCard(suggestion.person)) refuteOptions.addItem(suggestion.person);
+			if (player.hasCard(suggestion.room)) refuteOptions.addItem(suggestion.room);
+			if (player.hasCard(suggestion.weapon)) refuteOptions.addItem(suggestion.weapon);
+			System.out.println(refuteOptions.getItemCount());
+			if (refuteOptions.getItemCount() == 0){
+				refuteButton.setText("Pass");
+			}
+			else{
+				refuteButton.setText("Refute");
+				refuteOptions.setSelectedIndex(0);
+			}
 
+			// set action listeners for the button
+			ActionListener[] listeners = refuteButton.getActionListeners();
+			for (int i = 0; i < listeners.length; i++){
+				if (listeners[i] == null) break;
+				else refuteButton.removeActionListener(listeners[i]);
+			}
+			if (refuteOptions.getItemCount() == 0){
+				
+				refuteButton.addActionListener(new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						controller.buttonPressed("Pass");
+					}			
+				});
+				
+			}
+			else{
+
+				refuteButton.addActionListener(new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						controller.refute((Card)(refuteOptions.getSelectedItem()));
+					}			
+				});
+				
+			}
+		
 		}
+		
 		// rolling & moving
+		// enable/diasble buttons as appropriate
 		else{
-			// enable/disable buttons as appropriate
 			Board board = controller.getBoard();
 			String state = board.getState();
 			boolean eliminated = board.getCurrentPlayer().eliminated();
@@ -368,7 +412,7 @@ public class GamePanel extends JPanel implements ActionListener {
      * Activate this GamePanel. It should make itself visible and update
      * itself.
      */
-	public void activate() {
+	protected void activate() {
 		endRefuting();
 		this.updateGamePanel();
 		setVisible(true);
@@ -377,7 +421,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	/**
 	 * Deactivate this GamePanel. It should hide.
 	 */
-	public void deactivate(){
+	protected void deactivate(){
 		endRefuting();
 		setVisible(false);
 	}
@@ -388,48 +432,8 @@ public class GamePanel extends JPanel implements ActionListener {
 	 * @param suggestor: who made suggestion
 	 * @param suggestion: the suggestion made
 	 */
-	public void startRefuting(final Player suggestor, Suggestion suggestion){
+	protected void startRefuting(final Player suggestor, Suggestion suggestion){
 		if (!refuting){
-			refuteOptions = new JComboBox<>();
-			Player player = suggestor;
-			if (player.hasCard(suggestion.person)) refuteOptions.addItem(suggestion.person);
-			if (player.hasCard(suggestion.room)) refuteOptions.addItem(suggestion.room);
-			if (player.hasCard(suggestion.weapon)) refuteOptions.addItem(suggestion.weapon);
-			if (refuteOptions.getItemCount() == 0){
-				refuteButton.setText("Pass");
-			}
-			else{
-				refuteButton.setText("Refute");
-				refuteOptions.setSelectedIndex(0);
-			}
-			
-			// set action listeners for the button
-			ActionListener[] listeners = refuteButton.getActionListeners();
-			for (int i = 0; i < listeners.length; i++){
-				if (listeners[i] == null) break;
-				else refuteButton.removeActionListener(listeners[i]);
-			}
-			if (refuteOptions.getItemCount() == 0){
-				
-				refuteButton.addActionListener(new ActionListener(){
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						controller.buttonPressed("Pass");
-					}			
-				});
-				
-			}
-			else{
-
-				refuteButton.addActionListener(new ActionListener(){
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						controller.refute((Card)(refuteOptions.getSelectedItem()), suggestor);
-					}			
-				});
-				
-			}
-		
 			this.layout.replace(buttons,refutePanel);
 		}
 		refuting=true;
@@ -440,11 +444,19 @@ public class GamePanel extends JPanel implements ActionListener {
 	/**
 	 * End the refuting.
 	 */
-	public void endRefuting(){
+	protected void endRefuting(){
 		if (refuting) this.layout.replace(refutePanel, buttons);
 		refuting=false;
 		this.suggestor=null;
 		this.suggestion=null;
+	}
+	
+	/**
+	 * Return the player who made the current suggestion.
+	 * @return: a player
+	 */
+	protected Player getSuggestor(){
+		return suggestor;
 	}
 	
     

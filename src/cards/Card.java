@@ -9,5 +9,8 @@ public abstract class Card {
 	 * @return: a bufferedImage
 	 */
 	public abstract Image getCardImage();
+
+	@Override
+	public abstract String toString();
 	
 }

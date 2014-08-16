@@ -23,6 +23,8 @@ import main.Constants;
 
 import cards.Card;
 import cards.Person;
+import cards.Room;
+import cards.Weapon;
 
 public class GameFrame extends JFrame {
 
@@ -274,9 +276,22 @@ public class GameFrame extends JFrame {
 		}
 	}
 
-	public void refute(Card card, Player suggestor) {
-		// TODO Auto-generated method stub
-		
+	/**
+	 * The current suggestion has been refuted. Display the refutation in a TalkDialog,
+	 * update game state, and update the gui.
+	 * @param card
+	 * @param suggestor
+	 */
+	public void refute(Card card) {
+		String msg = "";
+		if (card instanceof Weapon) msg += "The murderer definitely didn't use the " + card.toString();
+		else if (card instanceof Room) msg += "The murder definitely didn't take place in the " + card.toString();
+		else if (card instanceof Person) msg += card.toString() + " didn't commit the crime!";
+		Player refuter = this.getCurrentPlayer();
+		new TalkDialog(this,refuter.getPortrait(),refuter.toString(),msg);
+		board.endSuggestion(gamePanel.getSuggestor());
+		gamePanel.endRefuting();
+		gamePanel.updateGamePanel();
 	}
 
 }

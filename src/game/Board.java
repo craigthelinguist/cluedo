@@ -322,5 +322,20 @@ public class Board {
 		return true;
 	}
 
+	/**
+	 * A round of suggesting is over. The turn now goes to the specified lpayer.
+	 * @param suggestor: person who made suggestion.
+	 */
+	public void endSuggestion(Player suggestor) {
+		for (int i = 0; i < players.length; i++){
+			if (players[i] == suggestor){
+				currentPlayer = i;
+				break;
+			}
+		}
+		this.state = State.DONE;
+	}
+
+	
 
 }
