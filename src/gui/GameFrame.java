@@ -96,7 +96,9 @@ public class GameFrame extends JFrame {
 		//System.out.println(board.tileFromCoordinates(x, y));
 		Tile tile = board.tileFromCoordinates(x, y);
 		System.out.println("Can travel: " + tile.canTravel(getCurrentPlayer()));
-		if (board.movePlayer(tile)) updateGUI();
+		if (board.movePlayer(tile)) gamePanel.updateGamePanel();
+
+		canvas.repaint();
 	}
 
 	/**
@@ -107,7 +109,6 @@ public class GameFrame extends JFrame {
 
 		if (button.equals("End Turn")){
 			board.endTurn();
-			gamePanel.updatePortrait(board.getCurrentPlayer());
 		}
 		else if (button.equals("Roll Dice")){
 			board.rollDice();
@@ -118,7 +119,9 @@ public class GameFrame extends JFrame {
 		else if (button.equals("Accuse")){
 			new SuggestionDialog(this, true);
 		}
-		if (board != null) updateGUI();
+		if (board != null) gamePanel.updateGamePanel();
+
+		canvas.repaint();
 	}
 
 	/**
@@ -128,8 +131,8 @@ public class GameFrame extends JFrame {
 	 * @param suggest
 	 */
 	protected void makeSuggestion(Suggestion suggest) {
-		
-		
+		gamePanel.startRefuting(board.getCurrentPlayer(), suggest);
+		buttonPressed("End Turn");
 	}
 
 	/**
@@ -181,44 +184,6 @@ public class GameFrame extends JFrame {
 	protected Player[] getPlayers(){
 		if (board == null) throw new NullPointerException("Trying to get player array from a board that doesn't exist!");
 		return board.getPlayers();
-	}
-
-	/**
-	 * Updates the GUI to display relevant information depending on the given state of play.
-	 * @param state
-	 */
-	private void updateGUI(){
-
-		String state = board.getState();
-		boolean eliminated = board.getCurrentPlayer().eliminated();
-		
-		switch(state){
-
-		case "ROLLING":
-			gamePanel.setButtonEnabled("Accuse",false);
-			gamePanel.setButtonEnabled("Suggest",false);
-			gamePanel.setButtonEnabled("Roll Dice",true);
-			break;
-		case "MOVING":
-			gamePanel.setButtonEnabled("Accuse", eliminated ? false : true);
-			gamePanel.setButtonEnabled("Suggest",eliminated ? false : true);
-			gamePanel.setButtonEnabled("Roll Dice",false);
-			break;
-		case "SUGGESTING":
-			gamePanel.setButtonEnabled("Accuse", eliminated ? false : true);
-			gamePanel.setButtonEnabled("Suggest",eliminated ? false : true);
-			gamePanel.setButtonEnabled("Roll Dice",false);
-			break;
-		case "DONE":
-			gamePanel.setButtonEnabled("Accuse", false);
-			gamePanel.setButtonEnabled("Suggest",false);
-			gamePanel.setButtonEnabled("Roll Dice", false);
-			break;
-		}
-
-		gamePanel.setMovesRemaining(board.getMovesLeft());
-		repaint();
-		
 	}
 
 	/**
@@ -277,7 +242,7 @@ public class GameFrame extends JFrame {
 		}
 		else{
 			this.buttonPressed("End Turn");
-			this.updateGUI();
+			gamePanel.updateGamePanel();
 		}
 	}
 	

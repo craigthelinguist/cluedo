@@ -1,6 +1,8 @@
 package gui;
 
+import game.Board;
 import game.Player;
+import game.Suggestion;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,6 +17,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,6 +25,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+
+import cards.Card;
 
 import main.Constants;
 
@@ -46,6 +51,9 @@ public class GamePanel extends JPanel implements ActionListener {
 	// card panel: draws the player's cards
 	private JPanel cards;
 
+	// only one of buttonPanel or refutePanel is visible at any time.
+	private JPanel visiblePanel;
+	
 	// button panel: contains buttons and the dice
 	private JPanel buttons;
 	private JButton buttonAccuse;
@@ -54,10 +62,15 @@ public class GamePanel extends JPanel implements ActionListener {
 	private JButton buttonRollDice;
 	private JLabel movesLabel;
 	
-	// refuting: whether players are refuting a suggestion or rolling/moving.
-	// suggestor: the person who instigated a suggestion, or null if you aren't refuting.
-	private boolean refuting = false;
-	private Player suggestor = null;
+	// refute panel: contains options for refuting a suggestion
+	private JPanel refutePanel;
+	private JComboBox<Card> refuteOptions;
+	private JButton refuteButton;
+	private JLabel refuteLabel;
+	private boolean refuting = false; // whether you're currently refuting suggestion or not
+	private Player suggestor = null; // who made suggestion
+	private Suggestion suggestion = null;
+	private GroupLayout layout;
 
 	public GamePanel(GameFrame frame) {
 
@@ -69,16 +82,16 @@ public class GamePanel extends JPanel implements ActionListener {
 		this.setupPortrait();
 		this.setupCards();
 		this.setupButtons();
-
-		// add panels to this
-		GroupLayout layout = new GroupLayout(this);
+		this.setupRefutation();
+		
+		// layout
+		layout = new GroupLayout(this);
 		this.setLayout(layout);
 		GroupLayout.SequentialGroup horizontal = layout.createSequentialGroup();
 		GroupLayout.SequentialGroup vertical = layout.createSequentialGroup();
 		layout.setHorizontalGroup(horizontal);
 		layout.setVerticalGroup(vertical);
 		//layout.setAutoCreateContainerGaps(true);
-
 
 		horizontal.addComponent(portrait);
 		horizontal.addComponent(cards);
@@ -89,6 +102,7 @@ public class GamePanel extends JPanel implements ActionListener {
 			.addComponent(cards)
 			.addComponent(buttons)
 		);
+		//visiblePanel = buttons;
 
 	}
 
@@ -135,6 +149,35 @@ public class GamePanel extends JPanel implements ActionListener {
 		);
 	}
 
+	private void setupRefutation() {
+
+		refutePanel = new JPanel();
+		refutePanel.setPreferredSize(buttons.getPreferredSize());
+		
+		refuteOptions = new JComboBox<>();
+		refuteLabel = new JLabel("Refute");
+		refuteButton = new JButton("Pass");
+
+		
+		GroupLayout layout = new GroupLayout(refutePanel);
+		refutePanel.setLayout(layout);
+		GroupLayout.SequentialGroup horizontal = layout.createSequentialGroup();
+		GroupLayout.SequentialGroup vertical = layout.createSequentialGroup();
+		layout.setHorizontalGroup(horizontal);
+		layout.setVerticalGroup(vertical);
+		layout.setAutoCreateGaps(true);
+		
+		horizontal.addGroup(layout.createParallelGroup()
+			.addComponent(refuteButton)
+			.addComponent(refuteLabel)
+			.addComponent(refuteOptions)
+		);
+		vertical.addComponent(refuteButton);
+		vertical.addComponent(refuteLabel);
+		vertical.addComponent(refuteOptions);
+		
+	}
+	
 	/**
 	 * Enables or disables the button with the given name.
 	 * @param enabled: whether the button should now be enabled (True) or disabled (false)
@@ -250,14 +293,71 @@ public class GamePanel extends JPanel implements ActionListener {
 	}
 
 	/**
-	 * Set the currently displayed portrait.
+	 * Update all info the GamePanel is displaying. It will
 	 * @param player: player whose name and portrait should be displayed.
 	 */
-	public void updatePortrait(Player player){
+	public void updateGamePanel(){
+
+		// update the portrait being displayed
+		Player player = controller.getCurrentPlayer();
 		portraitBox.setIcon(new ImageIcon(player.getPortrait()));
 		if (player.eliminated()) currentPlayer.setForeground(Color.RED);
 		else currentPlayer.setForeground(Color.BLACK);
 		currentPlayer.setText(player.toString());
+		
+		// refuting a suggestion
+		if (refuting){
+			refuteOptions = new JComboBox<>();
+			if (player.hasCard(suggestion.person)) refuteOptions.addItem(suggestion.person);
+			if (player.hasCard(suggestion.room)) refuteOptions.addItem(suggestion.room);
+			if (player.hasCard(suggestion.weapon)) refuteOptions.addItem(suggestion.weapon);
+			if (refuteOptions.getItemCount() == 0){
+				refuteButton.setText("Pass");
+			}
+			else{
+				refuteButton.setText("Refute");
+				refuteOptions.setSelectedIndex(0);
+			}
+		}
+		// rolling & moving
+		else{
+			// enable/disable buttons as appropriate
+			Board board = controller.getBoard();
+			String state = board.getState();
+			boolean eliminated = board.getCurrentPlayer().eliminated();
+			switch(state){
+
+			case "ROLLING":
+				setButtonEnabled("Accuse",false);
+				setButtonEnabled("Suggest",false);
+				setButtonEnabled("Roll Dice",true);
+				break;
+			case "MOVING":
+				setButtonEnabled("Accuse", eliminated ? false : true);
+				setButtonEnabled("Suggest",eliminated ? false : true);
+				setButtonEnabled("Roll Dice",false);
+				break;
+			case "SUGGESTING":
+				setButtonEnabled("Accuse", eliminated ? false : true);
+				setButtonEnabled("Suggest",eliminated ? false : true);
+				setButtonEnabled("Roll Dice",false);
+				break;
+			case "DONE":
+				setButtonEnabled("Accuse", false);
+				setButtonEnabled("Suggest",false);
+				setButtonEnabled("Roll Dice", false);
+				break;
+			}
+
+			// update amount of moves
+			int amount = board.getMovesLeft();
+	    	this.movesLabel.setText("Moves: " + amount);
+			
+		}
+		
+		this.validate();
+		this.repaint();
+		
 	}
 
     /** change this method later a lot of it is testing*/
@@ -274,38 +374,13 @@ public class GamePanel extends JPanel implements ActionListener {
 		}
 	}
 
-
-
-
-    /* testing the panel*/
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	UIManager.put("swing.boldMetal", Boolean.FALSE);
-            	JFrame frame = new JFrame("GamePanel");
-            	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            	frame.getContentPane().add(new GamePanel(null));
-            	frame.pack();
-            	frame.setVisible(true);
-            }
-        });
-    }
-
-    /**
-     * Set the string in the JLabel at the bottom of the buttons panel.
-     * @param string: text that the JLabel should display.
-     */
-    public void setMovesRemaining(int amount){
-    	this.movesLabel.setText("Moves: " + amount);
-    }
-
     /**
      * Activate this GamePanel. It should make itself visible and update
      * itself.
      */
 	public void activate() {
-		refuting = false;
-		updatePortrait(controller.getBoard().getCurrentPlayer());
+		endRefuting();
+		this.updateGamePanel();
 		setVisible(true);
 	}
 	
@@ -313,19 +388,32 @@ public class GamePanel extends JPanel implements ActionListener {
 	 * Deactivate this GamePanel. It should hide.
 	 */
 	public void deactivate(){
-		refuting = false;
+		endRefuting();
 		setVisible(false);
 	}
 	
 	/**
 	 * Set this GamePanel to be in refuting mode. Refuting mode means that the
 	 * players are taking turns to refute a suggestion, or pass.
-	 * @param refutingMode: whether you are not refuting or not.
+	 * @param suggestor: who made suggestion
+	 * @param suggestion: the suggestion made
 	 */
-	public void setRefuting(Player suggestor, boolean refutingMode){
-		refuting = refutingMode;
+	public void startRefuting(Player suggestor, Suggestion suggestion){
+		if (!refuting) this.layout.replace(buttons,refutePanel);
+		refuting=true;
+		this.suggestor=suggestor;
+		this.suggestion=suggestion;
 	}
 	
+	/**
+	 * End the refuting.
+	 */
+	public void endRefuting(){
+		if (refuting) this.layout.replace(refutePanel, buttons);
+		refuting=false;
+		this.suggestor=null;
+		this.suggestion=null;
+	}
 	
     
 }
