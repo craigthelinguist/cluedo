@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import game.Board;
@@ -12,9 +14,12 @@ import game.Player;
 import game.Suggestion;
 import game.Tile;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
+
+import main.Constants;
 
 import cards.Person;
 
@@ -148,6 +153,7 @@ public class GameFrame extends JFrame {
 			board = new Board(players);
 			gamePanel.activate();
 			canvas.activateListener();
+
 			this.pack();
 			canvas.repaint();
 		}
@@ -245,11 +251,15 @@ public class GameFrame extends JFrame {
 		new TalkDialog(this,loser.getPortrait(),sb.toString(),"");
 		board.eliminatePlayer();
 		if (board.everyoneLost()){
-			String msg = "Arr! Ya have all failed the late Dr. Black! I can reveal that 'twas in fact " + board.solution.toString() + " Go home ya scallywags!";
 			try {
-				new TalkDialog(this,new Person("mustard").getPortraitImage(),"Cpt. Brown",msg);
+				Image img = ImageIO.read(new FileInputStream(Constants.ASSETS + File.separatorChar + "portrait_brown.png"));
+				String msg = "Arr! Ya have all failed the late Dr. Black! I can reveal that 'twas in fact " + board.solution.toString() + " Go home ya scallywags!";
+				new TalkDialog(this,img,"Cpt. Brown",msg);
 			} catch (IOException e) {
-				new TalkDialog(this,null,"Cpt. Brown",msg);
+				String msg = "Nooo! We have failed The professor! It was " + board.solution.toString();
+				Player talker = board.getPlayers()[0];
+				new TalkDialog(this,talker.getPortrait(),talker.toString(),msg);
+
 			}
 			quitCurrentGame();
 		}
