@@ -304,5 +304,12 @@ public class Board {
 		return validMoves;
 	}
 
+	/**
+	 * Mark the current player as being eliminated.
+	 */
+	public void eliminatePlayer() {
+		players[currentPlayer].eliminate();
+	}
+
 
 }

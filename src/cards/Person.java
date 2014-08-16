@@ -12,7 +12,7 @@ import main.Constants;
 
 public class Person extends Token{
 
-	private enum Type{ mustard, white, scarlett, green, peacock, plum }
+	public enum Type{ mustard, white, scarlett, green, peacock, plum }
 	private final String FILEPATH = Constants.ASSETS;
 	private final Type type;
 	private final Image imageCard;
@@ -73,6 +73,12 @@ public class Person extends Token{
 		return imagePortrait;
 	}
 
+	public boolean isFemale(){
+		if (type == Type.mustard || type == Type.plum || type == Type.green)
+			return false;
+		return true;
+	}
+	
 	public String toString(){
 
 		switch(type){
@@ -93,5 +99,11 @@ public class Person extends Token{
 
 	}
 
+	public boolean equals(Object other){
+		if (other == null) return false;
+		if (!(other instanceof Person)) return false;
+		Person p = (Person)other;
+		return p.type == type;
+	}
 
 }

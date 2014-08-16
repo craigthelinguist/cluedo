@@ -87,7 +87,8 @@ public class AccusationDialog extends JDialog{
 
 				@Override
 				public void actionPerformed(ActionEvent event) {
-					controller.showVictoryDialog();
+					dispose();
+					controller.playerWon();
 				}
 			
 			});
@@ -96,14 +97,12 @@ public class AccusationDialog extends JDialog{
 		else{
 			button = new JButton("You lose!");
 			String line1 = "It was " + solution.toString();
-			String line2 = "Though you can't win, you may still move around";
-			String line3 = "and refute suggestions.";
-			String s = "<html><div style=\"text-align: center;\">"+line1+"<br/>"+line2+"<br/>"+line3+"</html>";
-			label = new JLabel(s, SwingConstants.CENTER);
+			label = new JLabel(line1, SwingConstants.CENTER);
 			button.addActionListener(new ActionListener(){
 
 				@Override
 				public void actionPerformed(ActionEvent event) {
+					dispose();
 					controller.playerLost();
 				}
 			
