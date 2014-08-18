@@ -8,7 +8,7 @@ import cards.Person;
 
 public class Player {
 
-	private final Person avatar;
+	public final Person avatar;
 	private Tile location;
 	private LinkedList<Card> cards;
 	private boolean eliminated;

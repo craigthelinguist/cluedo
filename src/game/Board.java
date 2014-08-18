@@ -20,6 +20,7 @@ import java.util.Stack;
 
 import javax.imageio.ImageIO;
 
+import Talking.MissScarlett;
 import cards.Card;
 import cards.Person;
 import cards.Room;
@@ -27,6 +28,7 @@ import cards.Weapon;
 import main.BoardParser;
 import main.Constants;
 import gui.GameFrame;
+import gui.TalkDialog;
 
 
 public class Board {
@@ -339,6 +341,10 @@ public class Board {
 		this.state = State.DONE;
 	}
 
+
+public int getPlayerInt() {
+	return currentPlayer;
+}
 	
 
 }

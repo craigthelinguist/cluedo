@@ -19,8 +19,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
+import Talking.MissScarlett;
 import main.Constants;
-
 import cards.Card;
 import cards.Person;
 import cards.Room;
@@ -110,7 +110,11 @@ public class GameFrame extends JFrame {
 	 */
 	protected void buttonPressed(String button){
 
-		if (button.equals("End Turn")){
+		if (button.equals("End Turn")) {
+			Player[] players = board.getPlayers();
+			if(players[board.getPlayerInt()].avatar.toString().equalsIgnoreCase("Miss Scarlett")) {
+				new MissScarlett(this,board);
+			}
 			board.endTurn();
 		}
 		else if (button.equals("Roll Dice")){
