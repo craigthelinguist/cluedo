@@ -35,6 +35,11 @@ public class Canvas extends JPanel implements MouseListener{
 	private MouseListener listener;
 	private Image titleImage;
 
+	/** 
+	 * Takes care of all the drawing, valid tiles, the board image, tokens.
+	 * @param frame
+	 * @throws IOException
+	 */
 	public Canvas(GameFrame frame) throws IOException{
 		controller = frame;
 		this.setPreferredSize(new Dimension(CANVAS_WD,CANVAS_HT));
@@ -134,7 +139,7 @@ public class Canvas extends JPanel implements MouseListener{
 	 * their inside, so as to distinguish them from regular squares.
 	 * It starts by getting the colour in the middle of each tile, and then doing DFS out
 	 * from it, painting every colour that is similar to it.
-	 *  @param image: image to which you will panit.
+	 *  @param image: image to which you will paint.
 	 */
 	private void paintValidTiles(BufferedImage image){
 		Set<Tile> tiles = controller.getBoard().getValidMoves();
