@@ -190,6 +190,7 @@ public class Canvas extends JPanel implements MouseListener{
 		
 	}
 	
+	
 	@Override
 	public void mouseClicked(MouseEvent event) {
 		// TODO Auto-generated method stub

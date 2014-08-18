@@ -10,10 +10,11 @@ public class Tile {
 	 * whether it is a secret passage.
 	 * @author craigaaro
 	 */
-	private enum Terrain{
+	public enum Terrain{ //changed this to public so i can test in TestBoardParser
 		PASSABLE,
 		IMPASSABLE,
-		SPAWN;
+		SPAWN,
+		ROOM;
 	}
 
 	// fields
@@ -65,7 +66,7 @@ public class Tile {
 	}
 	
 	public static Tile makeRoomTile(int x, int y, boolean[] neighbours, String roomName){
-		return new Tile(x,y,Terrain.PASSABLE,neighbours,null,roomName);
+		return new Tile(x,y,Terrain.ROOM,neighbours,null,roomName);
 	}
 
 	public boolean canTravel(Player p){
@@ -125,6 +126,16 @@ public class Tile {
 	
 	public String toString(){
 		return "Row: " + y + ", Col: " + x;
+	}
+
+
+	public Terrain getTerrain() {
+		return terrain;
+	}
+
+
+	public void setTerrain(Terrain terrain) {
+		this.terrain = terrain;
 	}
 
 }
