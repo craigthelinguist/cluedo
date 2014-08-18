@@ -30,190 +30,190 @@
 
 //row 1
 1 0 impassable
-1 1 kitchen f t t f
-1 2 kitchen f t t t 
-1 3 kitchen f t t t
-1 4 kitchen f t t t 
-1 5 kitchen f f t t
+1 1 Kitchen f t t f
+1 2 Kitchen f t t t 
+1 3 Kitchen f t t t
+1 4 Kitchen f t t t 
+1 5 Kitchen f f t t
 1 6 impassable
 1 7 impassable
 1 8 impassable
 1 9 impassable
 1 10 passable f f t f
-1 11 ballroom f t t f
-1 12 ballroom f t t t 
-1 13 ballroom f t t t 
-1 14 ballroom f f t t 
+1 11 Ballroom f t t f
+1 12 Ballroom f t t t 
+1 13 Ballroom f t t t 
+1 14 Ballroom f f t t 
 1 15 passable f f t f 
 1 16 impassable
 1 17 impassable 
 1 18 impassable 
-1 19 conservatory f t t f 
-1 20 conservatory f t t t 
-1 21 conservatory f t t t
-1 22 conservatory f t t t 
-1 23 conservatory f t t t 
-1 24 conservatory f f t t 
+1 19 Conservatory f t t f 
+1 20 Conservatory f t t t 
+1 21 Conservatory f t t t
+1 22 Conservatory f t t t 
+1 23 Conservatory f t t t 
+1 24 Conservatory f f t t 
 1 25 impassable
 
 //row 2
 2 0 impassable
-2 1 kitchen t t t f
-2 2 kitchen t t t t
-2 3 kitchen t t t t 
-2 4 kitchen t t t t 
-2 5 kitchen t f t t
+2 1 Kitchen t t t f
+2 2 Kitchen t t t t
+2 3 Kitchen t t t t 
+2 4 Kitchen t t t t 
+2 5 Kitchen t f t t
 2 6 impassable 
 2 7 impassable
 2 8 passable f t t f
 2 9 passable f t f t
 2 10 passable t f f t
-2 11 ballroom t t t f
-2 12 ballroom t t t t 
-2 13 ballroom t t t t 
-2 14 ballroom t f t t 
+2 11 Ballroom t t t f
+2 12 Ballroom t t t t 
+2 13 Ballroom t t t t 
+2 14 Ballroom t f t t 
 2 15 passable t t f f 
 2 16 passable f t f t 
 2 17 passable f f t t 
 2 18 impassable
-2 19 conservatory t t t f
-2 20 conservatory t t t t
-2 21 conservatory t t t t 
-2 22 conservatory t t t t
-2 23 conservatory t t t t 
-2 24 conservatory t f t t 
+2 19 Conservatory t t t f
+2 20 Conservatory t t t t
+2 21 Conservatory t t t t 
+2 22 Conservatory t t t t
+2 23 Conservatory t t t t 
+2 24 Conservatory t f t t 
 2 25 impassable
 
 //row 3
 3 0 impassable 
-3 1 kitchen t t t f
-3 2 kitchen t t t t
-3 3 kitchen t t t t 
-3 4 kitchen t t t t
-3 5 kitchen t t t t
-3 6 kitchen f f t t
+3 1 Kitchen t t t f
+3 2 Kitchen t t t t
+3 3 Kitchen t t t t 
+3 4 Kitchen t t t t
+3 5 Kitchen t t t t
+3 6 Kitchen f f t t
 3 7 passable f t t f
 3 8 passable t f t t
-3 9 ballroom f t t f
-3 10 ballroom f t t t
-3 11 ballroom t t t t
-3 12 ballroom t t t t
-3 13 ballroom t t t t
-3 14 ballroom t t t t
-3 15 ballroom f t t t
-3 16 ballroom f f t t
+3 9 Ballroom f t t f
+3 10 Ballroom f t t t
+3 11 Ballroom t t t t
+3 12 Ballroom t t t t
+3 13 Ballroom t t t t
+3 14 Ballroom t t t t
+3 15 Ballroom f t t t
+3 16 Ballroom f f t t
 3 17 passable t t t f
 3 18 passable f f t t
-3 19 conservatory t t t f
-3 20 conservatory t t t t
-3 21 conservatory t t t t
-3 22 conservatory t t t t
-3 23 conservatory t t t t
-3 24 conservatory t f t t
+3 19 Conservatory t t t f
+3 20 Conservatory t t t t
+3 21 Conservatory t t t t
+3 22 Conservatory t t t t
+3 23 Conservatory t t t t
+3 24 Conservatory t f t t
 3 25 impassable
 
 //row 4
 4 0 impassable
-4 1 kitchen t t t f
-4 2 kitchen t t t t
-4 3 kitchen t t t t
-4 4 kitchen t t t t
-4 5 kitchen t t t t
-4 6 kitchen t f t t
+4 1 Kitchen t t t f
+4 2 Kitchen t t t t
+4 3 Kitchen t t t t
+4 4 Kitchen t t t t
+4 5 Kitchen t t t t
+4 6 Kitchen t f t t
 4 7 passable t t t f
 4 8 passable t f t t
 4 9 ballroom t t t f
-4 10 ballroom t t t t
-4 11 ballroom t t t t
-4 12 ballroom t t t t
-4 13 ballroom t t t t
-4 14 ballroom t t t t
-4 15 ballroom t t t t
-4 16 ballroom t f t t
+4 10 Ballroom t t t t
+4 11 Ballroom t t t t
+4 12 Ballroom t t t t
+4 13 Ballroom t t t t
+4 14 Ballroom t t t t
+4 15 Ballroom t t t t
+4 16 Ballroom t f t t
 4 17 passable t t t f
 4 18 passable t t t t
-4 19 conservatory t t t t
-4 20 conservatory t t t t 
-4 21 conservatory t t t t 
-4 22 conservatory t t t t
-4 23 conservatory t t t t
-4 24 conservatory t f t t
+4 19 Conservatory t t t t
+4 20 Conservatory t t t t 
+4 21 Conservatory t t t t 
+4 22 Conservatory t t t t
+4 23 Conservatory t t t t
+4 24 Conservatory t f t t
 4 25 impassable
 
 //row 5
 5 0 impassable
-5 1 kitchen t t t f 
-5 2 kitchen t t t t
-5 3 kitchen t t t t
-5 4 kitchen t t t t
-5 5 kitchen t t t t
-5 6 kitchen t f t t
+5 1 Kitchen t t t f 
+5 2 Kitchen t t t t
+5 3 Kitchen t t t t
+5 4 Kitchen t t t t
+5 5 Kitchen t t t t
+5 6 Kitchen t f t t
 5 7 passable t t t f
 5 8 passable t f t t
-5 9 ballroom t t t f
-5 10 ballroom t t t t
-5 11 ballroom t t t t
-5 12 ballroom t t t t
-5 13 ballroom t t t t
-5 14 ballroom t t t t
-5 15 ballroom t t t t
-5 16 ballroom t f t t
+5 9 Ballroom t t t f
+5 10 Ballroom t t t t
+5 11 Ballroom t t t t
+5 12 Ballroom t t t t
+5 13 Ballroom t t t t
+5 14 Ballroom t t t t
+5 15 Ballroom t t t t
+5 16 Ballroom t f t t
 5 17 passable t t t f
 5 18 passable t f t t
-5 19 conservatory t t f f
-5 20 conservatory t t t t
-5 21 conservatory t t t t
-5 22 conservatory t t t t
-5 23 conservatory t t t t
-5 24 conservatory t f f t
+5 19 Conservatory t t f f
+5 20 Conservatory t t t t
+5 21 Conservatory t t t t
+5 22 Conservatory t t t t
+5 23 Conservatory t t t t
+5 24 Conservatory t f f t
 5 25 impassable
 
 //row 6
 6 0 impassable
-6 1 kitchen t t f f
-6 2 kitchen t t t t
-6 3 kitchen t t t t
-6 4 kitchen t t t t
-6 5 kitchen t t t t
-6 6 kitchen t f t t
+6 1 Kitchen t t f f
+6 2 Kitchen t t t t
+6 3 Kitchen t t t t
+6 4 Kitchen t t t t
+6 5 Kitchen t t t t
+6 6 Kitchen t f t t
 6 7 passable t t t f
 6 8 passable t t t t
-6 9 ballroom t t t t
-6 10 ballroom t t t t
-6 11 ballroom t t t t
-6 12 ballroom t t t t
-6 13 ballroom t t t t
-6 14 ballroom t t t t
-6 15 ballroom t t t t
-6 16 ballroom t t t t
+6 9 Ballroom t t t t
+6 10 Ballroom t t t t
+6 11 Ballroom t t t t
+6 12 Ballroom t t t t
+6 13 Ballroom t t t t
+6 14 Ballroom t t t t
+6 15 Ballroom t t t t
+6 16 Ballroom t t t t
 6 17 passable t t t t
 6 18 passable t t t t
 6 19 passable f f t t 
-6 20 conservatory t t f f
-6 21 conservatory t t f t 
-6 22 conservatory t t f t
-6 23 conservatory t f f t
+6 20 Conservatory t t f f
+6 21 Conservatory t t f t 
+6 22 Conservatory t t f t
+6 23 Conservatory t f f t
 6 24 impassable
 6 25 impassable
 
 //row 7
 7 0 impassable
 7 1 impassable
-7 2 kitchen t t f f
-7 3 kitchen t t f t
-7 4 kitchen t t f t
-7 5 kitchen t t t t
-7 6 kitchen t f f t
+7 2 Kitchen t t f f
+7 3 Kitchen t t f t
+7 4 Kitchen t t f t
+7 5 Kitchen t t t t
+7 6 Kitchen t f f t
 7 7 passable t t t f
 7 8 passable t f t t
-7 9 ballroom t t t f
-7 10 ballroom t t t t
-7 11 ballroom t t t t
-7 12 ballroom t t t t
-7 13 ballroom t t t t
-7 14 ballroom t t t t
-7 15 ballroom t t t t
-7 16 ballroom t f t t
+7 9 Ballroom t t t f
+7 10 Ballroom t t t t
+7 11 Ballroom t t t t
+7 12 Ballroom t t t t
+7 13 Ballroom t t t t
+7 14 Ballroom t t t t
+7 15 Ballroom t t t t
+7 16 Ballroom t f t t
 7 17 passable t t t f
 7 18 passable t t t t
 7 19 passable t t t t
@@ -234,14 +234,14 @@
 8 6 passable f t t t
 8 7 passable t t t t
 8 8 passable t f t t
-8 9 ballroom t t f f
-8 10 ballroom t t t t
-8 11 ballroom t t f t
-8 12 ballroom t t f t
-8 13 ballroom t t f t
-8 14 ballroom t t f t
-8 15 ballroom t t t t
-8 16 ballroom t f f t
+8 9 Ballroom t t f f
+8 10 Ballroom t t t t
+8 11 Ballroom t t f t
+8 12 Ballroom t t f t
+8 13 Ballroom t t f t
+8 14 Ballroom t t f t
+8 15 Ballroom t t t t
+8 16 Ballroom t f f t
 8 17 passable t t t f
 8 18 passable t t t t
 8 19 passable t t f t
@@ -272,21 +272,21 @@
 9 16 passable f t t t
 9 17 passable t t t t
 9 18 passable t f t t
-9 19 billiard f t t f
-9 20 billiard f t t t
-9 21 billiard f t t t
-9 22 billiard f t t t
-9 23 billiard f t t t
-9 24 billiard f f t t
+9 19 Billiard f t t f
+9 20 Billiard f t t t
+9 21 Billiard f t t t
+9 22 Billiard f t t t
+9 23 Billiard f t t t
+9 24 Billiard f f t t
 9 25 impassable
 
 //row 10
 10 0 impassable
-10 1 dining f t t f
-10 2 dining f t t t
-10 3 dining f t t t
-10 4 dining f t t t
-10 5 dining f f t t
+10 1 Dining f t t f
+10 2 Dining f t t t
+10 3 Dining f t t t
+10 4 Dining f t t t
+10 5 Dining f f t t
 10 6 passable t t f f
 10 7 passable t t f t
 10 8 passable t t f t
@@ -300,24 +300,24 @@
 10 16 passable t t t t
 10 17 passable t t t t
 10 18 passable t t t t
-10 19 billiard t t t t
-10 20 billiard t t t t
-10 21 billiard t t t t
-10 22 billiard t t t t
-10 23 billiard t t t t
-10 24 billiard t f t t
+10 19 Billiard t t t t
+10 20 Billiard t t t t
+10 21 Billiard t t t t
+10 22 Billiard t t t t
+10 23 Billiard t t t t
+10 24 Billiard t f t t
 10 25 impassable
 
 //row 11
 11 0 impassable
-11 1 dining t t t f
-11 2 dining t t t t
-11 3 dining t t t t
-11 4 dining t t t t
-11 5 dining t t t t
-11 6 dining f t t t
-11 7 dining f t t t
-11 8 dining f f t t
+11 1 Dining t t t f
+11 2 Dining t t t t
+11 3 Dining t t t t
+11 4 Dining t t t t
+11 5 Dining t t t t
+11 6 Dining f t t t
+11 7 Dining f t t t
+11 8 Dining f f t t
 11 9 passable t t t f
 11 10 passable t f t t
 11 11 impassable
@@ -328,24 +328,24 @@
 11 16 passable t t t f
 11 17 passable t t t t
 11 18 passable t f t t
-11 19 billiard t t t f
-11 20 billiard t t t t
-11 21 billiard t t t t
-11 22 billiard t t t t
-11 23 billiard t t t t
-11 24 billiard t f t t
+11 19 Billiard t t t f
+11 20 Billiard t t t t
+11 21 Billiard t t t t
+11 22 Billiard t t t t
+11 23 Billiard t t t t
+11 24 Billiard t f t t
 11 25 impassable
 
 //row 12
 12 0 impassable
-12 1 dining t t t f
-12 2 dining t t t t
-12 3 dining t t t t
-12 4 dining t t t t
-12 5 dining t t t t
-12 6 dining t t t t
-12 7 dining t t t t
-12 8 dining t f t t
+12 1 Dining t t t f
+12 2 Dining t t t t
+12 3 Dining t t t t
+12 4 Dining t t t t
+12 5 Dining t t t t
+12 6 Dining t t t t
+12 7 Dining t t t t
+12 8 Dining t f t t
 12 9 passable t t t f
 12 10 passable t f t t
 12 11 impassable
@@ -356,24 +356,24 @@
 12 16 passable t t t f
 12 17 passable t t t t
 12 18 passable t f t t
-12 19 billiard t t t f
-12 20 billiard t t t t
-12 21 billiard t t t t
-12 22 billiard t t t t
-12 23 billiard t t t t
-12 24 billiard t f t t
+12 19 Billiard t t t f
+12 20 Billiard t t t t
+12 21 Billiard t t t t
+12 22 Billiard t t t t
+12 23 Billiard t t t t
+12 24 Billiard t f t t
 12 25 impassable
 
 //row 13
 13 0 impassable
-13 1 dining t t t f
-13 2 dining t t t t
-13 3 dining t t t t
-13 4 dining t t t t
-13 5 dining t t t t
-13 6 dining t t t t
-13 7 dining t t t t
-13 8 dining t t t t
+13 1 Dining t t t f
+13 2 Dining t t t t
+13 3 Dining t t t t
+13 4 Dining t t t t
+13 5 Dining t t t t
+13 6 Dining t t t t
+13 7 Dining t t t t
+13 8 Dining t t t t
 13 9 passable t t t t
 13 10 passable t f t t
 13 11 impassable
@@ -384,24 +384,24 @@
 13 16 passable t t t f
 13 17 passable t t t t
 13 18 passable t f t t
-13 19 billiard t t f f
-13 20 billiard t t f t
-13 21 billiard t t f t
-13 22 billiard t t t t
-13 23 billiard t t f t
-13 24 billiard t f f t
+13 19 Billiard t t f f
+13 20 Billiard t t f t
+13 21 Billiard t t f t
+13 22 Billiard t t t t
+13 23 Billiard t t f t
+13 24 Billiard t f f t
 13 25 impassable
 
 //row 14
 14 0 impassable
-14 1 dining t t t f
-14 2 dining t t t t
-14 3 dining t t t t
-14 4 dining t t t t
-14 5 dining t t t t
-14 6 dining t t t t
-14 7 dining t t t t
-14 8 dining t f t t
+14 1 Dining t t t f
+14 2 Dining t t t t
+14 3 Dining t t t t
+14 4 Dining t t t t
+14 5 Dining t t t t
+14 6 Dining t t t t
+14 7 Dining t t t t
+14 8 Dining t f t t
 14 9 passable t t t f
 14 10 passable t f t t
 14 11 impassable
@@ -422,14 +422,14 @@
 
 //row 15
 15 0 impassable
-15 1 dining t t t f
-15 2 dining t t t t
-15 3 dining t t t t
-15 4 dining t t t t
-15 5 dining t t t t
-15 6 dining t t t t
-15 7 dining t t t t
-15 8 dining t f t t
+15 1 Dining t t t f
+15 2 Dining t t t t
+15 3 Dining t t t t
+15 4 Dining t t t t
+15 5 Dining t t t t
+15 6 Dining t t t t
+15 7 Dining t t t t
+15 8 Dining t f t t
 15 9 passable t t t f
 15 10 passable t f t t
 15 11 impassable
@@ -439,25 +439,25 @@
 15 15 impassable
 15 16 passable t t t f
 15 17 passable t t t t
-15 18 library t f f t
-15 19 library f t t f
-15 20 library f t t t
-15 21 library f t t t
-15 22 library f t t t
-15 23 library f f t t
+15 18 Library t f f t
+15 19 Library f t t f
+15 20 Library f t t t
+15 21 Library f t t t
+15 22 Library f t t t
+15 23 Library f f t t
 15 24 impassable
 15 25 impassable
 
 //row 16
 16 0 impassable
-16 1 dining t t f f
-16 2 dining t t f t
-16 3 dining t t f t
-16 4 dining t t f t
-16 5 dining t t f t
-16 6 dining t t f t
-16 7 dining t t t t
-16 8 dining t f f t
+16 1 Dining t t f f
+16 2 Dining t t f t
+16 3 Dining t t f t
+16 4 Dining t t f t
+16 5 Dining t t f t
+16 6 Dining t t f t
+16 7 Dining t t t t
+16 8 Dining t f f t
 16 9 passable t t t f
 16 10 passable t f t t
 16 11 impassable
@@ -467,13 +467,13 @@
 16 15 impassable
 16 16 passable t t t f
 16 17 passable t f t t
-16 18 library f t t f
-16 19 library t t t t
-16 20 library t t t t
-16 21 library t t t t
-16 22 library t t t t
-16 23 library t t t t
-16 24 library f f t t
+16 18 Library f t t f
+16 19 Library t t t t
+16 20 Library t t t t
+16 21 Library t t t t
+16 22 Library t t t t
+16 23 Library t t t t
+16 24 Library f f t t
 16 25 impassable
 
 //row 17
@@ -495,13 +495,13 @@
 17 15 passable f t t t
 17 16 passable t t t t
 17 17 passable t t t t
-17 18 library t t t t
-17 19 library t t t t
-17 20 library t t t t
-17 21 library t t t t
-17 22 library t t t t
-17 23 library t t t t
-17 24 library t f t t
+17 18 Library t t t t
+17 19 Library t t t t
+17 20 Library t t t t
+17 21 Library t t t t
+17 22 Library t t t t
+17 23 Library t t t t
+17 24 Library t f t t
 17 25 impassable
 
 //row 18
@@ -523,13 +523,13 @@
 18 15 passable t t f t
 18 16 passable t t t t
 18 17 passable t f t t
-18 18 library t t f f
-18 19 library t t t t
-18 20 library t t t t
-18 21 library t t t t
-18 22 library t t t t
-18 23 library t t t t
-18 24 library t f f t
+18 18 Library t t f f
+18 19 Library t t t t
+18 20 Library t t t t
+18 21 Library t t t t
+18 22 Library t t t t
+18 23 Library t t t t
+18 24 Library t f f t
 18 25 impassable
 
 //row 19
@@ -543,40 +543,40 @@
 19 7 passable t t f t
 19 8 passable t t t t
 19 9 passable t f t t
-19 10 hall f t t f
-19 11 hall f t t t
-19 12 hall t t t t
-19 13 hall t t t t
-19 14 hall f t t t
-19 15 hall f f t t
+19 10 Hall f t t f
+19 11 Hall f t t t
+19 12 Hall t t t t
+19 13 Hall t t t t
+19 14 Hall f t t t
+19 15 Hall f f t t
 19 16 passable t t t f
 19 17 passable t t t t
 19 18 passable f f t t
-19 19 library t t f f
-19 20 library t t f t
-19 21 library t t f t
-19 22 library t t f t
-19 23 library t f f t
+19 19 Library t t f f
+19 20 Library t t f t
+19 21 Library t t f t
+19 22 Library t t f t
+19 23 Library t f f t
 19 24 impassable
 19 25 impassable
 
 //row 20
 20 0 impassable
-20 1 lounge f t t f
-20 2 lounge f t t t
-20 3 lounge f t t t
-20 4 lounge f t t t
-20 5 lounge f t t t
-20 6 lounge f t t t
-20 7 lounge f f t t
+20 1 Lounge f t t f
+20 2 Lounge f t t t
+20 3 Lounge f t t t
+20 4 Lounge f t t t
+20 5 Lounge f t t t
+20 6 Lounge f t t t
+20 7 Lounge f f t t
 20 8 passable t t t f
 20 9 passable t f t t
-20 10 hall t t t f
-20 11 hall t t t t
-20 12 hall t t t t
-20 13 hall t t t t
-20 14 hall t t t t
-20 15 hall t t t t
+20 10 Hall t t t f
+20 11 Hall t t t t
+20 12 Hall t t t t
+20 13 Hall t t t t
+20 14 Hall t t t t
+20 15 Hall t t t t
 20 16 passable t t t t
 20 17 passable t t t t
 20 18 passable t t t t
@@ -590,21 +590,21 @@
 
 //row 21
 21 0 impassable
-21 1 lounge t t t f
-21 2 lounge t t t t
-21 3 lounge t t t t
-21 4 lounge t t t t
-21 5 lounge t t t t
-21 6 lounge t t t t
-21 7 lounge t t t t
+21 1 Lounge t t t f
+21 2 Lounge t t t t
+21 3 Lounge t t t t
+21 4 Lounge t t t t
+21 5 Lounge t t t t
+21 6 Lounge t t t t
+21 7 Lounge t t t t
 21 8 passable t t t t
 21 9 passable t f t t
-21 10 hall t t t f
-21 11 hall t t t t
-21 12 hall t t t t
-21 13 hall t t t t
-21 14 hall t t t t
-21 15 hall t f t t
+21 10 Hall t t t f
+21 11 Hall t t t t
+21 12 Hall t t t t
+21 13 Hall t t t t
+21 14 Hall t t t t
+21 15 Hall t f t t
 21 16 passable t t t f
 21 17 passable t t t t
 21 18 passable t t f t
@@ -618,114 +618,114 @@
 
 //row 22
 22 0 impassable
-22 1 lounge t t t f
-22 2 lounge t t t t
-22 3 lounge t t t t
-22 4 lounge t t t t
-22 5 lounge t t t t
-22 6 lounge t t t t
-22 7 lounge t f t t
+22 1 Lounge t t t f
+22 2 Lounge t t t t
+22 3 Lounge t t t t
+22 4 Lounge t t t t
+22 5 Lounge t t t t
+22 6 Lounge t t t t
+22 7 Lounge t f t t
 22 8 passable t t t f
 22 9 passable t f t t
-22 10 hall t t t f
-22 11 hall t t t t
-22 12 hall t t t t
-22 13 hall t t t t
-22 14 hall t t t t
-22 15 hall t f t t
+22 10 Hall t t t f
+22 11 Hall t t t t
+22 12 Hall t t t t
+22 13 Hall t t t t
+22 14 Hall t t t t
+22 15 Hall t f t t
 22 16 passable t t t f
 22 17 passable t f t t
-22 18 study f t t f
-22 19 study t t t t
-22 20 study f t t t
-22 21 study f t t t
-22 22 study f t t t
-22 23 study f t t t
-22 24 study f f t t
+22 18 Study f t t f
+22 19 Study t t t t
+22 20 Study f t t t
+22 21 Study f t t t
+22 22 Study f t t t
+22 23 Study f t t t
+22 24 Study f f t t
 22 25 impassable
 
 //row 23
 23 0 impassable
-23 1 lounge t t t f
-23 2 lounge t t t t
-23 3 lounge t t t t
-23 4 lounge t t t t
-23 5 lounge t t t t
-23 6 lounge t t t t
-23 7 lounge t f t t
+23 1 Lounge t t t f
+23 2 Lounge t t t t
+23 3 Lounge t t t t
+23 4 Lounge t t t t
+23 5 Lounge t t t t
+23 6 Lounge t t t t
+23 7 Lounge t f t t
 23 8 passable t t t f
 23 9 passable t f t t
-23 10 hall t t t f
-23 11 hall t t t t
-23 12 hall t t t t
-23 13 hall t t t t
-23 14 hall t t t t
-23 15 hall t f t t
+23 10 Hall t t t f
+23 11 Hall t t t t
+23 12 Hall t t t t
+23 13 Hall t t t t
+23 14 Hall t t t t
+23 15 Hall t f t t
 23 16 passable t t t f
 23 17 passable t f t t
-23 18 study t t t f
-23 19 study t t t t
-23 20 study t t t t
-23 21 study t t t t
-23 22 study t t t t
-23 23 study t t t t
-23 24 study t f t t
+23 18 Study t t t f
+23 19 Study t t t t
+23 20 Study t t t t
+23 21 Study t t t t
+23 22 Study t t t t
+23 23 Study t t t t
+23 24 Study t f t t
 23 25 impassable
 
 //row 24
 24 0 impassable
-24 1 lounge t t t f
-24 2 lounge t t t t
-24 3 lounge t t t t
-24 4 lounge t t t t
-24 5 lounge t t t t
-24 6 lounge t t t t
-24 7 lounge t f f t
+24 1 Lounge t t t f
+24 2 Lounge t t t t
+24 3 Lounge t t t t
+24 4 Lounge t t t t
+24 5 Lounge t t t t
+24 6 Lounge t t t t
+24 7 Lounge t f f t
 24 8 passable t t t f
 24 9 passable t f f t
-24 10 hall t t f f
-24 11 hall t t t t
-24 12 hall t t t t
-24 13 hall t t t t
-24 14 hall t t t t
-24 15 hall t f f t
+24 10 Hall t t f f
+24 11 Hall t t t t
+24 12 Hall t t t t
+24 13 Hall t t t t
+24 14 Hall t t t t
+24 15 Hall t f f t
 24 16 passable t t f f
 24 17 passable t f t t
-24 18 study t t f f
-24 19 study t t t t
-24 20 study t t t t
-24 21 study t t t t
-24 22 study t t t t
-24 23 study t t t t
-24 24 study t f t t
+24 18 Study t t f f
+24 19 Study t t t t
+24 20 Study t t t t
+24 21 Study t t t t
+24 22 Study t t t t
+24 23 Study t t t t
+24 24 Study t f t t
 24 25 impassable
 
 //row 25
 25 0 impassable
-25 1 lounge t t f f
-25 2 lounge t t f t
-25 3 lounge t t f t
-25 4 lounge t t f t
-25 5 lounge t t f t
-25 6 lounge t f f t
+25 1 Lounge t t f f
+25 2 Lounge t t f t
+25 3 Lounge t t f t
+25 4 Lounge t t f t
+25 5 Lounge t t f t
+25 6 Lounge t f f t
 25 7 impassable
 25 8 portal t f f f
 25 9 impassable
 25 10 impassable
-25 11 hall t t f f
-25 12 hall t t f t
-25 13 hall t t f t
-25 14 hall t f f t
+25 11 Hall t t f f
+25 12 Hall t t f t
+25 13 Hall t t f t
+25 14 Hall t f f t
 25 15 impassable
 25 16 impassable
 25 17 portal t f f f
 25 18 impassable
-25 19 study t t f f
-25 20 study t t f t
-25 21 study t t f t
-25 22 study t t f t
-25 23 study t t f t
-25 24 study t f f t
+25 19 Study t t f f
+25 20 Study t t f t
+25 21 Study t t f t
+25 22 Study t t f t
+25 23 Study t t f t
+25 24 Study t f f t
 25 25 impassable
 
 //row 26
