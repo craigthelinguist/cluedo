@@ -138,4 +138,9 @@ public class Tile {
 		this.terrain = terrain;
 	}
 
+
+	public String getRoomName() {
+		return roomName;
+	}
+
 }

@@ -46,6 +46,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	private JPanel portrait;
 	private JLabel currentPlayer;
 	private JLabel portraitBox;
+	private JLabel playerLocation;
 	private ImageIcon playerImage;
 
 	// card panel: draws the player's cards
@@ -275,7 +276,8 @@ public class GamePanel extends JPanel implements ActionListener {
 			System.exit(1);
 		}
 		portraitBox = new JLabel(playerImage);
-
+		playerLocation = new JLabel("");
+		
 		// layout
 		GroupLayout layout = new GroupLayout(portrait);
 		portrait.setLayout(layout);
@@ -288,10 +290,12 @@ public class GamePanel extends JPanel implements ActionListener {
 
 		vertical.addGroup(layout.createParallelGroup(Alignment.CENTER).addComponent(currentPlayer));
 		vertical.addGroup(layout.createParallelGroup(Alignment.CENTER).addComponent(portraitBox));
-
+		vertical.addGroup(layout.createParallelGroup(Alignment.CENTER).addComponent(playerLocation));
+		
 		horizontal.addGroup(layout.createParallelGroup(Alignment.CENTER)
 			.addComponent(currentPlayer)
 			.addComponent(portraitBox)
+			.addComponent(playerLocation)
 		);
 
 	}
@@ -307,6 +311,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		if (player.eliminated()) currentPlayer.setForeground(Color.RED);
 		else currentPlayer.setForeground(Color.BLACK);
 		currentPlayer.setText(player.toString());
+		playerLocation.setText(player.getLocation().getRoomName());
 		
 		// refuting
 		if (refuting){
