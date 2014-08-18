@@ -123,31 +123,31 @@ public class BoardParser {
 	private static Room.Type getRoom(String name) {
 		Room.Type room = null;
 		switch(name){
-		case "Kitchen":
+		case "kitchen":
 			room = Room.Type.Kitchen;
 			break;
-		case "Ballroom":
+		case "ballroom":
 			room = Room.Type.Ballroom;
 			break;
-		case "Billiard":
+		case "billiard":
 			room = Room.Type.Billiard;
 			break;
-		case "Dining":
+		case "dining":
 			room = Room.Type.Dining;
 			break;
-		case "Library":
+		case "library":
 			room = Room.Type.Library;
 			break;
-		case "Lounge":
+		case "lounge":
 			room = Room.Type.Lounge;
 			break;
-		case "Study":
+		case "study":
 			room = Room.Type.Study;
 			break;
-		case "Hall":
+		case "hall":
 			room = Room.Type.Hall;
 			break;
-		case "Conservatory":
+		case "conservatory":
 			room = Room.Type.Conservatory;
 			break;
 		default:
