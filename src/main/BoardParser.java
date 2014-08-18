@@ -21,15 +21,15 @@ public class BoardParser {
 
 	private static List<String> roomNames = new ArrayList<>();
 	static {
-		roomNames.add("kitchen");
-		roomNames.add("conservatory");
-		roomNames.add("ballroom");
-		roomNames.add("billiard");
-		roomNames.add("dining");
-		roomNames.add("library");
-		roomNames.add("lounge");
-		roomNames.add("study");
-		roomNames.add("hall");
+		roomNames.add("Kitchen");
+		roomNames.add("Conservatory");
+		roomNames.add("Ballroom");
+		roomNames.add("Billiard");
+		roomNames.add("Dining");
+		roomNames.add("Library");
+		roomNames.add("Lounge");
+		roomNames.add("Study");
+		roomNames.add("Hall");
 	}
 
 	
