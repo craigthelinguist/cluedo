@@ -386,7 +386,11 @@ public class GamePanel extends JPanel implements ActionListener {
 				setButtonEnabled("Roll Dice", false);
 				break;
 			}
-
+			
+			// can only suggest when in a room
+			if (player.getLocation().getRoomName().equals("Hallway"))
+				setButtonEnabled("Suggest", false);
+			
 			// update amount of moves
 			int amount = board.getMovesLeft();
 	    	this.movesLabel.setText("Moves: " + amount);
