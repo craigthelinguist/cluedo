@@ -2,8 +2,13 @@ package tests;
 
 import game.Board;
 import game.Player;
+import game.Suggestion;
 import game.Tile;
 import game.Tile.Terrain;
+import gui.GameFrame;
+import gui.GamePanel;
+import gui.MenuBar;
+import gui.NewGameDialog;
 
 import java.io.IOException;
 
@@ -13,6 +18,7 @@ import org.junit.Test;
 
 import cards.Person;
 import cards.Room;
+import cards.Weapon;
 
 public class TestBoard {
 
@@ -27,7 +33,7 @@ public class TestBoard {
 		Player previousPlayer = b.getCurrentPlayer();
 		b.endTurn(); //end turn
 		if(!(b.getCurrentPlayer().toString().equalsIgnoreCase(previousPlayer.toString()))) { //check to see if it's a new player's turn
-			System.out.println("Successfully changed player turn");
+			System.out.println("Change player turn passed");
 		}
 	}
 	
@@ -69,6 +75,22 @@ public class TestBoard {
 		}
 		if(b.everyoneLost() == true) {
 			System.out.println("All Players Eliminated Successfully pased");
+		}
+	}
+	
+	@Test public void endSuggestion() throws IOException {
+		Board b = createBoard();
+		/*set up the gui*/
+		GameFrame gf = new GameFrame();
+		MenuBar menu = new MenuBar(gf);
+		GamePanel gamePanel = new GamePanel(gf);
+		gui.Canvas canvas = new gui.Canvas(gf);
+		/*create new game*/
+		new NewGameDialog(gf);
+		gf.makeSuggestion(new Suggestion(new Room("Kitchen"), new Person ("scarlett"), new Weapon("Candlestick"))); //make suggestion while in this room
+		gf.refute(new Weapon("Candlestick"));
+		if(b.getState().toString().equals("DONE")) {
+			System.out.println("Ended Suggestion Passed");
 		}
 	}
 	
