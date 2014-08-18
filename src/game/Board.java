@@ -357,16 +357,19 @@ public class Board {
 					break;
 				}
 				
-				// recurse
+				// recurse.
 				Tile north = tiles[t.y-1][t.x];
-				Tile south = tiles[t.y+1][t.x];
-				Tile east = tiles[t.y][t.x+1];
-				Tile west = tiles[t.y][t.x-1];
-				
 				if (north.room == room) queue.offer(north);
+				
+				Tile south = tiles[t.y+1][t.x];
 				if (south.room == room) queue.offer(south);
+				
+				Tile east = tiles[t.y][t.x+1];
 				if (east.room == room) queue.offer(east);
+				
+				Tile west = tiles[t.y][t.x-1];
 				if (west.room == room) queue.offer(west);
+				
 				
 			}		
 		}

@@ -12,7 +12,7 @@ public class Room extends Card{
 	
 	public enum Type{ Kitchen, Ballroom, Conservatory, Dining, Lounge, Hall, Library, Study, Billiard, Hallway }
 	private final String FILEPATH = Constants.ASSETS;
-	private final Type type;
+	public final Type type;
 	private final Image imageCard;
 	
 	public Room(String name) throws IOException{
