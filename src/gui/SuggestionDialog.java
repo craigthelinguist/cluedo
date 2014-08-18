@@ -101,7 +101,7 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 		 *******************************************************
 		 *******************************************************
 		 */
-		/*testing */
+
 		Player currentPlayer = controller.getBoard().getCurrentPlayer();
 		JRadioButton rdbtnRoom = new JRadioButton(currentPlayer.getLocation().getRoomName());
 		gConstraints.insets = new Insets(0, 0, 5, 5);
