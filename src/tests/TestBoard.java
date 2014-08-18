@@ -43,6 +43,14 @@ public class TestBoard {
 		}
 	}
 	
+	@Test public void rollDice() {
+		Board b = createBoard();
+		int[] dice = b.rollDice();
+		if(dice.length != 0) {
+			System.out.println("Rolling Dice passed");
+		}
+	}
+	
 	/**
 	 * Helper method creates new board
 	 * @return
