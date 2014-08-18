@@ -327,23 +327,51 @@ public class Board {
 	}
 
 	/**
-	 * A round of suggesting is over. The turn now goes to the specified lpayer.
+	 * A round of suggesting is over. The turn now goes to the specified player.
+	 * The person who was accused should be moved to the same room.
 	 * @param suggestor: person who made suggestion.
 	 */
-	public void endSuggestion(Player suggestor) {
+	public void endSuggestion(Suggestion suggestion, Player suggestor) {
+		int accused = -1;
+		Person avatar = suggestion.getPerson();
 		for (int i = 0; i < players.length; i++){
-			if (players[i] == suggestor){
-				currentPlayer = i;
-				break;
-			}
+			if (players[i] == suggestor) currentPlayer = i;
+			else if (players[i].avatar.equals(avatar)) accused = i;
 		}
+		
+		// if the accused is playing, move them next to the suggestor
+		// do BFS around the suggestor until you find an empty tile
+		if (accused != -1){
+			Tile start = players[currentPlayer].getLocation();
+			Queue<Tile> queue = new ArrayDeque<>();
+			Set<Tile> visited = new HashSet<>();
+			queue.offer(start);
+			Room.Type room = start.room;
+			while (!queue.isEmpty()){
+				Tile t = queue.poll();
+				visited.add(t);
+				if (!t.occupied()){
+					players[accused].getLocation().setOccupant(null);
+					players[accused].setLocation(t);
+					t.setOccupant(players[accused]);
+					break;
+				}
+				
+				// recurse
+				Tile north = tiles[t.y-1][t.x];
+				Tile south = tiles[t.y+1][t.x];
+				Tile east = tiles[t.y][t.x+1];
+				Tile west = tiles[t.y][t.x-1];
+				
+				if (north.room == room) queue.offer(north);
+				if (south.room == room) queue.offer(south);
+				if (east.room == room) queue.offer(east);
+				if (west.room == room) queue.offer(west);
+				
+			}		
+		}
+		
 		this.state = State.DONE;
 	}
-
-
-public int getPlayerInt() {
-	return currentPlayer;
-}
-	
 
 }

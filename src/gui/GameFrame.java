@@ -108,7 +108,6 @@ public class GameFrame extends JFrame {
 	protected void buttonPressed(String button){
 
 		if (button.equals("End Turn")) {
-			Player[] players = board.getPlayers();
 			board.endTurn();
 		}
 		else if (button.equals("Roll Dice")){
@@ -139,7 +138,7 @@ public class GameFrame extends JFrame {
 	 */
 	protected void makeSuggestion(Suggestion suggest) {
 		gamePanel.startRefuting(board.getCurrentPlayer(), suggest);
-		buttonPressed("End Turn");
+		buttonPressed("End Turn"); // suggestion starts at next player
 	}
 
 	/**
@@ -269,7 +268,6 @@ public class GameFrame extends JFrame {
 		try {
 			new GameFrame();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -287,9 +285,10 @@ public class GameFrame extends JFrame {
 		else if (card instanceof Person) msg += card.toString() + " didn't commit the crime!";
 		Player refuter = this.getCurrentPlayer();
 		new TalkDialog(this,refuter.getPortrait(),refuter.toString(),msg);
-		board.endSuggestion(gamePanel.getSuggestor());
+		board.endSuggestion(gamePanel.getSuggestion(),gamePanel.getSuggestor());
 		gamePanel.endRefuting();
 		gamePanel.updateGamePanel();
+		this.repaint();
 	}
 	
 	/**
@@ -300,7 +299,7 @@ public class GameFrame extends JFrame {
 		String msg = "Looks like no-one can deny my suggestion....";
 		Player suggestor = gamePanel.getSuggestor();
 		new TalkDialog(this,suggestor.getPortrait(),suggestor.toString(),msg);
-		board.endSuggestion(suggestor);
+		board.endSuggestion(gamePanel.getSuggestion(),suggestor);
 		gamePanel.endRefuting();
 		gamePanel.updateGamePanel();
 	}

@@ -18,7 +18,7 @@ public class Tile {
 	}
 
 	// fields
-	private Room.Type room; // room this tile is in
+	public final Room.Type room; // room this tile is in
 	private Player occupant; // person on this tile
 	private Terrain terrain;
 	public final int x;
@@ -141,6 +141,14 @@ public class Tile {
 	public String getRoomName() {
 		if (room == null) return "Hallway";
 		return room.name();
+	}
+	
+	/**
+	 * Check if someone is standing on this tile.
+	 * @return: true is tile is occupied, false otherwise.
+	 */
+	public boolean occupied(){
+		return occupant != null;
 	}
 
 }

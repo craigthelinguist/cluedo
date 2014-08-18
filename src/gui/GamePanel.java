@@ -472,6 +472,14 @@ public class GamePanel extends JPanel implements ActionListener {
 		return suggestor;
 	}
 	
+	/**
+	 * Getter. Returns the current suggestion being made.
+	 * @return: a suggestion.
+	 */
+	protected Suggestion getSuggestion(){
+		return suggestion;
+	}
+	
     
 }
 
