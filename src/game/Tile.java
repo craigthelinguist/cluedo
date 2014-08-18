@@ -31,6 +31,16 @@ public class Tile {
 
 	private final Tile passage;
 	
+	/**
+	 * Create new Tile 
+	 * 
+	 * @param x : the position on the board
+	 * @param y : the position on the board
+	 * @param t : type of terrain (enum)
+	 * @param neighbours : array indicating whether you can travel north/east/south/west
+	 * @param secretPassage : indicating whether this tile is a secret passage
+	 * @param rroom : type of room
+	 */
 	private Tile(int x, int y, Terrain t, boolean[] neighbours, Tile secretPassage, Room.Type rroom){
 
 		this.x = x;
