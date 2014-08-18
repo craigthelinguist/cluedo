@@ -60,6 +60,18 @@ public class TestBoard {
 		}
 	}
 	
+	@Test public void allPlayerEliminated() {
+		Board b = createBoard();
+		Player[] players = b.getPlayers();
+		for(int i = 0; i < players.length; i ++) {
+			b.eliminatePlayer();
+			b.endTurn();
+		}
+		if(b.everyoneLost() == true) {
+			System.out.println("All Players Eliminated Successfully pased");
+		}
+	}
+	
 	/**
 	 * Helper method creates new board
 	 * @return
