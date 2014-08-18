@@ -37,6 +37,10 @@ public class MenuBar extends JMenuBar implements MenuListener, ActionListener {
 	private JMenuItem newGame, exit, instructions, solution;
 	private GameFrame controller;
 	
+	/**
+	 * MenuBar Constructor sets up the menu bar and layout
+	 * adds the JMenus and JMenuItems onto the JMenuBar.
+	 */
 	public MenuBar(GameFrame frame) {
 		
 		// set size and field
@@ -95,6 +99,11 @@ public class MenuBar extends JMenuBar implements MenuListener, ActionListener {
 		}
 	}
 
+	/** 
+	 * Reads a text file that contains instructions how to play and then displays it 
+	 * in a JOptionPane.
+	 * @throws IOException
+	 */
 	public static void displayInstructions()throws IOException {
 	    BufferedReader br = new BufferedReader(new FileReader("gameInstructions/instructions.txt"));
 		JTextArea textArea = new JTextArea(20,50);
@@ -136,6 +145,7 @@ public class MenuBar extends JMenuBar implements MenuListener, ActionListener {
 		// TODO Auto-generated method stub
 	}
 	
+	/*Main method to test the menu bar*/
     private static void createAndShowGUI() {
         JFrame frame = new JFrame("MenuBarTesting");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

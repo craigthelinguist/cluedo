@@ -73,6 +73,12 @@ public class GamePanel extends JPanel implements ActionListener {
 	private Suggestion suggestion = null;
 	private GroupLayout layout;
 
+	
+	/**
+	 * Create new panel and set up buttons, area for cards and portrait.
+	 * Game panel has all the choices the player can make while playing.
+	 * @param frame : frame to which this panel is attached
+	 */
 	public GamePanel(GameFrame frame) {
 
 		// size & controller
@@ -107,6 +113,13 @@ public class GamePanel extends JPanel implements ActionListener {
 
 	}
 
+	/**
+	 * Set up the buttons on the panel.
+	 * -End Turn : ends the player's turn
+	 * -Accuse : make an accusation
+	 * -Suggest: make a suggestion
+	 * -Roll Dice : roll the dice and move 
+	 */
 	private void setupButtons(){
 
 		// create components
@@ -150,6 +163,9 @@ public class GamePanel extends JPanel implements ActionListener {
 		);
 	}
 
+	/**
+	 * Set up the refutation panel when player makes suggestion
+	 */
 	private void setupRefutation() {
 
 		refutePanel = new JPanel();
@@ -202,6 +218,9 @@ public class GamePanel extends JPanel implements ActionListener {
 		}
 	}
 
+	/**
+	 * Add ActionListener to Button
+	 */
 	private void setupButtonListeners() {
 
 		buttonEndTurn.addActionListener(new ActionListener(){
@@ -215,6 +234,9 @@ public class GamePanel extends JPanel implements ActionListener {
 
 	}
 
+	/**
+	 * Sets up the cards so that they can be displayed on the panel
+	 */
 	private void setupCards(){
 
 		// card panel
@@ -257,6 +279,9 @@ public class GamePanel extends JPanel implements ActionListener {
 
 	}
 
+	/**
+	 * Set up portrait on the panel to identify whose turn it currently is.
+	 */
 	private void setupPortrait(){
 
 		// create components
@@ -407,7 +432,9 @@ public class GamePanel extends JPanel implements ActionListener {
 		
 	}
 
-    /** change this method later a lot of it is testing*/
+    /**
+     * Responsible for telling the controller what button has been pressed.
+     */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(buttonRollDice)) {

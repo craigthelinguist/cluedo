@@ -33,6 +33,7 @@ public class TalkDialog extends JDialog{
 	private JButton button;
 	
 	/**
+	 * A Dialog which displays a character talking in game.
 	 * 
 	 * @param controller: controller to which this dialog is attached.
 	 * @param player: the player talking. Their portrait will be drawn.

@@ -50,6 +50,13 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 	/*true is suggestion false is accusation */
 	boolean isAccusation;
 	
+	/**
+	 * A dialog with JRadioButtons so the player can suggest/accuse room, weapon and character.
+	 * JRadioButtons are inside ButtonGroups so only one can be selected at a time.
+	 * 
+	 * @param frame : the frame to which this dialog is attached.
+	 * @param isAccusation : whether or not player is accusing or suggesting
+	 */
 	public SuggestionDialog(GameFrame frame, boolean isAccusation) {
 		super(frame,true); // prevents interaction with underlying JFrame
 		System.out.println(frame.getBoard().solution);
@@ -296,8 +303,9 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 	}
 
 	/**
-	 * Helper method
-	 * This method iterates over the elements in the button group and return the selected button as a string
+	 * 
+	 * Iterates over the elements in the button group and return the selected button as a string
+	 * 
 	 * @param bg
 	 * @return Radio button that was selected
 	 */
