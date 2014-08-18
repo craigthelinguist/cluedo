@@ -1,8 +1,8 @@
 HIGH IMPORTANCE 
-* make each tile belong to a room. DONE
-* give some indicator of what room player is in (maybe a little Jlabel below the portrait) DONE
-* change suggestion dialog. A player can only make a suggestion involving the room they're currently standing in. 
-* change suggestions so you can only make them when you're inside a room DONE
+* make each tile belong to a room. - DONE
+* give some indicator of what room player is in (maybe a little Jlabel below the portrait) - DONE
+* change suggestion dialog. A player can only make a suggestion involving the room they're currently standing in. - DONE
+* change suggestions so you can only make them when you're inside a room - DONE
 
 MID IMPORTANCE
 * when you make a suggestion, move the player you suggested to the same room as you.
