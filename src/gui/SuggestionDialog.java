@@ -332,7 +332,7 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 				/*if player is not in room they are suggesting
 				 * show message warning player */
 				Player player = controller.getCurrentPlayer();
-				if(!(player.getLocation().getRoomName().equalsIgnoreCase(currentRoom))) { 
+				if(!(player.getLocation().getRoomName().equalsIgnoreCase(currentRoom)) && isAccusation == false) { 
 					JOptionPane.showMessageDialog(null, "You must be in that room to suggest it!","Warning!",JOptionPane.WARNING_MESSAGE);
 					return;
 				}
