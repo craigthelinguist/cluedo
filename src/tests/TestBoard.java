@@ -51,6 +51,15 @@ public class TestBoard {
 		}
 	}
 	
+	@Test public void eliminatePlayer() {
+		Board b = createBoard();
+		Player p = b.getCurrentPlayer();
+		b.eliminatePlayer();
+		if(p.eliminated() == true) {
+			System.out.println("Elimiante Player test passed");
+		}
+	}
+	
 	/**
 	 * Helper method creates new board
 	 * @return
