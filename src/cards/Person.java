@@ -10,6 +10,10 @@ import javax.imageio.ImageIO;
 
 import main.Constants;
 
+/**
+ * Represents a person in Cluedo. 
+ * @author craigthelinguist
+ */
 public class Person extends Token{
 
 	public enum Type{ mustard, white, scarlett, green, peacock, plum }

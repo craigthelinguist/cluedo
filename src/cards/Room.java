@@ -8,6 +8,12 @@ import javax.imageio.ImageIO;
 
 import main.Constants;
 
+/**
+ * Represents a room in Cluedo. Note this is just a card. It doesn't know which Tiles are in that
+ * room, for instance.
+ * @author craigthelinguist
+ *
+ */
 public class Room extends Card{
 	
 	public enum Type{ Kitchen, Ballroom, Conservatory, Dining, Lounge, Hall, Library, Study, Billiard, Hallway }

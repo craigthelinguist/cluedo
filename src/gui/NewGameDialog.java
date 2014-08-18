@@ -18,6 +18,13 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+/**
+ * A new game dialog that lets you set up a game. The player can select the number of players
+ * and which person is representing each. When a valid configuration has been selected, this
+ * dialog should tell GameFrame to set up a new game.
+ * @author craigthelinguist
+ *
+ */
 public class NewGameDialog extends JDialog {
 
 	private final String[] playerOptions = new String[]{ "Human", "Computer", "None" };

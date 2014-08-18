@@ -22,6 +22,11 @@ import javax.swing.JPanel;
 
 import main.Constants;
 
+/**
+ * This represents the area in the centre of the gui. Canvas should either be drawing the current
+ * state of the game board or it should be drawing the title screen.
+ * @author craigthelinguist
+ */
 public class Canvas extends JPanel implements MouseListener{
 
 	// constants
@@ -82,55 +87,6 @@ public class Canvas extends JPanel implements MouseListener{
 			}
 		}
 		
-	
-		/**
-		 * 
-			  debugging code: draws tiles and their adjacencies
-		if(controller.getBoard() != null) {
-	
-			Board b = controller.getBoard();
-			Tile[][] tiles = b.tiles;
-			final int TILE_WIDTH = Constants.TILE_WIDTH;
-			
-			for (int i = 0; i < tiles.length; i++){
-				for (int j = 0; j < tiles[i].length; j++){
-					Tile t = tiles[i][j];
-					
-
-					g.setColor(Color.ORANGE);
-					
-					if (!t.passable()){
-						g.fillRect(j*TILE_WIDTH,i*TILE_WIDTH,TILE_WIDTH,TILE_WIDTH);
-					}
-					else{
-						g.drawRect(j*TILE_WIDTH, i*TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
-						int centreX = j*TILE_WIDTH + (TILE_WIDTH/2);
-						int centreY = i*TILE_WIDTH + (TILE_WIDTH/2);
-						g.setColor(Color.BLUE);						
-						if (t.NORTH){
-							g.drawLine(centreX, centreY, centreX, centreY-(TILE_WIDTH/2));
-						}
-						if (t.EAST){
-							g.drawLine(centreX,centreY,centreX+(TILE_WIDTH/2),centreY);
-						}
-						if (t.SOUTH){
-							g.drawLine(centreX,centreY,centreX,centreY+(TILE_WIDTH/2));
-						}
-						if (t.WEST){
-							g.drawLine(centreX,centreY,centreX-(TILE_WIDTH/2),centreY);
-						}
-						
-						
-					}
-					
-				}
-			}
-			
-			
-		}
-
-		
-			**/
 		
 	}
 	

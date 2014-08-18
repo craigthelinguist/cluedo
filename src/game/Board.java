@@ -29,7 +29,13 @@ import main.Constants;
 import gui.GameFrame;
 import gui.TalkDialog;
 
-
+/**
+ * This is the main model for a game of Cluedo. A board is a 2d array of tiles, an array of
+ * players, and a Suggestion representing the correct solution to the murder.
+ * There are also some mutable fields.
+ * @author craigthelinguist
+ *
+ */
 public class Board {
 
 	// constants
@@ -56,6 +62,8 @@ public class Board {
 	 *  - MOVING: the player may move, suggest, accuse, or end turn.
 	 *  - SUGGESTING: the player may suggest, accuse, or end turn.
 	 *  - DONE: the player can only end turn.
+	 * It can be thought of as a finite state machine, where the transitions out of each state
+	 * are mouse clicks or button presses.
 	 * @author craigthelinguist
 	 */
 	private enum State{
@@ -261,6 +269,10 @@ public class Board {
 		return validTiles;
 	}
 
+	/**
+	 * Given an x,y in the grid of tiles, return the tile at that position
+	 * @return: a tile.
+	 */
 	public Tile tileFromPosition(int x, int y){
 		return tiles[y][x];
 	}
@@ -300,10 +312,18 @@ public class Board {
 		return state.toString();
 	}
 	
+	/**
+	 * Returns the number of moves player is allowed to make.
+	 * @return: an int.
+	 */
 	public int getMovesLeft(){
 		return moves;
 	}
 
+	/**
+	 * Returns the set of tiles to which the current lpayer is allowed to move.
+	 * @return: a set of tiles.
+	 */
 	public Set<Tile> getValidMoves() {
 		return validMoves.keySet();
 	}

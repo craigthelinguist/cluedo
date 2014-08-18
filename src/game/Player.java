@@ -6,6 +6,12 @@ import java.util.LinkedList;
 import cards.Card;
 import cards.Person;
 
+/**
+ * A player in the game of cluedo. They have a list of cards, an avatar, and a current location.
+ * They also know if they've been eliminated. No two players should have the same avatar.
+ * @author craigthelinguist
+ *
+ */
 public class Player {
 
 	public final Person avatar;

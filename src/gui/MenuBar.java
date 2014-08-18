@@ -26,6 +26,11 @@ import javax.swing.event.MenuListener;
 
 import main.Constants;
 
+/**
+ * The MenuBar provides drop-down options for the player, like starting a new game
+ * or getting help. It is apart of GameFrame.
+ * @author craigthelinguist
+ */
 public class MenuBar extends JMenuBar implements MenuListener, ActionListener {
 
 	// constants

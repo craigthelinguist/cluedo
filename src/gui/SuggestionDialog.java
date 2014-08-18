@@ -27,6 +27,13 @@ import cards.Person;
 import cards.Room;
 import cards.Weapon;
 
+/**
+ * This dialog lets the user select a room, weapon, and person, and make that suggestion.
+ * A player can only select the room that they're standing in. IF a valid suggestion has
+ * been made, this dialog should tell GameFrame that it is now in suggesting mode.
+ * @author craigthelinguist
+ *
+ */
 public class SuggestionDialog extends JDialog implements ActionListener{
 
 	private GameFrame controller;

@@ -8,7 +8,10 @@ import javax.imageio.ImageIO;
 
 import main.Constants;
 
-
+/**
+ * Represents a weapon in the game of cluedo.
+ * @author craigthelinguist
+ */
 public class Weapon extends Token{
 
 	private enum Type{ Candlestick, Dagger, Pipe, Revolver, Rope, Spanner }

@@ -30,6 +30,13 @@ import cards.Card;
 
 import main.Constants;
 
+/**
+ * GamePanel dislpays info about the player in the bottom of the screen. It belongs to
+ * GameFrame. It has buttons which the player can click on to tell the game what they
+ * want to do (E.g.: end turn or roll dice). if a suggestion has been made, GamePanel
+ * will redraw itself to display the correct buttons.
+ * @author craigthelinguist
+ */
 public class GamePanel extends JPanel implements ActionListener {
 
 	// constants
@@ -326,8 +333,9 @@ public class GamePanel extends JPanel implements ActionListener {
 	}
 
 	/**
-	 * Update all info the GamePanel is displaying. It will
-	 * @param player: player whose name and portrait should be displayed.
+	 * Update all info the GamePanel is displaying. The player's name and room
+	 * are displayed, their portrait is drawn, and all valid buttons are highlighted.
+	 * Any buttons that are invalid at the moment should be greyed out.
 	 */
 	protected void updateGamePanel(){ 
 		// update the portrait being displayed
@@ -459,8 +467,9 @@ public class GamePanel extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * Deactivate this GamePanel. It should hide.
+	 * Deactivate this GamePanel. It should hide and the player cannot 
 	 */
+	private final int MENU_HT = 20;
 	protected void deactivate(){
 		endRefuting();
 		setVisible(false);
@@ -482,7 +491,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * End the refuting.
+	 * Make this GamePanel leave refuting mode.
 	 */
 	protected void endRefuting(){
 		if (refuting) this.layout.replace(refutePanel, buttons);
@@ -507,10 +516,6 @@ public class GamePanel extends JPanel implements ActionListener {
 		return suggestion;
 	}
 	
-	public boolean getRefuting() {
-		// TODO Auto-generated method stub
-		return refuting;
-	}
     
 }
 

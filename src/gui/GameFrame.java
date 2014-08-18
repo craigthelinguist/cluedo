@@ -23,10 +23,13 @@ import cards.Person;
 import cards.Room;
 import cards.Weapon;
 
+/**
+ * This class encapsulates the entirety of the gui. It also serves as a component. When any
+ * gui component receives a mouse or button event, it should send that info to GameFrame which
+ * decides what to do. As much as possible, this should be the only class talking to Board.
+ * @author craigthelinguist
+ */
 public class GameFrame extends JFrame {
-
-	// constants
-
 
 	// model fields
 	private Board board;
@@ -90,7 +93,7 @@ public class GameFrame extends JFrame {
 	/**
 	 * Respond to a mouse press.
 	 * @param x
-	 * @param y
+	 * @param ya
 	 */
 	protected void mousePressed(int x, int y){
 		//System.out.println(board.tileFromCoordinates(x, y));
@@ -213,7 +216,7 @@ public class GameFrame extends JFrame {
 	protected void playerWon(){
 		Player winner = board.getCurrentPlayer();
 		StringBuilder sb = new StringBuilder();
-		sb.append(winner.toString() + " has won the game!");
+		sb.append(winner.toString() + " has won the gamea!");
 		sb.append(" The murderer was " + board.solution.toString());
 		new TalkDialog(this,winner.getPortrait(),sb.toString(),"");
 		quitCurrentGame();

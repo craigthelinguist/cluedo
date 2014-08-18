@@ -4,6 +4,11 @@ import cards.Person;
 import cards.Room;
 import cards.Weapon;
 
+/**
+ * A suggestion is a triple consisting of a room, person, and a weapon.
+ * @author craigthelinguist
+ *
+ */
 public class Suggestion {
 
 	public final Room room;

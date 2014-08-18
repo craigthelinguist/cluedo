@@ -3,6 +3,11 @@ package game;
 import cards.Room;
 import cards.Token;
 
+/**
+ * This class represents a tile on the board. The only mutable fact about this Tile is who/what is
+ * currently on it.
+ * @author craigthelinguist
+ */
 public class Tile {
 
 	/**

@@ -26,8 +26,7 @@ import main.Constants;
 /**
  * This dialog appears when a player has made an accusation. It will display the cards
  * in your accusation, and the cards forming the solution. If the player is correct,
- * they win the game and you go back to the main menu. Otherwise they are eliminated
- * and GameFrame updates.
+ * they win the game and you go back to the main menu. Otherwise they should be eliminated.
  * @author craigthelinguist
  */
 public class AccusationDialog extends JDialog{
