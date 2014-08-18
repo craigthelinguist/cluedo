@@ -356,7 +356,7 @@ public class GamePanel extends JPanel implements ActionListener {
 			}
 		
 		}
-		
+				
 		// rolling & moving
 		// enable/diasble buttons as appropriate
 		else{
@@ -392,6 +392,11 @@ public class GamePanel extends JPanel implements ActionListener {
 	    	this.movesLabel.setText("Moves: " + amount);
 			
 		}
+		
+		if(player.getLocation().getRoomName().equals("")) { //if the player is not in a room
+			setButtonEnabled("Suggest", false); //set the suggest button to false (can't suggest if not in room)
+		}
+
 		
 		this.validate();
 		this.repaint();
