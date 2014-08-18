@@ -1,5 +1,6 @@
 package gui;
 
+import game.Player;
 import game.Suggestion;
 
 import java.awt.BorderLayout;
@@ -328,7 +329,15 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 					return;
 				}
 				
-				// make suggestion and tell controller to deal with it
+				/*if player is not in room they are suggesting
+				 * show message warning player */
+				Player player = controller.getCurrentPlayer();
+				if(!(player.getLocation().getRoomName().equalsIgnoreCase(currentRoom))) { 
+					JOptionPane.showMessageDialog(null, "You must be in that room to suggest it!","Warning!",JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				
+				/* make suggestion and tell controller to deal with it*/
 				Room room = new Room(getSelectedRoom(currentRoom));
 				Person character = new Person (getSelectedCharacter(currentCharacter));
 				Weapon weapon = new Weapon (getSelectedWeapon(currentWeapon));
