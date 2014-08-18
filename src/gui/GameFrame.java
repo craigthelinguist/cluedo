@@ -1,25 +1,22 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-
 import game.Board;
 import game.Player;
 import game.Suggestion;
 import game.Tile;
+
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
-import Talking.MissScarlett;
 import main.Constants;
 import cards.Card;
 import cards.Person;
@@ -112,9 +109,6 @@ public class GameFrame extends JFrame {
 
 		if (button.equals("End Turn")) {
 			Player[] players = board.getPlayers();
-			if(players[board.getPlayerInt()].avatar.toString().equalsIgnoreCase("Miss Scarlett")) {
-				new MissScarlett(this,board);
-			}
 			board.endTurn();
 		}
 		else if (button.equals("Roll Dice")){

@@ -30,9 +30,8 @@ public class Tile {
 	public final boolean WEST;
 
 	private final Tile passage;
-	private final String roomName;
 	
-	private Tile(int x, int y, Terrain t, boolean[] neighbours, Tile secretPassage, String roomName){
+	private Tile(int x, int y, Terrain t, boolean[] neighbours, Tile secretPassage, Room.Type rroom){
 
 		this.x = x;
 		this.y = y;
@@ -42,31 +41,31 @@ public class Tile {
 		SOUTH = neighbours[2];
 		WEST = neighbours[3];
 		passage = secretPassage;
-		this.roomName = roomName;
+		room = rroom;
 	}
 
 
-	public static Tile makePassableTile(int x, int y, boolean[] neighbours){
-		return new Tile(x,y,Terrain.PASSABLE,neighbours,null,"");
+	public static Tile makePassableTile(int x, int y, boolean[] neighbours, Room.Type rroom){
+		return new Tile(x,y,Terrain.PASSABLE,neighbours,null,rroom);
 	}
 	
 
 	
-	public static Tile makeSpawnTile(int x, int y, boolean[] neighbours){
-		return new Tile(x,y,Terrain.SPAWN,neighbours,null,"");
+	public static Tile makeSpawnTile(int x, int y, boolean[] neighbours, Room.Type rroom){
+		return new Tile(x,y,Terrain.SPAWN,neighbours,null,rroom);
 	}
 	
 	public static Tile makeImpassableTile(int x, int y){
-		return new Tile(x,y,Terrain.IMPASSABLE,new boolean[4],null,"");
+		return new Tile(x,y,Terrain.IMPASSABLE,new boolean[4],null,null);
 	}
 
 
-	public static Tile makeSecretPassageTile(int x, int y, boolean[] neighbours, Tile passage){
-		return new Tile(x,y,Terrain.PASSABLE,neighbours,passage,"");
+	public static Tile makeSecretPassageTile(int x, int y, boolean[] neighbours, Tile passage, Room.Type rroom){
+		return new Tile(x,y,Terrain.PASSABLE,neighbours,passage,rroom);
 	}
 	
-	public static Tile makeRoomTile(int x, int y, boolean[] neighbours, String roomName){
-		return new Tile(x,y,Terrain.ROOM,neighbours,null,roomName);
+	public static Tile makeRoomTile(int x, int y, boolean[] neighbours, String roomName, Room.Type rroom){
+		return new Tile(x,y,Terrain.ROOM,neighbours,null,rroom);
 	}
 
 	public boolean canTravel(Player p){
@@ -140,7 +139,8 @@ public class Tile {
 
 
 	public String getRoomName() {
-		return roomName;
+		if (room == null) return "Hallway";
+		return room.name();
 	}
 
 }

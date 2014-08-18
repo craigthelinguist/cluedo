@@ -20,7 +20,6 @@ import java.util.Stack;
 
 import javax.imageio.ImageIO;
 
-import Talking.MissScarlett;
 import cards.Card;
 import cards.Person;
 import cards.Room;
