@@ -136,7 +136,7 @@ public class GameFrame extends JFrame {
 	 * they may only pass.
 	 * @param suggest
 	 */
-	protected void makeSuggestion(Suggestion suggest) {
+	public void makeSuggestion(Suggestion suggest) { //changed from protected to public change later maybe
 		gamePanel.startRefuting(board.getCurrentPlayer(), suggest);
 		buttonPressed("End Turn"); // suggestion starts at next player
 	}
@@ -303,5 +303,6 @@ public class GameFrame extends JFrame {
 		gamePanel.endRefuting();
 		gamePanel.updateGamePanel();
 	}
+
 
 }

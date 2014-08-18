@@ -507,6 +507,10 @@ public class GamePanel extends JPanel implements ActionListener {
 		return suggestion;
 	}
 	
+	public boolean getRefuting() {
+		// TODO Auto-generated method stub
+		return refuting;
+	}
     
 }
 
