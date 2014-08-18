@@ -300,8 +300,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	 * Update all info the GamePanel is displaying. It will
 	 * @param player: player whose name and portrait should be displayed.
 	 */
-	protected void updateGamePanel(){
-
+	protected void updateGamePanel(){ 
 		// update the portrait being displayed
 		Player player = controller.getCurrentPlayer();
 		portraitBox.setIcon(new ImageIcon(player.getPortrait()));

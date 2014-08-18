@@ -29,8 +29,9 @@ public class Tile {
 	public final boolean WEST;
 
 	private final Tile passage;
+	private final String roomName;
 	
-	private Tile(int x, int y, Terrain t, boolean[] neighbours, Tile secretPassage){
+	private Tile(int x, int y, Terrain t, boolean[] neighbours, Tile secretPassage, String roomName){
 
 		this.x = x;
 		this.y = y;
@@ -40,27 +41,31 @@ public class Tile {
 		SOUTH = neighbours[2];
 		WEST = neighbours[3];
 		passage = secretPassage;
-
+		this.roomName = roomName;
 	}
 
 
 	public static Tile makePassableTile(int x, int y, boolean[] neighbours){
-		return new Tile(x,y,Terrain.PASSABLE,neighbours,null);
+		return new Tile(x,y,Terrain.PASSABLE,neighbours,null,"");
 	}
 	
 
 	
 	public static Tile makeSpawnTile(int x, int y, boolean[] neighbours){
-		return new Tile(x,y,Terrain.SPAWN,neighbours,null);
+		return new Tile(x,y,Terrain.SPAWN,neighbours,null,"");
 	}
 	
 	public static Tile makeImpassableTile(int x, int y){
-		return new Tile(x,y,Terrain.IMPASSABLE,new boolean[4],null);
+		return new Tile(x,y,Terrain.IMPASSABLE,new boolean[4],null,"");
 	}
 
 
 	public static Tile makeSecretPassageTile(int x, int y, boolean[] neighbours, Tile passage){
-		return new Tile(x,y,Terrain.PASSABLE,neighbours,passage);
+		return new Tile(x,y,Terrain.PASSABLE,neighbours,passage,"");
+	}
+	
+	public static Tile makeRoomTile(int x, int y, boolean[] neighbours, String roomName){
+		return new Tile(x,y,Terrain.PASSABLE,neighbours,null,roomName);
 	}
 
 	public boolean canTravel(Player p){

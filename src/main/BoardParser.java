@@ -66,9 +66,14 @@ public class BoardParser {
 						else if (array[2].equalsIgnoreCase("passage")){
 							throw new UnsupportedOperationException("secret passages don't work yet");
 						}
-						else{
-							boolean[] neighbours = scanNeighbours(array,2);
+						else if (array[2].equalsIgnoreCase("passable")){
+							boolean[] neighbours = scanNeighbours(array,3);
 							tiles[row][col] = Tile.makePassableTile(col, row, neighbours);
+						}
+						else { //this tile belongs to a room
+							String roomName = array[2]; 
+							boolean[] neighbours = scanNeighbours(array,3);
+							tiles[row][col] = Tile.makeRoomTile(col,row,neighbours,roomName);
 						}
 					}
 					catch(IllegalArgumentException e){
@@ -108,7 +113,7 @@ public class BoardParser {
 		return bools;
 		
 	}
-	
+		
 	public static void main(String[] args){
 		
 		try{
