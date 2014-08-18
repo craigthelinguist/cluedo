@@ -56,11 +56,11 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 		this.isAccusation = isAccusation;
 		this.controller = frame;
 		setResizable(false);
-		setBounds(0, 0, 350, 280);
+		setBounds(0, 0, 450, 340);
 		getContentPane().setLayout(new BorderLayout());
 		//optionsPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		optionsPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		getContentPane().add(optionsPanel, BorderLayout.NORTH);
+		getContentPane().add(optionsPanel, BorderLayout.CENTER);
 
 		GridBagLayout g = new GridBagLayout();
 		g.columnWidths = new int[]{0, 0, 0, 0};
@@ -71,7 +71,6 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 		GridBagConstraints gConstraints = new GridBagConstraints();
 		gConstraints.anchor = GridBagConstraints.WEST;
 
-		
 		/* Add the label Select Room: */
 		JLabel lblSelectRoom = new JLabel("Select Room:");
 		gConstraints.insets = new Insets(0, 0, 5, 5);
@@ -101,14 +100,6 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 		 *******************************************************
 		 *******************************************************
 		 */
-		/*testing */
-		Player currentPlayer = controller.getBoard().getCurrentPlayer();
-		JRadioButton rdbtnRoom = new JRadioButton(currentPlayer.getLocation().getRoomName());
-		gConstraints.insets = new Insets(0, 0, 5, 5);
-		gConstraints.gridx = 0;
-		gConstraints.gridy = 1;
-		optionsPanel.add(rdbtnRoom,gConstraints);
-		/*
 		JRadioButton rdbtnKitchen = new JRadioButton("Kitchen");
 		gConstraints.insets = new Insets(0, 0, 5, 5);
 		gConstraints.gridx = 0;
@@ -162,19 +153,19 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 		gConstraints.gridx = 0;
 		gConstraints.gridy = 9;
 		optionsPanel.add(rdbtnBilliard, gConstraints);
-*/
+
 
 		/*Add the Rooms into a ButtonGroup so only one can be selected at a time */
 		buttonGroupRooms = new ButtonGroup();
-		buttonGroupRooms.add(rdbtnRoom);
-		/*buttonGroupRooms.add(rdbtnBallroom);
+		buttonGroupRooms.add(rdbtnKitchen);
+		buttonGroupRooms.add(rdbtnBallroom);
 		buttonGroupRooms.add(rdbtnConservatory);
 		buttonGroupRooms.add(rdbtnDining);
 		buttonGroupRooms.add(rdbtnLounge);
 		buttonGroupRooms.add(rdbtnHall);
 		buttonGroupRooms.add(rdbtnLibrary);
 		buttonGroupRooms.add(rdbtnStudy);
-		buttonGroupRooms.add(rdbtnBilliard);*/
+		buttonGroupRooms.add(rdbtnBilliard);
 
 
 		/*******************************************************
@@ -214,7 +205,7 @@ public class SuggestionDialog extends JDialog implements ActionListener{
 		optionsPanel.add(rdbtnRevGreen, gConstraints);
 
 		JRadioButton rdbtnMrPlum = new JRadioButton("Mr Plum");
-		gConstraints.insets = new Insets(0, 0, 5, 5);
+		gConstraints.insets = new Insets(0, 0, 0, 5);
 		gConstraints.gridx = 1;
 		gConstraints.gridy = 6;
 		optionsPanel.add(rdbtnMrPlum, gConstraints);
