@@ -1,7 +1,13 @@
-cluedo
+Cluedo
 ======
 
-Implementation of Cluedo.
+A murder most foul has been committed! Dr. Grey has been found dead in his mansion. Whodunnit? You must use your investigative talents to solve the crime.
+
+Credit
+======
+
+Portraits with permission from:
+riddlex.com (http://riddlex.com/contact.php)
 
 Screenshots
 ===========
@@ -20,10 +26,3 @@ Col. Mustard suggests who may have committed the murder.
 
 Miss Scarlett refutes the claim.
 ![Screenshot](http://i.imgur.com/rXEEUhd.png)
-
-
-Credit
-======
-
-Portraits with permission from:
-riddlex.com (http://riddlex.com/contact.php)
