@@ -1,7 +1,7 @@
 Cluedo
 ======
 
-A murder most foul has been committed! Dr. Grey has been found dead in his mansion. Whodunnit? You must use your investigative talents to solve the crime.
+A murder most foul has been committed! Dr. Black has been found dead in his mansion. Whodunnit? You must use your investigative talents to solve the crime.
 
 Credit
 ======
